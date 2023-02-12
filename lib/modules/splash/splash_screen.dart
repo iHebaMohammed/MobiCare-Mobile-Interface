@@ -1,0 +1,65 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:mobi_care/modules/on_boarding/on_boarding_screen.dart';
+
+import '../../shared/network/local/cache_helper.dart';
+import '../login/login_screen.dart';
+
+class SplashScreen extends StatefulWidget {
+  const SplashScreen({Key? key}) : super(key: key);
+
+  @override
+  State<SplashScreen> createState() => _SplashScreenState();
+}
+
+class _SplashScreenState extends State<SplashScreen> {
+
+  int timeOfDelayInSeconds = 5;
+
+  @override
+  void initState() {
+    super.initState();
+    late Widget startWidget;
+    bool ? onBoarding = CacheHelper.getData(key: 'onBoarding');
+    if(onBoarding != null){
+      startWidget = LoginScreen();
+    }else{
+      startWidget = OnBoardingScreen();
+    }
+    Future.delayed(Duration(seconds: timeOfDelayInSeconds) , (){
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => startWidget),
+      );
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return SafeArea(
+      child: Scaffold(
+        body: Center(
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              SvgPicture.asset(
+                'assets/logo.svg'
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                    'MobiCare',
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
