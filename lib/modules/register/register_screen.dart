@@ -26,7 +26,17 @@ class RegisterScreen extends StatelessWidget {
       create: (BuildContext context) => RegisterCubit(),
       child: BlocConsumer<RegisterCubit , RegisterStates>(
         listener: (context, state){
-
+          if(state is RegisterErrorState){
+            showToast(text: state.error.toString(), toastStates: ToastStates.ERROR);
+          }else if(state is RegisterErrorFirebaseState){
+            showToast(text: state.error.toString(), toastStates: ToastStates.ERROR);
+          }
+          if(state is RegisterSuccessState){
+            navigateTo(context: context, widget: LoginScreen());
+          }
+          else if(state is RegisterSuccessFirebaseState){
+            navigateTo(context: context, widget: LoginScreen());
+          }
         },
         builder: (context, state) {
           RegisterCubit cubit = RegisterCubit.get(context);
@@ -101,36 +111,6 @@ class RegisterScreen extends StatelessWidget {
                             height: 15,
                           ),
                           defaultTextFormField(
-                              controller: phoneController,
-                              keyboardType: TextInputType.number,
-                              validation: (value){
-                                if(value!.isEmpty) {
-                                  return 'Enter your phone number, please';
-                                }
-                                return null;
-                              },
-                              fieldName: 'Phone Number',
-                              prefixIcon: Icons.phone_enabled_outlined
-                          ),
-                          SizedBox(
-                            height: 15,
-                          ),
-                          defaultTextFormField(
-                              controller: addressController,
-                              keyboardType: TextInputType.text,
-                              validation: (value){
-                                if(value!.isEmpty) {
-                                  return 'Enter your address number, please';
-                                }
-                                return null;
-                              },
-                              fieldName: 'Home Address',
-                              prefixIcon: Icons.phone_enabled_outlined
-                          ),
-                          SizedBox(
-                            height: 15,
-                          ),
-                          defaultTextFormField(
                               controller: emailController,
                               keyboardType: TextInputType.emailAddress,
                               validation: (value){
@@ -161,12 +141,12 @@ class RegisterScreen extends StatelessWidget {
                               onSubmit: (value){
                                 if(formKey.currentState!.validate()){
                                   cubit.userRegister(
-                                      firstName: firstNameController.text,
-                                      lastName: lastNameController.text,
-                                      email: emailController.text,
-                                      phone: phoneController.text,
-                                      address: addressController.text,
-                                      password: passwordController.text,
+                                    firstName: firstNameController.text,
+                                    lastName: lastNameController.text,
+                                    email: emailController.text,
+                                    phone: phoneController.text,
+                                    address: addressController.text,
+                                    password: passwordController.text,
                                   );
                                 }
                               },
@@ -175,6 +155,36 @@ class RegisterScreen extends StatelessWidget {
                               onPressedSuffixIcon: (){
                                 cubit.changePasswordVisibility();
                               }
+                          ),
+                          SizedBox(
+                            height: 15,
+                          ),
+                          defaultTextFormField(
+                              controller: phoneController,
+                              keyboardType: TextInputType.number,
+                              validation: (value){
+                                if(value!.isEmpty) {
+                                  return 'Enter your phone number, please';
+                                }
+                                return null;
+                              },
+                              fieldName: 'Phone Number',
+                              prefixIcon: Icons.phone_enabled_outlined
+                          ),
+                          SizedBox(
+                            height: 15,
+                          ),
+                          defaultTextFormField(
+                              controller: addressController,
+                              keyboardType: TextInputType.text,
+                              validation: (value){
+                                if(value!.isEmpty) {
+                                  return 'Enter your address number, please';
+                                }
+                                return null;
+                              },
+                              fieldName: 'Address',
+                              prefixIcon: Icons.home_outlined
                           ),
                           SizedBox(
                             height: 15,
@@ -190,16 +200,16 @@ class RegisterScreen extends StatelessWidget {
                             height: 15,
                           ),
                           defaultTextFormField(
-                              controller: addressController,
+                              controller: questionController,
                               keyboardType: TextInputType.text,
                               validation: (value){
                                 if(value!.isEmpty) {
-                                  return 'Enter your address number, please';
+                                  return null;
                                 }
                                 return null;
                               },
                               fieldName: 'Diseases that you suffer from ?',
-                              prefixIcon: Icons.phone_enabled_outlined,
+                              prefixIcon: Icons.info_outline,
                               maxLines: 2,
                           ),
                           const SizedBox(
@@ -212,13 +222,14 @@ class RegisterScreen extends StatelessWidget {
                                 backgroundColor: primaryColor1BA,
                                 function: (){
                                   if(formKey.currentState!.validate()){
-                                    cubit.userRegister(
-                                      firstName: firstNameController.text,
-                                      lastName: lastNameController.text,
+                                    cubit.userRegisterByFirebase(
                                       email: emailController.text,
-                                      phone: phoneController.text,
-                                      address: addressController.text,
                                       password: passwordController.text,
+                                      firstName: firstNameController.text,
+                                      phone: phoneController.text,
+                                      lastName: lastNameController.text,
+                                      address: addressController.text,
+                                      diseasesNote: questionController.text,
                                     );
                                   }
                                 }

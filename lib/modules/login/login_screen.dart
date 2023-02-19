@@ -7,6 +7,7 @@ import 'package:mobi_care/modules/login/cubit/cubit.dart';
 import 'package:mobi_care/modules/login/cubit/states.dart';
 import 'package:mobi_care/modules/register/register_screen.dart';
 import 'package:mobi_care/shared/components/components.dart';
+import 'package:mobi_care/shared/network/local/cache_helper.dart';
 import 'package:mobi_care/shared/styles/colors.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -22,7 +23,22 @@ class LoginScreen extends StatelessWidget {
       create: (BuildContext context) => LoginCubit(),
       child: BlocConsumer<LoginCubit , LoginStates>(
         listener: (context, state){
-
+          if(state is LoginErrorFirebaseState){
+            showToast(text: state.error, toastStates: ToastStates.ERROR);
+          }
+          else if(state is LoginErrorState){
+            showToast(text: state.error, toastStates: ToastStates.ERROR);
+          }
+          if(state is LoginSuccessState){
+            CacheHelper.saveData(key: 'token', value: state.token).then((value) {
+              navigateTo(context: context, widget: PatientLayout());
+            });
+          }
+          else if(state is LoginSuccessFirebaseState){
+            CacheHelper.saveData(key: 'uId', value: state.uId).then((value) {
+              navigateTo(context: context, widget: PatientLayout());
+            });
+          }
         },
         builder: (context, state) {
           LoginCubit cubit = LoginCubit.get(context);
@@ -124,16 +140,15 @@ class LoginScreen extends StatelessWidget {
                             height: 15,
                           ),
                           ConditionalBuilder(
-                            condition: state is! LoginLoadingState,
+                            condition: state is! LoginLoadingFirebaseState,
                             builder: (context) => defaultButton(
                                 text: 'LOGIN' ,
                                 backgroundColor: primaryColor1BA,
                                 function: (){
                                   if(formKey.currentState!.validate()){
-                                    navigateTo(context: context, widget: PatientLayout());
-                                    cubit.userLogin(
+                                    cubit.userLoginByFirebase(
                                         email: emailController.text,
-                                        password: passwordController.text
+                                        password: passwordController.text,
                                     );
                                   }
                                 }

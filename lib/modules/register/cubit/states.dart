@@ -11,4 +11,13 @@ class RegisterErrorState extends RegisterStates {
   RegisterErrorState({required this.error});
 }
 
+class RegisterLoadingFirebaseState extends RegisterStates {}
+
+class RegisterSuccessFirebaseState extends RegisterStates {}
+
+class RegisterErrorFirebaseState extends RegisterStates {
+  final String error;
+  RegisterErrorFirebaseState({required this.error});
+}
+
 class RegisterChangePasswordVisibility extends RegisterStates {}
