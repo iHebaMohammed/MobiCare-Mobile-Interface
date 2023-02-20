@@ -34,7 +34,7 @@ class RegisterScreen extends StatelessWidget {
           if(state is RegisterSuccessState){
             navigateTo(context: context, widget: LoginScreen());
           }
-          else if(state is RegisterSuccessFirebaseState){
+          else if(state is CreateUserSuccessFirebaseState){
             navigateTo(context: context, widget: LoginScreen());
           }
         },
