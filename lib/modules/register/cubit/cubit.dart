@@ -70,6 +70,7 @@ class RegisterCubit extends Cubit<RegisterStates>{
       address: address,
       imageUrl: 'https://cdn-icons-png.flaticon.com/512/727/727399.png?w=740&t=st=1676862815~exp=1676863415~hmac=d7a606f49dd55d1e9b966c52ae63fa89c8073e562ea0dd048658e9d7aaf4f6a9',
       uId: uId,
+      isMale: false,
     );
 
     FirebaseFirestore.instance

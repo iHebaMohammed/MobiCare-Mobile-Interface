@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:mobi_care/layouts/patient_layout/patient_layout.dart';
 import 'package:mobi_care/modules/on_boarding/on_boarding_screen.dart';
 
+import '../../shared/components/constants.dart';
 import '../../shared/network/local/cache_helper.dart';
 import '../login/login_screen.dart';
 
@@ -21,8 +23,17 @@ class _SplashScreenState extends State<SplashScreen> {
     super.initState();
     late Widget startWidget;
     bool ? onBoarding = CacheHelper.getData(key: 'onBoarding');
+    uId = CacheHelper.getData(key: 'uId');
+    token = CacheHelper.getData(key: 'token');
+
     if(onBoarding != null){
-      startWidget = LoginScreen();
+      if(uId != null){
+        startWidget = PatientLayout();
+        print('UID : $uId');
+      }
+      else {
+        startWidget = LoginScreen();
+      }
     }else{
       startWidget = OnBoardingScreen();
     }

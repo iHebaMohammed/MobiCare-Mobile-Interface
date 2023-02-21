@@ -9,6 +9,7 @@ class UserModel{
   late String ? imageUrl;
   late String ? address;
   late String ? phoneNumber;
+  late bool ? isMale;
 
   UserModel({
     this.firstName,
@@ -18,6 +19,7 @@ class UserModel{
     this.address,
     this.imageUrl,
     this.uId,
+    this.isMale
   });
 
   UserModel.fromJson(Map<String , dynamic> json){
@@ -28,6 +30,7 @@ class UserModel{
     phoneNumber = json['phoneNumber'];
     imageUrl = json['imageUrl'];
     uId = json['uId'];
+    isMale = json['isMale'];
   }
 
   Map<String , dynamic> toMap(){
@@ -39,6 +42,7 @@ class UserModel{
       'phoneNumber':phoneNumber,
       'imageUrl':imageUrl,
       'uId':uId,
+      'isMale':isMale,
     };
   }
 }

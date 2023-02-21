@@ -1,4 +1,8 @@
+import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mobi_care/layouts/patient_layout/cubit/cubit.dart';
+import 'package:mobi_care/layouts/patient_layout/cubit/states.dart';
 import 'package:mobi_care/shared/components/components.dart';
 import 'package:mobi_care/shared/styles/colors.dart';
 
@@ -7,30 +11,36 @@ class PatientChatScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: SingleChildScrollView(
-          child: Column(
-            children: [
-              defaultChatRowUserViewItem(
-                isMale: false,
-                image: 'assets/user.jpg',
-                name: 'Heba Adel',
-                lastMessage: 'What’s up ? Everythings okay? What’s up ? Everythings okay?' ,
-                dateOfLastMassage: '5/5/2005',
-                numberOfMessage: '10',
+    return BlocConsumer<PatientLayoutCubit , PatientLayoutStates>(
+      listener: (context, state) {
+
+      },
+      builder: (context, state) {
+
+        PatientLayoutCubit cubit = PatientLayoutCubit.get(context);
+
+        return Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: ConditionalBuilder(
+            condition: cubit.users.length > 0,
+            builder: (context) => ListView.builder(
+              itemBuilder: (context, index) => defaultChatRowUserViewItem(
+                  context: context,
+                  model: cubit.users[index],
+                  lastMessage: 'Hi',
+                  dateOfLastMassage: '5/5/2005',
+                  numberOfMessage: '0',
               ),
-              defaultChatRowUserViewItem(
-                isMale: true,
-                image: 'assets/user.jpg',
-                name: 'Ahmed Ali',
-                lastMessage: 'What’s up ? Everythings okay? What’s up ? Everythings okay?' ,
-                dateOfLastMassage: '10:30 PM',
-                numberOfMessage: '3',
+              itemCount: cubit.users.length,
+            ),
+            fallback: (context) => Center(
+              child: CircularProgressIndicator(
+                color: primaryColor1BA,
               ),
-            ],
+            ),
           ),
-      ),
+        );
+      },
     );
   }
 }

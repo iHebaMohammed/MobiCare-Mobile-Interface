@@ -10,30 +10,32 @@ class PatientHomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 40),
-      child: Column(
-        children: [
-          buildHomeItemContainer(
-              title: 'Home visit',
-              description: 'Choose a specialty and the doctor will come home.',
-              buttonText: 'Book a home visit',
-              function: (){
+      child: SingleChildScrollView(
+        child: Column(
+          children: [
+            buildHomeItemContainer(
+                title: 'Home visit',
+                description: 'Choose a specialty and the doctor will come home.',
+                buttonText: 'Book a home visit',
+                function: (){
 
-              },
-              svgPath: 'assets/svg/patient_home/patient_home_1.svg',
-          ),
-          const SizedBox(
-            height: 15,
-          ),
-          buildHomeItemContainer(
-              title: 'First aid tips',
-              description: 'Learn the principles of first aid, and ways to prevent diseases.',
-              buttonText: 'Browes videos',
-              function: (){
+                },
+                svgPath: 'assets/svg/patient_home/patient_home_1.svg',
+            ),
+            const SizedBox(
+              height: 15,
+            ),
+            buildHomeItemContainer(
+                title: 'First aid tips',
+                description: 'Learn the principles of first aid, and ways to prevent diseases.',
+                buttonText: 'Browes videos',
+                function: (){
 
-              },
-              svgPath: 'assets/svg/patient_home/patient_home_2.svg'
-          ),
-        ],
+                },
+                svgPath: 'assets/svg/patient_home/patient_home_2.svg'
+            ),
+          ],
+        ),
       ),
     );
   }

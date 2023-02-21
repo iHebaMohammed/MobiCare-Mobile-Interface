@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:mobi_care/models/user_model.dart';
+import 'package:mobi_care/modules/chat_details/chat_details_screen.dart';
 import 'package:mobi_care/shared/styles/colors.dart';
 
 void navigateAndFinish({
@@ -305,7 +307,7 @@ Widget defaultImageShape({
       ),
       clipBehavior: Clip.antiAlias,
       child: Image(
-        image: AssetImage(image),
+        image: NetworkImage(image!),
         width: height,
         height: height,
         fit: BoxFit.cover,
@@ -324,7 +326,7 @@ Widget defaultImageShape({
         ),
         clipBehavior: Clip.antiAlias,
         child: Image(
-          image: AssetImage(image),
+          image: NetworkImage(image),
           width: height,
           height: height,
           fit: BoxFit.cover,
@@ -444,81 +446,88 @@ Widget defaultPostView({
 }
 
 Widget defaultChatRowUserViewItem({
-  required bool isMale,
-  required String image,
-  required String name,
   required String lastMessage,
   required String dateOfLastMassage,
   required String numberOfMessage,
+  required BuildContext context,
+  required UserModel model,
 }){
   return Padding(
     padding: const EdgeInsets.only(top: 10.0),
-    child: Row(
-      children: [
-        defaultImageShape(
-          isMale: isMale,
-          image: image ,
-          height: 60,
-        ),
-        Expanded(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  name,
-                  style: TextStyle(
-                      fontSize: 15,
-                      fontWeight: FontWeight.w500
+    child: InkWell(
+      onTap: (){
+        navigateTo(
+            context: context,
+            widget: ChatDetailsScreen(userModel: model),
+        );
+      },
+      child: Row(
+        children: [
+          defaultImageShape(
+            isMale: model.isMale!,
+            image: model.imageUrl! ,
+            height: 60,
+          ),
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    '${model.firstName} ${model.lastName}',
+                    style: TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.w500
+                    ),
                   ),
-                ),
-                SizedBox(
-                  height: 5,
-                ),
-                Text(
-                  lastMessage,
-                  overflow: TextOverflow.ellipsis,
-                  style: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w300
+                  SizedBox(
+                    height: 5,
                   ),
-                ),
-              ],
+                  Text(
+                    lastMessage,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w300
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
-        ),
-        // Spacer(),
-        Column(
-          children: [
-            Text(
-              dateOfLastMassage,
-              style: TextStyle(
-                fontSize: 11,
-                fontWeight: FontWeight.w300,
-                color: primaryColor1BA,
+          // Spacer(),
+          Column(
+            children: [
+              Text(
+                dateOfLastMassage,
+                style: TextStyle(
+                  fontSize: 11,
+                  fontWeight: FontWeight.w300,
+                  color: primaryColor1BA,
+                ),
               ),
-            ),
-            Container(
-              decoration: BoxDecoration(
-                color: primaryColor1BA,
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10.0 , vertical: 4.0),
-                child: Text(
-                  numberOfMessage,
-                  style: TextStyle(
-                      color: primaryWhiteColor,
-                      fontSize: 11,
-                      fontWeight: FontWeight.w300
+              Container(
+                decoration: BoxDecoration(
+                  color: primaryColor1BA,
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 10.0 , vertical: 4.0),
+                  child: Text(
+                    numberOfMessage,
+                    style: TextStyle(
+                        color: primaryWhiteColor,
+                        fontSize: 11,
+                        fontWeight: FontWeight.w300
+                    ),
                   ),
                 ),
               ),
-            ),
-          ],
-        ),
-      ],
+            ],
+          ),
+        ],
+      ),
     ),
   );
 }
