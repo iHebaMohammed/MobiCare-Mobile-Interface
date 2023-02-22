@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:mobi_care/models/user_model.dart';
 import 'package:mobi_care/modules/chat_details/chat_details_screen.dart';
@@ -604,6 +606,65 @@ Widget defaultTextFormFieldWithoutBorder({
           ),
         ),
 
+      ),
+    ),
+  );
+}
+
+Widget buildPrescriptionItem({
+  required String dateTime ,
+  required String doctorName,
+}){
+  return Padding(
+    padding: const EdgeInsets.symmetric(horizontal: 16.0 , vertical: 10),
+    child: Container(
+      decoration: BoxDecoration(
+        color: primaryWhiteColor,
+        borderRadius: BorderRadius.circular(5.0),
+        boxShadow: [
+          BoxShadow(
+            color: primaryColor1BA.withOpacity(0.1),
+            spreadRadius: 5,
+            blurRadius: 3,
+            offset: Offset(0, 0), // changes position of shadow
+          ),
+        ],
+      ),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 20.0 , vertical: 15.0),
+        child: InkWell(
+          onTap: (){
+
+          },
+          child: Row(
+            children: [
+              SvgPicture.asset(
+                'assets/icons/pdf_icon.svg',
+              ),
+              SizedBox(
+                width: 15,
+              ),
+              Text(
+                dateTime,
+                style: TextStyle(
+                  color: primaryGreyColor808,
+                ),
+              ),
+              Spacer(),
+              Expanded(
+                child: Text(
+                  doctorName,
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 1,
+                  style: TextStyle(
+                    color: primaryBlueColor529,
+                    fontSize: 15,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
       ),
     ),
   );
