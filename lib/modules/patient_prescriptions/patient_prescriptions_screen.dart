@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:mobi_care/modules/patient_search_prescription/patient_search_prescription_screen.dart';
 import 'package:mobi_care/shared/styles/colors.dart';
 
 import '../../shared/components/components.dart';
@@ -31,7 +32,9 @@ class PatientPrescriptionScreen extends StatelessWidget {
         ),
         actions: [
           IconButton(
-            onPressed: (){},
+            onPressed: (){
+              navigateTo(context: context, widget: PatientSearchPrescriptionScreen());
+            },
             icon: Icon(
               Icons.search,
             ),
