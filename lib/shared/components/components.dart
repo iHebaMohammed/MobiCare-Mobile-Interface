@@ -583,3 +583,28 @@ Widget defaultSearchRowUserViewItem({
     ),
   );
 }
+
+Widget defaultTextFormFieldWithoutBorder({
+  required TextEditingController controller,
+  double radius = 10,
+
+}){
+  return Padding(
+    padding: const EdgeInsets.symmetric(vertical: 8.0),
+    child: TextFormField(
+      controller: controller,
+      decoration: InputDecoration(
+        filled: true,
+        fillColor: primaryGreyColorD9D_50,
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(radius),
+          borderSide: BorderSide(
+            width: 0,
+            style: BorderStyle.none,
+          ),
+        ),
+
+      ),
+    ),
+  );
+}
