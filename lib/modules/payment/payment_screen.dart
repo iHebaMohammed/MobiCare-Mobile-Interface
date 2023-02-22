@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobi_care/modules/payment/cubit/cubit.dart';
 import 'package:mobi_care/modules/payment/cubit/status.dart';
+import 'package:mobi_care/modules/payment_done/payment_done_screen.dart';
 import 'package:mobi_care/shared/components/components.dart';
 import 'package:mobi_care/shared/styles/colors.dart';
 
@@ -177,7 +178,9 @@ class PaymentScreen extends StatelessWidget {
                                 Spacer(),
                                 Center(
                                   child: defaultButton(
-                                      function: (){},
+                                      function: (){
+                                        navigateTo(context: context, widget: PaymentDoneScreen());
+                                      },
                                       text: 'Add Card',
                                       width: 250,
                                       redius: 30
