@@ -669,3 +669,47 @@ Widget buildPrescriptionItem({
     ),
   );
 }
+
+Widget defaultSettingItem({
+  required IconData icon,
+  required String labelName,
+  required Widget widget,
+}){
+  return Container(
+    decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(5),
+        color: primaryWhiteColor,
+        boxShadow: [
+          BoxShadow(
+            color: primaryColor1BA.withOpacity(0.1),
+            spreadRadius: 3,
+            blurRadius: 5,
+            offset: Offset(0, 0), // changes position of shadow
+          ),
+        ]
+    ),
+    child: Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 25.0 , vertical: 20),
+      child: Row(
+        children: [
+          Icon(
+            icon,
+            color: primaryBlackColor_60,
+          ),
+          SizedBox(
+            width: 15,
+          ),
+          Text(
+            labelName,
+            style: TextStyle(
+              fontSize: 16,
+              color: primaryBlackColor_60,
+            ),
+          ),
+          Spacer(),
+          widget,
+        ],
+      ),
+    ),
+  );
+}
