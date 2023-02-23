@@ -30,19 +30,19 @@ class SearchScreen extends StatelessWidget {
               ),
               defaultSearchRowUserViewItem(
                   isMale: false,
-                  image: 'assets/user.jpg',
+                  image: 'https://img.freepik.com/free-psd/3d-illustration-person-with-sunglasses_23-2149436188.jpg?w=740&t=st=1677116117~exp=1677116717~hmac=0eaee5fcf6754432b852deadbe808bb6b5344e8ef73dc3e38fa9847446bcbcd0',
                   name: 'Heba Adel',
                   isDoctor: true,
               ),
               defaultSearchRowUserViewItem(
                 isMale: true,
-                image: 'assets/user.jpg',
+                image: 'https://img.freepik.com/free-psd/3d-illustration-person-with-sunglasses_23-2149436188.jpg?w=740&t=st=1677116117~exp=1677116717~hmac=0eaee5fcf6754432b852deadbe808bb6b5344e8ef73dc3e38fa9847446bcbcd0',
                 name: 'Ahmed Ali',
                 isDoctor: true,
               ),
               defaultSearchRowUserViewItem(
                 isMale: false,
-                image: 'assets/user.jpg',
+                image: 'https://img.freepik.com/free-psd/3d-illustration-person-with-sunglasses_23-2149436188.jpg?w=740&t=st=1677116117~exp=1677116717~hmac=0eaee5fcf6754432b852deadbe808bb6b5344e8ef73dc3e38fa9847446bcbcd0',
                 name: 'OASIS Doctor Ahmed Maged',
                 isDoctor: false,
               ),
