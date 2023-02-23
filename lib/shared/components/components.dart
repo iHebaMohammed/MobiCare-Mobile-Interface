@@ -713,3 +713,88 @@ Widget defaultSettingItem({
     ),
   );
 }
+
+Widget defaultFollowUpWithItem({
+  required bool isMale,
+  required String image,
+  required String name,
+  required String specialization,
+}){
+  return SizedBox(
+    child: Padding(
+      padding: const EdgeInsetsDirectional.only(start: 15.0 , end: 15.0 , top: 10.0),
+      child: Row(
+        children: [
+          defaultImageShape(
+            isMale: isMale,
+            image: image,
+            height: 50,
+          ),
+          SizedBox(
+            width: 15,
+          ),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  name,
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 1,
+                  style: TextStyle(
+                    fontSize: 15,
+                  ),
+                ),
+                SizedBox(
+                  height: 8,
+                ),
+                Text(
+                  specialization,
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 1,
+                  style: TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w300
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Spacer(),
+          IconButton(
+            onPressed: (){
+
+            },
+            icon: SvgPicture.asset(
+                'assets/bottom_nav_icons/chat_not_active.svg'
+            ),
+          ),
+        ],
+      ),
+    ),
+  );
+}
+
+Widget defaultSymptomItem({
+  required String nameOfSymptom,
+}){
+  return Padding(
+    padding: const EdgeInsetsDirectional.only(end: 8.0 , bottom: 10),
+    child: Container(
+      decoration: BoxDecoration(
+          color: primaryColor1BA.withOpacity(0.3),
+          borderRadius: BorderRadiusDirectional.circular(15.0)
+      ),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 8.0 , horizontal: 16),
+        child: Text(
+          nameOfSymptom ,
+          style: TextStyle(
+            // fontWeight: FontWeight.w300,
+            fontSize: 13,
+          ),
+        ),
+      ),
+    ),
+  );
+}

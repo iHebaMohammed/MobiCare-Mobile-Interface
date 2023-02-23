@@ -6,6 +6,7 @@ import 'package:mobi_care/layouts/patient_layout/cubit/cubit.dart';
 import 'package:mobi_care/layouts/patient_layout/cubit/states.dart';
 import 'package:mobi_care/modules/chat_details/cubit/cubit.dart';
 import 'package:mobi_care/modules/login/login_screen.dart';
+import 'package:mobi_care/modules/patient_profile/cubit/cubit.dart';
 import 'package:mobi_care/modules/payment/cubit/cubit.dart';
 import 'package:mobi_care/modules/payment/payment_screen.dart';
 import 'package:mobi_care/modules/payment_done/payment_done_screen.dart';
@@ -44,6 +45,9 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => PaymentCubit(),
+        ),
+        BlocProvider(
+            create: (context) => PatientProfileCubit(),
         ),
       ],
       child: BlocConsumer<PatientLayoutCubit , PatientLayoutStates>(
