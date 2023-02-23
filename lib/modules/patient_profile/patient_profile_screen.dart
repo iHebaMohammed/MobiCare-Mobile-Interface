@@ -59,7 +59,6 @@ class PatientProfileScreen extends StatelessWidget {
                       ),
                     ],
                   ),
-
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 10.0),
@@ -116,6 +115,10 @@ class PatientProfileScreen extends StatelessWidget {
                           ),
                         ],
                       ),
+                      SizedBox(
+                        height: 20
+                      ),
+                      Divider(),
                       InkWell(
                         onTap: (){
                           isPrescriptionVisible = !isPrescriptionVisible;
@@ -141,7 +144,6 @@ class PatientProfileScreen extends StatelessWidget {
                           ),
                         ),
                       ),
-                      Divider(),
                       if(isPrescriptionVisible)
                         Column(
                           children: [
@@ -155,7 +157,8 @@ class PatientProfileScreen extends StatelessWidget {
                         SizedBox(
                           height: 10,
                         ),
-                      SizedBox(
+                      if(isPrescriptionVisible)
+                        SizedBox(
                         width: double.infinity,
                         child: InkWell(
                           onTap: (){
@@ -196,7 +199,6 @@ class PatientProfileScreen extends StatelessWidget {
                           ),
                         ),
                       ),
-                      Divider(),
                       if(isFollowUpWithVisible)
                         Column(
                           children: [
@@ -214,10 +216,7 @@ class PatientProfileScreen extends StatelessWidget {
                             ),
                           ],
                         ),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 8.0),
-                        child: Divider(),
-                      ),
+                      Divider(),
                       InkWell(
                         onTap: (){
                           isSymptomsVisible = !isSymptomsVisible;
@@ -243,7 +242,6 @@ class PatientProfileScreen extends StatelessWidget {
                           ),
                         ),
                       ),
-                      Divider(),
                       if(isSymptomsVisible)
                       SizedBox(
                         width: double.infinity,
@@ -273,6 +271,7 @@ class PatientProfileScreen extends StatelessWidget {
                           ),
                         ),
                       ),
+
                     ],
                   ),
                 )
