@@ -67,7 +67,11 @@ class PatientLayout extends StatelessWidget {
               child: SingleChildScrollView(
                 child: Column(
                   children: [
-                    DrawerLayoutHeader(image: 'assets/user.png', name: 'Heba Adel', email: 'hebaadelahmedmohammed@hmail.com'),
+                    DrawerLayoutHeader(
+                        image: 'assets/user.png',
+                        name: 'Heba Adel',
+                        email: 'hebaadelahmedmohammed@hmail.com',
+                    ),
                     DrawerLayoutList(),
                   ],
                 ),

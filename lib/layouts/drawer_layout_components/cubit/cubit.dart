@@ -17,23 +17,15 @@ class DrawerLayoutCubit extends Cubit<DrawerLayoutStates>{
 
   void changeScreen(int index , BuildContext context){
     currentIndex = index;
-    if(currentIndex == DrawerSections.PROFILE){
-      print(DrawerSections.PROFILE);
+    if(currentIndex == 0){
       navigateTo(context: context, widget: PatientProfileScreen());
-    }else if(currentIndex == DrawerSections.PRESCRIPTIONS){
+    }else if(currentIndex == 1){
       navigateTo(context: context, widget: PatientPrescriptionScreen());
-    }else if(currentIndex == DrawerSections.SETTING){
+    }else if(currentIndex == 2){
       navigateTo(context: context, widget: SettingScreen());
-    }else if(currentIndex == DrawerSections.LOGOUT){
+    }else if(currentIndex == 3){
       navigateTo(context: context, widget: LoginScreen());
     }
     emit(DrawerLayoutChangeScreen());
   }
-}
-
-enum DrawerSections {
-  PROFILE,
-  PRESCRIPTIONS,
-  SETTING,
-  LOGOUT,
 }

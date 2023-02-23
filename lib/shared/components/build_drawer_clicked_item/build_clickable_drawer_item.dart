@@ -4,7 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:mobi_care/layouts/drawer_layout_components/cubit/cubit.dart';
 import 'package:mobi_care/layouts/drawer_layout_components/cubit/states.dart';
 
-import '../styles/colors.dart';
+import '../../styles/colors.dart';
 
 class BuildClickableDrawerItem extends StatelessWidget {
 
