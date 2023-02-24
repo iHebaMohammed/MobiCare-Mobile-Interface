@@ -798,3 +798,69 @@ Widget defaultSymptomItem({
     ),
   );
 }
+
+Widget buildColumnTextField({
+  required TextEditingController controller,
+  required String ? labelName,
+  required String? Function( String ? value) validator,
+}){
+  return Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      SizedBox(
+        height: 12,
+      ),
+      Text(
+          '$labelName'
+      ),
+      SizedBox(
+        height: 5,
+      ),
+      TextFormField(
+        controller: controller,
+        decoration: InputDecoration(
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(5.0),
+          ),
+        ),
+        validator: validator,
+      ),
+    ],
+  );
+}
+
+Widget defaultSymptomWithRemoveItem({
+  required String nameOfSymptom,
+}){
+  return Padding(
+    padding: const EdgeInsetsDirectional.only(end: 8.0 , bottom: 10),
+    child: Container(
+      decoration: BoxDecoration(
+          color: primaryColor1BA.withOpacity(0.3),
+          borderRadius: BorderRadiusDirectional.circular(25.0)
+      ),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 8.0 , horizontal: 16),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(
+              'Stomach pain' ,
+              style: TextStyle(
+                // fontWeight: FontWeight.w300,
+                fontSize: 13,
+              ),
+            ),
+            SizedBox(
+              width: 5.0,
+            ),
+            Icon(
+              Icons.close,
+              size: 20,
+            ),
+          ],
+        ),
+      ),
+    ),
+  );
+}

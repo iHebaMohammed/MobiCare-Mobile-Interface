@@ -72,7 +72,7 @@ class PatientProfileScreen extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  'Normal Person',
+                  'Male',
                   textAlign: TextAlign.center,
                   overflow: TextOverflow.ellipsis,
                   maxLines: 2,

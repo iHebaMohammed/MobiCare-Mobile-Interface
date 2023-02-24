@@ -1,0 +1,9 @@
+abstract class PatientEditProfileStates {}
+
+class PatientEditProfileInitiateState extends PatientEditProfileStates {}
+
+class PatientEditProfileSelectDate extends PatientEditProfileStates {}
+
+class PatientProfileChangeFollowUpWithContainerVisibility extends PatientEditProfileStates {}
+
+class PatientProfileChangeSymptomsContainerVisibility extends PatientEditProfileStates {}
