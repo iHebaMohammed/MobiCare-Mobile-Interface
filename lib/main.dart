@@ -13,6 +13,7 @@ import 'package:mobi_care/modules/payment/cubit/cubit.dart';
 import 'package:mobi_care/modules/payment/payment_screen.dart';
 import 'package:mobi_care/modules/payment_done/payment_done_screen.dart';
 import 'package:mobi_care/shared/bloc_observer.dart';
+import 'modules/doctor_home/doctor_home_screen.dart';
 import 'modules/patient_prescriptions/patient_prescriptions_screen.dart';
 import 'modules/splash/splash_screen.dart';
 import 'shared/components/constants.dart';
@@ -65,7 +66,7 @@ class MyApp extends StatelessWidget {
             themeMode: ThemeMode.light,
             theme: lightTheme,
             darkTheme: darkTheme,
-            home: DoctorEditProfileScreen(),
+            home: DoctorHomeScreen(),
           );
         },
       ),

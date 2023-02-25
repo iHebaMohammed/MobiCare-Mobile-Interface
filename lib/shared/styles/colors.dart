@@ -15,3 +15,4 @@ Color primaryBlackColor = const Color(0xFF000000);
 Color primaryBlackColor_60 = const Color(0xFF000000).withOpacity(0.6);
 Color primaryFemaleColor = const Color(0xFFEB4592);
 Color primaryLikeColor = const Color(0xFFDD2E44);
+Color primaryEmergencyColor = const Color(0xFFFF0F00);
