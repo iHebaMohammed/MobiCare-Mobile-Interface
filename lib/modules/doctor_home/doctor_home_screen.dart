@@ -118,7 +118,7 @@ class DoctorHomeScreen extends StatelessWidget {
                     child: Padding(
                       padding: const EdgeInsets.symmetric(vertical: 15.0 , horizontal: 20),
                       child: Text(
-                        'Add new post',
+                        'Add new video',
                         style: TextStyle(
                           color: primaryWhiteColor,
                           fontSize: 15,
