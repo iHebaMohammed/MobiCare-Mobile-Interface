@@ -819,6 +819,8 @@ Widget buildColumnTextField({
       TextFormField(
         controller: controller,
         decoration: InputDecoration(
+          filled: true,
+          fillColor: primaryWhiteColor,
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(5.0),
           ),

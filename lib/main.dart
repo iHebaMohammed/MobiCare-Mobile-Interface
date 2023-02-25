@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobi_care/layouts/patient_layout/cubit/cubit.dart';
 import 'package:mobi_care/layouts/patient_layout/cubit/states.dart';
 import 'package:mobi_care/modules/chat_details/cubit/cubit.dart';
+import 'package:mobi_care/modules/doctor_edit_profile/doctor_edit_profile_screen.dart';
 import 'package:mobi_care/modules/login/login_screen.dart';
 import 'package:mobi_care/modules/patient_edit_profile/cubit/cubit.dart';
 import 'package:mobi_care/modules/patient_profile/cubit/cubit.dart';
@@ -64,7 +65,7 @@ class MyApp extends StatelessWidget {
             themeMode: ThemeMode.light,
             theme: lightTheme,
             darkTheme: darkTheme,
-            home: SplashScreen(),
+            home: DoctorEditProfileScreen(),
           );
         },
       ),
