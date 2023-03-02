@@ -354,6 +354,7 @@ Widget defaultPostView({
     child: Padding(
       padding: const EdgeInsets.all(10.0),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -859,6 +860,63 @@ Widget defaultSymptomWithRemoveItem({
             Icon(
               Icons.close,
               size: 20,
+            ),
+          ],
+        ),
+      ),
+    ),
+  );
+}
+
+Widget defaultCommentShape({
+  required String image,
+  required String name,
+  required bool isMale,
+  required String textOfComment,
+}){
+  return Padding(
+    padding: const EdgeInsets.symmetric(horizontal: 16.0 , vertical: 5),
+    child: Container(
+      decoration: BoxDecoration(
+        color: primaryGreyColorD9D_50,
+        borderRadius: BorderRadius.circular(15),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 12.0 , vertical: 10),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            defaultImageShape(
+              isMale: isMale,
+              height: 35,
+              image: image
+            ),
+            SizedBox(
+              width: 10,
+            ),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    name,
+                    style: TextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                  SizedBox(
+                    height: 8,
+                  ),
+                  Text(
+                    textOfComment,
+                    style: TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w300,
+                    ),
+                  ),
+                ],
+              ),
             ),
           ],
         ),
