@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mobi_care/shared/components/components.dart';
+import 'package:mobi_care/shared/components/text_form_field_component.dart';
 import 'package:mobi_care/shared/styles/colors.dart';
 
 class SearchScreen extends StatelessWidget {
@@ -15,18 +16,18 @@ class SearchScreen extends StatelessWidget {
           padding: const EdgeInsets.all(16.0),
           child: Column(
             children: [
-              defaultTextFormField(
-                  controller: searchController,
-                  keyboardType: TextInputType.text,
-                  validation: (value){
-                    if(value!.isEmpty){
-                      return 'Can\'t be empty';
-                    }
-                    return null;
-                  },
-                  fieldName: 'Search',
-                  suffixIcon: Icons.search,
-                  redius: 30,
+              DefaultTextFormField(
+                controller: searchController,
+                keyboardType: TextInputType.text,
+                validation: (value){
+                  if(value!.isEmpty){
+                    return 'Can\'t be empty';
+                  }
+                  return null;
+                },
+                fieldName: 'Search',
+                suffixIcon: Icons.search,
+                redius: 30,
               ),
               defaultSearchRowUserViewItem(
                   isMale: false,

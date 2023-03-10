@@ -9,6 +9,8 @@ import 'package:mobi_care/modules/patient_profile/cubit/states.dart';
 import 'package:mobi_care/shared/components/components.dart';
 import 'package:mobi_care/shared/styles/colors.dart';
 
+import '../../shared/components/navigate_component.dart';
+
 class PatientProfileScreen extends StatelessWidget {
   PatientProfileScreen({Key? key}) : super(key: key);
 

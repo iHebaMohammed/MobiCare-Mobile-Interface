@@ -6,72 +6,8 @@ import 'package:mobi_care/models/user_model.dart';
 import 'package:mobi_care/modules/chat_details/chat_details_screen.dart';
 import 'package:mobi_care/shared/styles/colors.dart';
 
-void navigateAndFinish({
-  required BuildContext context,
-  required Widget widget,
-}){
-  Navigator.pushReplacement(
-    context,
-    MaterialPageRoute(builder: (context) => widget),
-  );
-}
+import 'navigate_component.dart';
 
-void navigateTo({
-  required BuildContext context,
-  required Widget widget,
-}){
-  Navigator.push(
-    context,
-    MaterialPageRoute(builder: (context) => widget),
-  );
-}
-
-Widget defaultTextFormField
-    ({
-  required TextEditingController controller,
-  required TextInputType keyboardType,
-  Function(String value) ? onSubmit,
-  required String? Function( String ? value) validation,
-  Function(String value) ? onChange,
-  required String fieldName,
-  IconData ? prefixIcon,
-  IconData ? suffixIcon,
-  Function() ? onPressedSuffixIcon,
-  bool obscureText = false,
-  Function() ? onTap,
-  int ? maxLines = 1,
-  int ? minLines,
-  bool isClickable = true,
-  double ? redius = 0,
-}){
-  return TextFormField(
-    onTap: onTap,
-    enabled: isClickable,
-    minLines: minLines,
-    maxLines: maxLines,
-    obscureText: obscureText,
-    controller: controller,
-    keyboardType: keyboardType,
-    onFieldSubmitted: onSubmit,
-    validator: validation,
-    onChanged: onChange,
-    decoration: InputDecoration(
-      labelText: fieldName,
-      border: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(redius!),
-      ),
-      prefixIcon: Icon(
-          prefixIcon,
-      ),
-      suffixIcon: IconButton(
-        onPressed: onPressedSuffixIcon,
-        icon: Icon(
-            suffixIcon,
-        ),
-      ),
-    ),
-  );
-}
 
 Widget defaultButton
     ({
@@ -119,85 +55,6 @@ Widget defaultTextButton ({
   );
 }
 
-
-void showToast({
-  required String text,
-  required ToastStates toastStates
-}){
-  Fluttertoast.showToast(
-      msg: text,
-      toastLength: Toast.LENGTH_LONG,
-      gravity: ToastGravity.BOTTOM,
-      timeInSecForIosWeb: 5,
-      backgroundColor: chooseToastColor(toastStates),
-      textColor: Colors.white,
-      fontSize: 16.0
-  );
-}
-
-enum ToastStates{ SUCCESS , ERROR , WARNING }
-
-Color chooseToastColor(ToastStates toastStates){
-  late Color color;
-  switch(toastStates){
-    case ToastStates.SUCCESS:
-      color = Colors.green;
-      break;
-    case ToastStates.ERROR:
-      color = Colors.red;
-      break;
-    case ToastStates.WARNING:
-      color = Colors.amber;
-      break;
-  }
-  return color;
-}
-
-Widget drawerHeader({
-  required String image,
-  required String name,
-  required String email,
-}){
-  return  Container(
-    color: primaryColor1BA,
-    width: double.infinity,
-    height: 220,
-    padding: EdgeInsets.only(top: 15),
-    child: Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Container(
-          margin: EdgeInsets.only(bottom: 15),
-          height: 76,
-          decoration: BoxDecoration(
-            // color: pink100ColorEE,
-            shape: BoxShape.circle,
-          ),
-          child: Image(
-            image: AssetImage(image),
-          ),
-        ),
-        Text(
-          name,
-          style: TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.w600
-          ),
-        ),
-        SizedBox(
-          height: 7,
-        ),
-        Text(
-          email,
-          style: TextStyle(
-              fontSize: 14,
-              fontWeight: FontWeight.w400
-          ),
-        ),
-      ],
-    ),
-  );
-}
 
 Widget medicationReminderContainer({
   required String name,

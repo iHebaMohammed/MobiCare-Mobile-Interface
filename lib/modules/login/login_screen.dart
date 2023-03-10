@@ -7,8 +7,12 @@ import 'package:mobi_care/modules/login/cubit/cubit.dart';
 import 'package:mobi_care/modules/login/cubit/states.dart';
 import 'package:mobi_care/modules/register/register_screen.dart';
 import 'package:mobi_care/shared/components/components.dart';
+import 'package:mobi_care/shared/components/text_form_field_component.dart';
 import 'package:mobi_care/shared/network/local/cache_helper.dart';
 import 'package:mobi_care/shared/styles/colors.dart';
+
+import '../../shared/components/navigate_component.dart';
+import '../../shared/components/toast_component.dart';
 
 class LoginScreen extends StatelessWidget {
   LoginScreen({Key? key}) : super(key: key);
@@ -81,7 +85,7 @@ class LoginScreen extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(horizontal: 16.0),
                       child: Column(
                         children: [
-                          defaultTextFormField(
+                          DefaultTextFormField(
                               controller: emailController,
                               keyboardType: TextInputType.emailAddress,
                               validation: (value){
@@ -93,12 +97,12 @@ class LoginScreen extends StatelessWidget {
                                 return null;
                               },
                               fieldName: 'Email',
-                              prefixIcon: Icons.email_outlined
+                              prefixIcon: Icons.email_outlined,
                           ),
                           SizedBox(
                             height: 15,
                           ),
-                          defaultTextFormField(
+                          DefaultTextFormField(
                               controller: passwordController,
                               keyboardType: TextInputType.text,
                               validation: (value){
@@ -121,7 +125,7 @@ class LoginScreen extends StatelessWidget {
                               suffixIcon: cubit.suffix,
                               onPressedSuffixIcon: (){
                                 cubit.changePasswordVisibility();
-                              }
+                              },
                           ),
                           SizedBox(
                             height: 5,

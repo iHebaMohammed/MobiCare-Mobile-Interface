@@ -5,6 +5,7 @@ import 'package:mobi_care/modules/patient_search_prescription/patient_search_pre
 import 'package:mobi_care/shared/styles/colors.dart';
 
 import '../../shared/components/components.dart';
+import '../../shared/components/navigate_component.dart';
 
 class PatientPrescriptionScreen extends StatelessWidget {
   const PatientPrescriptionScreen({Key? key}) : super(key: key);

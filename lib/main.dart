@@ -17,7 +17,7 @@ import 'modules/doctor_home/doctor_home_screen.dart';
 import 'modules/patient_prescriptions/patient_prescriptions_screen.dart';
 import 'modules/post_details/post_details_screen.dart';
 import 'modules/splash/splash_screen.dart';
-import 'shared/components/constants.dart';
+import 'shared/constants/constants.dart';
 import 'shared/styles/themes.dart';
 import 'shared/network/local/cache_helper.dart';
 
@@ -67,7 +67,7 @@ class MyApp extends StatelessWidget {
             themeMode: ThemeMode.light,
             theme: lightTheme,
             darkTheme: darkTheme,
-            home: SplashScreen(),
+            home: LoginScreen(),
           );
         },
       ),

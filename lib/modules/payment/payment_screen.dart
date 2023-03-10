@@ -6,6 +6,8 @@ import 'package:mobi_care/modules/payment_done/payment_done_screen.dart';
 import 'package:mobi_care/shared/components/components.dart';
 import 'package:mobi_care/shared/styles/colors.dart';
 
+import '../../shared/components/navigate_component.dart';
+
 class PaymentScreen extends StatelessWidget {
   PaymentScreen({Key? key}) : super(key: key);
 

@@ -5,7 +5,7 @@ import 'package:mobi_care/models/user_model.dart';
 import 'package:mobi_care/modules/chat_details/cubit/cubit.dart';
 import 'package:mobi_care/modules/chat_details/cubit/states.dart';
 import 'package:mobi_care/shared/components/components.dart';
-import 'package:mobi_care/shared/components/constants.dart';
+import 'package:mobi_care/shared/constants/constants.dart';
 import 'package:mobi_care/shared/styles/colors.dart';
 
 class ChatDetailsScreen extends StatelessWidget {

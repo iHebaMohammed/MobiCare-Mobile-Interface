@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
-import '../../shared/components/build_drawer_clicked_item/build_clickable_drawer_item.dart';
+import '../../shared/components/build_clickable_drawer_item_component.dart';
+import '../../shared/components/drawer_component.dart';
 import '../../shared/styles/colors.dart';
 import 'cubit/cubit.dart';
 import 'cubit/states.dart';
@@ -47,6 +48,4 @@ class DrawerLayoutList extends StatelessWidget {
       ),
     );
   }
-
-
 }

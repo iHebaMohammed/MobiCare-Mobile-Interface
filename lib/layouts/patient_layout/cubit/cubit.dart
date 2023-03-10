@@ -9,7 +9,7 @@ import 'package:mobi_care/modules/patient_home/patient_home_screen.dart';
 import 'package:mobi_care/modules/patient_medication_reminder/patient_medication_reminder_screen.dart';
 import 'package:mobi_care/modules/patient_posts_view/patient_posts_view_screen.dart';
 import '../../../models/user_model.dart';
-import '../../../shared/components/constants.dart';
+import '../../../shared/constants/constants.dart';
 import 'states.dart';
 
 class PatientLayoutCubit extends Cubit<PatientLayoutStates> {

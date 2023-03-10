@@ -3,7 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:mobi_care/modules/login/login_screen.dart';
+import 'package:mobi_care/shared/components/text_form_field_component.dart';
 import '../../shared/components/components.dart';
+import '../../shared/components/navigate_component.dart';
+import '../../shared/components/toast_component.dart';
 import '../../shared/styles/colors.dart';
 import 'cubit/states.dart';
 import 'cubit/cubit.dart';
@@ -80,7 +83,7 @@ class RegisterScreen extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          defaultTextFormField(
+                          DefaultTextFormField(
                               controller: firstNameController,
                               keyboardType: TextInputType.text,
                               validation: (value){
@@ -95,7 +98,7 @@ class RegisterScreen extends StatelessWidget {
                           SizedBox(
                             height: 15,
                           ),
-                          defaultTextFormField(
+                          DefaultTextFormField(
                               controller: lastNameController,
                               keyboardType: TextInputType.text,
                               validation: (value){
@@ -110,7 +113,7 @@ class RegisterScreen extends StatelessWidget {
                           SizedBox(
                             height: 15,
                           ),
-                          defaultTextFormField(
+                          DefaultTextFormField(
                               controller: emailController,
                               keyboardType: TextInputType.emailAddress,
                               validation: (value){
@@ -127,7 +130,7 @@ class RegisterScreen extends StatelessWidget {
                           SizedBox(
                             height: 15,
                           ),
-                          defaultTextFormField(
+                          DefaultTextFormField(
                               controller: passwordController,
                               keyboardType: TextInputType.text,
                               validation: (value){
@@ -154,12 +157,12 @@ class RegisterScreen extends StatelessWidget {
                               suffixIcon: cubit.suffix,
                               onPressedSuffixIcon: (){
                                 cubit.changePasswordVisibility();
-                              }
+                              },
                           ),
                           SizedBox(
                             height: 15,
                           ),
-                          defaultTextFormField(
+                          DefaultTextFormField(
                               controller: phoneController,
                               keyboardType: TextInputType.number,
                               validation: (value){
@@ -169,12 +172,12 @@ class RegisterScreen extends StatelessWidget {
                                 return null;
                               },
                               fieldName: 'Phone Number',
-                              prefixIcon: Icons.phone_enabled_outlined
+                              prefixIcon: Icons.phone_enabled_outlined,
                           ),
                           SizedBox(
                             height: 15,
                           ),
-                          defaultTextFormField(
+                          DefaultTextFormField(
                               controller: addressController,
                               keyboardType: TextInputType.text,
                               validation: (value){
@@ -184,7 +187,7 @@ class RegisterScreen extends StatelessWidget {
                                 return null;
                               },
                               fieldName: 'Address',
-                              prefixIcon: Icons.home_outlined
+                              prefixIcon: Icons.home_outlined,
                           ),
                           SizedBox(
                             height: 15,
@@ -199,18 +202,18 @@ class RegisterScreen extends StatelessWidget {
                           const SizedBox(
                             height: 15,
                           ),
-                          defaultTextFormField(
-                              controller: questionController,
-                              keyboardType: TextInputType.text,
-                              validation: (value){
-                                if(value!.isEmpty) {
-                                  return null;
-                                }
+                          DefaultTextFormField(
+                            controller: questionController,
+                            keyboardType: TextInputType.text,
+                            validation: (value){
+                              if(value!.isEmpty) {
                                 return null;
-                              },
-                              fieldName: 'Diseases that you suffer from ?',
-                              prefixIcon: Icons.info_outline,
-                              maxLines: 2,
+                              }
+                              return null;
+                            },
+                            fieldName: 'Diseases that you suffer from ?',
+                            prefixIcon: Icons.info_outline,
+                            maxLines: 2,
                           ),
                           const SizedBox(
                             height: 15,

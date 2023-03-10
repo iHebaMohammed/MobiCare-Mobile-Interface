@@ -6,6 +6,7 @@ import 'package:mobi_care/modules/patient_profile/patient_profile_screen.dart';
 import 'package:mobi_care/modules/settings/settings_screen.dart';
 import 'package:mobi_care/shared/components/components.dart';
 
+import '../../../shared/components/navigate_component.dart';
 import 'states.dart';
 
 class DrawerLayoutCubit extends Cubit<DrawerLayoutStates>{

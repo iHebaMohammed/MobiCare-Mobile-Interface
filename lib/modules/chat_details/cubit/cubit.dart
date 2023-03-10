@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobi_care/modules/chat_details/cubit/states.dart';
 
 import '../../../models/message_model.dart';
-import '../../../shared/components/constants.dart';
+import '../../../shared/constants/constants.dart';
 
 class ChatMessagesCubit extends Cubit<ChatMessagesStates>{
 
