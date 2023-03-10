@@ -39,22 +39,6 @@ Widget defaultButton
   );
 }
 
-Widget defaultTextButton ({
-  required String text ,
-  required Function() function,
-  Color textColor = Colors.teal
-}){
-  return TextButton(
-    child: Text(
-      text.toUpperCase(),
-      style: TextStyle(
-        color: textColor,
-      ),
-    ),
-    onPressed: function,
-  );
-}
-
 
 Widget medicationReminderContainer({
   required String name,

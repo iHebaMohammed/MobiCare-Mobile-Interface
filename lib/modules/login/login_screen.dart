@@ -7,6 +7,7 @@ import 'package:mobi_care/modules/login/cubit/cubit.dart';
 import 'package:mobi_care/modules/login/cubit/states.dart';
 import 'package:mobi_care/modules/register/register_screen.dart';
 import 'package:mobi_care/shared/components/components.dart';
+import 'package:mobi_care/shared/components/text_button_component.dart';
 import 'package:mobi_care/shared/components/text_form_field_component.dart';
 import 'package:mobi_care/shared/network/local/cache_helper.dart';
 import 'package:mobi_care/shared/styles/colors.dart';
@@ -133,11 +134,11 @@ class LoginScreen extends StatelessWidget {
                           Row(
                             children: [
                               Spacer(),
-                              defaultTextButton(
+                              DefaultTextButton(
                                   text: 'Forgot password?',
                                   function: (){},
-                                  textColor: primaryColor1BA
-                                  ),
+                                  textColor: primaryColor1BA,
+                              ),
                             ],
                           ),
                           SizedBox(
@@ -168,13 +169,13 @@ class LoginScreen extends StatelessWidget {
                               Text(
                                   'Don\'t have an account?',
                               ),
-                              defaultTextButton(
+                              DefaultTextButton(
                                   text: 'Register now',
                                   textColor: primaryColor1BA,
                                   function: (){
                                     navigateTo(
-                                        context: context ,
-                                        widget: RegisterScreen(),
+                                      context: context ,
+                                      widget: RegisterScreen(),
                                     );
                                   }
                               ),

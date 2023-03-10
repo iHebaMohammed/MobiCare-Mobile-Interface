@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:mobi_care/modules/login/login_screen.dart';
+import 'package:mobi_care/shared/components/text_button_component.dart';
 import 'package:mobi_care/shared/components/text_form_field_component.dart';
 import '../../shared/components/components.dart';
 import '../../shared/components/navigate_component.dart';
@@ -248,7 +249,7 @@ class RegisterScreen extends StatelessWidget {
                               const Text(
                                 'Already have an account?',
                               ),
-                              defaultTextButton(
+                              DefaultTextButton(
                                   text: 'Login',
                                   textColor: primaryColor1BA,
                                   function: (){
