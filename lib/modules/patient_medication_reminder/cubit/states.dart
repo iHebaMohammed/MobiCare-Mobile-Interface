@@ -1,0 +1,21 @@
+abstract class PatientMedicationReminderStates{}
+
+class InitiatePatientMedicationReminderState extends PatientMedicationReminderStates{}
+
+class CreatePatientMedicationDatabaseLoadingState extends PatientMedicationReminderStates{}
+
+class CreatePatientMedicationDatabaseSuccessState extends PatientMedicationReminderStates{}
+
+class CreatePatientMedicationDatabaseErrorState extends PatientMedicationReminderStates{}
+
+class InsertPatientMedicationDatabaseLoadingState extends PatientMedicationReminderStates{}
+
+class InsertPatientMedicationDatabaseSuccessState extends PatientMedicationReminderStates{}
+
+class InsertPatientMedicationDatabaseErrorState extends PatientMedicationReminderStates{}
+
+class GetAllPatientMedicationDatabaseLoadingState extends PatientMedicationReminderStates{}
+
+class GetAllPatientMedicationDatabaseSuccessState extends PatientMedicationReminderStates{}
+
+class GetAllPatientMedicationDatabaseErrorState extends PatientMedicationReminderStates{}
