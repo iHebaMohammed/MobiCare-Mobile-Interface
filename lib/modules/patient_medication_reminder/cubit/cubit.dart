@@ -40,6 +40,7 @@ class PatientMedicationReminderCubit extends Cubit<PatientMedicationReminderStat
         print('database is created');
       },
       onOpen: (database){
+        getDataFromDatabase(database);
         print('database is opened');
       }
     );
@@ -64,6 +65,14 @@ class PatientMedicationReminderCubit extends Cubit<PatientMedicationReminderStat
     });
   }
 
+  void getDataFromDatabase(Database database) async{
+    emit(GetAllPatientMedicationDatabaseLoadingState());
+    List<Map<String , dynamic>> medicines = await database!.rawQuery('''
+      SELECT *
+      FROM medicine_table
+    ''');
+    print(medicines);
+  }
   
 
   // void createDatabase() async {

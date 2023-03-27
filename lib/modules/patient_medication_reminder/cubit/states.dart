@@ -8,9 +8,9 @@ class CreatePatientMedicationDatabaseSuccessState extends PatientMedicationRemin
 
 class CreatePatientMedicationDatabaseErrorState extends PatientMedicationReminderStates{}
 
-class InsertPatientMedicationDatabaseLoadingState extends PatientMedicationReminderStates{}
-
 class ChangeDateTimeInPatientState extends PatientMedicationReminderStates{}
+
+class InsertPatientMedicationDatabaseLoadingState extends PatientMedicationReminderStates{}
 
 class InsertPatientMedicationDatabaseSuccessState extends PatientMedicationReminderStates{}
 
