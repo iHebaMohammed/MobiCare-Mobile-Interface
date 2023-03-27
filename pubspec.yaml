@@ -90,6 +90,7 @@ flutter:
     - assets/icons/
     - assets/svg/payment/
     - assets/svg/prescription/
+    - assets/svg/doctor_time_reminder/
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
