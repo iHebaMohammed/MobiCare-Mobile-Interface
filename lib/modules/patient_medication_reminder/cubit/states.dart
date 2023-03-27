@@ -21,3 +21,9 @@ class GetAllPatientMedicationDatabaseLoadingState extends PatientMedicationRemin
 class GetAllPatientMedicationDatabaseSuccessState extends PatientMedicationReminderStates{}
 
 class GetAllPatientMedicationDatabaseErrorState extends PatientMedicationReminderStates{}
+
+class DeletePatientMedicationDatabaseLoadingState extends PatientMedicationReminderStates{}
+
+class DeletePatientMedicationDatabaseSuccessState extends PatientMedicationReminderStates{}
+
+class DeletePatientMedicationDatabaseErrorState extends PatientMedicationReminderStates{}

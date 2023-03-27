@@ -65,6 +65,14 @@ class PatientMedicationReminderCubit extends Cubit<PatientMedicationReminderStat
       await txn.rawInsert('''
         INSERT INTO medicine_table ( name , time , description ) VALUES("${nameOfMedicine}" , "${timeOfMedicine}" , "${description}")
       ''').then((value) {
+        getDataFromDatabase(database!).then((value) {
+          emit(GetAllPatientMedicationDatabaseSuccessState());
+          medicines = value;
+          print(medicines);
+        }).catchError((error){
+          emit(GetAllPatientMedicationDatabaseErrorState());
+          print('Some error happen in get data from database: ${error.toString()}');
+        });
         emit(InsertPatientMedicationDatabaseSuccessState());
         print('$value inserted successfully');
       }).catchError((error){
@@ -81,7 +89,27 @@ class PatientMedicationReminderCubit extends Cubit<PatientMedicationReminderStat
       FROM medicine_table
     ''');
   }
-  
+
+  void deleteData({
+    required int id,
+  }) async{
+    emit(DeletePatientMedicationDatabaseLoadingState());
+    await database!.rawDelete('DELETE FROM medicine_table WHERE id = $id').
+    then((value) {
+      getDataFromDatabase(database!).then((value) {
+        emit(GetAllPatientMedicationDatabaseSuccessState());
+        medicines = [];
+        medicines = value;
+        print(medicines);
+      }).catchError((error){
+        emit(GetAllPatientMedicationDatabaseErrorState());
+        print('Some error happen in get data from database: ${error.toString()}');
+      });
+      emit(DeletePatientMedicationDatabaseSuccessState());
+    }).catchError((error){
+      emit(DeletePatientMedicationDatabaseErrorState());
+    });
+  }
 
   // void createDatabase() async {
   //   database = await openDatabase(

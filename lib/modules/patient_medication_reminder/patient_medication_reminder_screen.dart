@@ -139,6 +139,8 @@ class PatientMedicationReminderScreen extends StatelessWidget {
                                               description: descriptionController.text ?? " ",
                                             );
                                             Navigator.pop(context);
+                                            medicineNameController.text = "";
+                                            descriptionController.text = "";
                                           },
                                           text: 'Done',
                                           redius: 25,
@@ -194,12 +196,18 @@ class PatientMedicationReminderScreen extends StatelessWidget {
                     child: ListView.builder(
                       // physics: const NeverScrollableScrollPhysics(),
                       itemBuilder: (context, index) {
-                        return medicationReminderContainer(
-                            name: cubit.medicines[index]['name'],
-                            timeInHour: DateTime.parse(cubit.medicines[index]['time']).hour.toString(),
-                            timeInMinute: DateTime.parse(cubit.medicines[index]['time']).minute.toString(),
-                            isTimeAM: int.parse(DateTime.parse(cubit.medicines[index]['time']).hour.toString())<= 12 ? true : false,
-                            howTimes: cubit.medicines[index]['description'],
+                        return Dismissible(
+                          key: UniqueKey(),
+                          onDismissed: (direction){
+                            cubit.deleteData(id: cubit.medicines[index]['id']);
+                          },
+                          child: medicationReminderContainer(
+                              name: cubit.medicines[index]['name'],
+                              timeInHour: DateTime.parse(cubit.medicines[index]['time']).hour.toString(),
+                              timeInMinute: DateTime.parse(cubit.medicines[index]['time']).minute.toString(),
+                              isTimeAM: int.parse(DateTime.parse(cubit.medicines[index]['time']).hour.toString())<= 12 ? true : false,
+                              howTimes: cubit.medicines[index]['description'],
+                          ),
                         );
                       } ,
                       itemCount: cubit.medicines.length,
