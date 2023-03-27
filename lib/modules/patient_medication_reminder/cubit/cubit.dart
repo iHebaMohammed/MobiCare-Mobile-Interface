@@ -9,6 +9,62 @@ class PatientMedicationReminderCubit extends Cubit<PatientMedicationReminderStat
   static PatientMedicationReminderCubit get(BuildContext context) => BlocProvider.of(context);
 
   Database ? database;
+  DateTime ? dateTime;
+
+  void changeDateTime(DateTime time){
+    dateTime = time;
+    emit(ChangeDateTimeInPatientState());
+  }
+
+
+  void createDatabase() async{
+    database = await openDatabase(
+      'patient_medicine.db',
+      version: 1,
+      onCreate: (Database database , int version){
+        emit(CreatePatientMedicationDatabaseLoadingState());
+        database.execute('''
+          CREATE TABLE medicine_table (
+            id INTEGER PRIMARY KEY,
+            name TEXT NOT NULL,
+            time TEXT NOT NULL,
+            description TEXT
+          )
+        ''').then((value) {
+          emit(CreatePatientMedicationDatabaseSuccessState());
+          print('table has created');
+        }).catchError((error){
+          emit(CreatePatientMedicationDatabaseErrorState());
+          print('Some error has happen in create ${error.toString()}');
+        });
+        print('database is created');
+      },
+      onOpen: (database){
+        print('database is opened');
+      }
+    );
+  }
+
+  void insertToDatabase({
+    required String nameOfMedicine ,
+    required String timeOfMedicine ,
+    String description = "",
+}) async{
+    await database!.transaction((txn) async{
+      emit(InsertPatientMedicationDatabaseLoadingState());
+      await txn.rawInsert('''
+        INSERT INTO medicine_table ( name , time , description ) VALUES("${nameOfMedicine}" , "${timeOfMedicine}" , "${description}")
+      ''').then((value) {
+        emit(InsertPatientMedicationDatabaseSuccessState());
+        print('$value inserted successfully');
+      }).catchError((error){
+        emit(InsertPatientMedicationDatabaseErrorState());
+        print('Some error happen in insert ${error.toString()}');
+      });
+    });
+  }
+
+  
 
   // void createDatabase() async {
   //   database = await openDatabase(
