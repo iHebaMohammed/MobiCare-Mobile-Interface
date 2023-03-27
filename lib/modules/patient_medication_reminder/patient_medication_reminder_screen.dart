@@ -28,6 +28,7 @@ class PatientMedicationReminderScreen extends StatelessWidget {
               vertical: 8.0
           ),
           child: SingleChildScrollView(
+            physics: const NeverScrollableScrollPhysics(),
             child: SizedBox(
               width: double.infinity,
               child: Column(
@@ -188,12 +189,22 @@ class PatientMedicationReminderScreen extends StatelessWidget {
                     ),
                   ),
                   Divider(),
-                  medicationReminderContainer(
-                      name: 'Amitriptyline',
-                      timeInHour: '08',
-                      timeInMinute: '30',
-                      isTimeAM: false,
-                      howTimes: '3 per day'
+                  SizedBox(
+                    height: 250,
+                    child: ListView.builder(
+                      // physics: const NeverScrollableScrollPhysics(),
+                      itemBuilder: (context, index) {
+                        return medicationReminderContainer(
+                            name: cubit.medicines[index]['name'],
+                            timeInHour: DateTime.parse(cubit.medicines[index]['time']).hour.toString(),
+                            timeInMinute: DateTime.parse(cubit.medicines[index]['time']).minute.toString(),
+                            isTimeAM: int.parse(DateTime.parse(cubit.medicines[index]['time']).hour.toString())<= 12 ? true : false,
+                            howTimes: cubit.medicines[index]['description'],
+                        );
+                      } ,
+                      itemCount: cubit.medicines.length,
+                      // physics: const NeverScrollableScrollPhysics(),
+                    ),
                   ),
                 ],
               ),
