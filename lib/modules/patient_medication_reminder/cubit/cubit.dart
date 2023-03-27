@@ -10,6 +10,7 @@ class PatientMedicationReminderCubit extends Cubit<PatientMedicationReminderStat
 
   Database ? database;
   DateTime ? dateTime;
+  List<Map<String , dynamic>> medicines = [];
 
   void changeDateTime(DateTime time){
     dateTime = time;
@@ -40,7 +41,15 @@ class PatientMedicationReminderCubit extends Cubit<PatientMedicationReminderStat
         print('database is created');
       },
       onOpen: (database){
-        getDataFromDatabase(database);
+        emit(GetAllPatientMedicationDatabaseLoadingState());
+        getDataFromDatabase(database).then((value) {
+          emit(GetAllPatientMedicationDatabaseSuccessState());
+          medicines = value;
+          print(medicines);
+        }).catchError((error){
+          emit(GetAllPatientMedicationDatabaseErrorState());
+          print('Some error happen in get data from database: ${error.toString()}');
+        });
         print('database is opened');
       }
     );
@@ -65,13 +74,12 @@ class PatientMedicationReminderCubit extends Cubit<PatientMedicationReminderStat
     });
   }
 
-  void getDataFromDatabase(Database database) async{
+  Future<List<Map<String , dynamic>>> getDataFromDatabase(Database database) async{
     emit(GetAllPatientMedicationDatabaseLoadingState());
-    List<Map<String , dynamic>> medicines = await database!.rawQuery('''
+    return await database!.rawQuery('''
       SELECT *
       FROM medicine_table
     ''');
-    print(medicines);
   }
   
 
