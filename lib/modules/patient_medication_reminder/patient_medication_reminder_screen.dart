@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_time_picker_spinner/flutter_time_picker_spinner.dart';
 import 'package:mobi_care/shared/components/components.dart';
 import 'package:mobi_care/shared/styles/colors.dart';
 
 class PatientMedicationReminderScreen extends StatelessWidget {
-  const PatientMedicationReminderScreen({Key? key}) : super(key: key);
+  PatientMedicationReminderScreen({Key? key}) : super(key: key);
+
+  TextEditingController medicineNameController = TextEditingController();
+  TextEditingController descriptionController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +38,105 @@ class PatientMedicationReminderScreen extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(vertical: 16.0),
                 child: InkWell(
                   onTap: (){
+                    showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AlertDialog(
+                            content: SingleChildScrollView(
+                              child: Container(
+                                color: primaryWhiteColor,
+                                width: double.infinity,
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Container(
+                                      color: primaryColor1BA,
+                                      child: TimePickerSpinner(
+                                        is24HourMode: false,
+                                        normalTextStyle: TextStyle(
+                                          color: primaryWhiteColor.withOpacity(0.5),
+                                          fontWeight: FontWeight.w300,
+                                          fontSize: 22,
+                                        ),
+                                        highlightedTextStyle: TextStyle(
+                                          color: primaryWhiteColor,
+                                          fontWeight: FontWeight.w400,
+                                          fontSize: 23,
+                                        ),
+                                        spacing: 40,
+                                        itemHeight: 60,
+                                        time: DateTime.now(),
+                                        isForce2Digits: true,
+                                        onTimeChange: (time){
 
+                                        },
+
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height: 10,
+                                    ),
+                                    TextFormField(
+                                      controller: medicineNameController,
+                                      decoration: InputDecoration(
+                                        hintText: 'Medicine name',
+                                        hintStyle: TextStyle(
+                                          color: primaryWhiteColor.withOpacity(0.7),
+                                        ),
+                                        filled: true,
+                                        fillColor: primaryColor1BA,
+                                        border: OutlineInputBorder(
+                                          borderRadius: BorderRadius.circular(5.0),
+                                          borderSide: BorderSide(
+                                            width: 0,
+                                            style: BorderStyle.none,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height: 10,
+                                    ),
+                                    TextFormField(
+                                      maxLines: 3,
+                                      controller: descriptionController,
+                                      decoration: InputDecoration(
+                                        hintText: 'Description',
+                                        hintStyle: TextStyle(
+                                          color: primaryWhiteColor.withOpacity(0.7),
+                                        ),
+                                        filled: true,
+                                        fillColor: primaryGreyColor808.withOpacity(0.3),
+                                        border: OutlineInputBorder(
+                                          borderRadius: BorderRadius.circular(5.0),
+                                          borderSide: BorderSide(
+                                            width: 0,
+                                            style: BorderStyle.none,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height: 15,
+                                    ),
+                                    defaultButton(
+                                        function: (){},
+                                        text: 'Done',
+                                        redius: 25,
+                                        backgroundColor: primaryBlueColor2C8,
+                                      width: 150,
+                                      height: 40,
+                                    ),
+                                    SizedBox(
+                                      height: 5,
+                                    )
+                                  ],
+                                ),
+                              ),
+                            ),
+                          );
+                        }
+                    );
                   },
                   child: Container(
                     padding: EdgeInsets.all(10),

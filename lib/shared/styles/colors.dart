@@ -8,6 +8,7 @@ Color primaryColor60D_50 = const Color(0xFF60D2CE).withOpacity(0.50);
 Color primaryColor8DB = const Color(0xFF8DB2B0);
 Color primaryMaleColor = const Color(0xFF4DC6E1);
 Color primaryBlueColor529 = const Color(0xFF529ADA);
+Color primaryBlueColor2C8 = const Color(0xFF2C81CD);
 Color primaryWhiteColor = const Color(0xFFFFFFFF);
 Color primaryGreyColor808 = const Color(0xFF808080);
 Color primaryGreyColorD9D_50 = const Color(0xFFD9D9D9).withOpacity(0.50);
