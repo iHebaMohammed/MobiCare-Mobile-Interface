@@ -18,6 +18,7 @@ import 'package:mobi_care/modules/payment/payment_screen.dart';
 import 'package:mobi_care/modules/payment_done/payment_done_screen.dart';
 import 'package:mobi_care/shared/bloc_observer.dart';
 import 'modules/doctor_home/doctor_home_screen.dart';
+import 'modules/doctor_profile_patient_view/doctor_profile_patient_view_screen.dart';
 import 'modules/patient_prescriptions/patient_prescriptions_screen.dart';
 import 'modules/post_details/post_details_screen.dart';
 import 'modules/splash/splash_screen.dart';
@@ -77,7 +78,7 @@ class MyApp extends StatelessWidget {
             themeMode: ThemeMode.light,
             theme: lightTheme,
             darkTheme: darkTheme,
-            home: DoctorLayout(),
+            home: DoctorProfilePatientViewScreen(),
           );
         },
       ),

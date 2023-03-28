@@ -53,6 +53,7 @@ dependencies:
   sqflite: ^2.2.4+1
   cloud_firestore: ^4.4.2
   flutter_time_picker_spinner: ^2.0.0
+#  syncfusion_flutter_datepicker: ^21.1.35
 
 dev_dependencies:
   flutter_test:
