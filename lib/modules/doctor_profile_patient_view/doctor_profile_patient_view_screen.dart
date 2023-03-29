@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:mobi_care/shared/components/components.dart';
 import 'package:mobi_care/shared/styles/colors.dart';
+import 'package:table_calendar/table_calendar.dart';
 
 class DoctorProfilePatientViewScreen extends StatelessWidget {
   const DoctorProfilePatientViewScreen({Key? key}) : super(key: key);
@@ -281,12 +283,165 @@ class DoctorProfilePatientViewScreen extends StatelessWidget {
                   ),
                 ),
               ),
-              Center(
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 26.0),
                 child: Column(
                   children: [
-
+                    Container(
+                      decoration: BoxDecoration(
+                        color: primaryColorD2F,
+                        borderRadius: BorderRadius.circular(25),
+                      ),
+                      child: TableCalendar(
+                        firstDay: DateTime.utc(2010, 10, 16),
+                        lastDay: DateTime.utc(2030, 3, 14),
+                        focusedDay: DateTime.now(),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 4.0 , vertical: 10),
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: primaryColorD2F,
+                                borderRadius: BorderRadius.circular(15),
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(horizontal: 20.0 , vertical: 10),
+                                child: Text(
+                                  '11 : 00',
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    fontSize: 26,
+                                    fontWeight: FontWeight.w300,
+                                    color: primaryGreyColor808,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            width: 15,
+                          ),
+                          Expanded(
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: primaryColorBBF,
+                                borderRadius: BorderRadius.circular(15),
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(horizontal: 20.0 , vertical: 10),
+                                child: Text(
+                                  '14 : 00',
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    fontSize: 26,
+                                    fontWeight: FontWeight.w300,
+                                    color: primaryGreyColor808,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 4.0 , vertical: 10),
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: primaryColorD2F,
+                                borderRadius: BorderRadius.circular(15),
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(horizontal: 20.0 , vertical: 10),
+                                child: Text(
+                                  '15 : 00',
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    fontSize: 26,
+                                    fontWeight: FontWeight.w300,
+                                    color: primaryGreyColor808,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            width: 15,
+                          ),
+                          Expanded(
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: primaryColorD2F,
+                                borderRadius: BorderRadius.circular(15),
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(horizontal: 20.0 , vertical: 10),
+                                child: Text(
+                                  '17 : 00',
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    fontSize: 26,
+                                    fontWeight: FontWeight.w300,
+                                    color: primaryGreyColor808,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    SizedBox(
+                      height: 30,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 4.0),
+                      child: defaultButton(
+                          function: (){},
+                          text: 'Book a home visit',
+                          redius: 30,
+                          backgroundColor: primaryColor1BA,
+                      ),
+                    ),
                   ],
                 ),
+              ),
+              SizedBox(
+                height: 30,
+              ),
+              Padding(
+                padding: const EdgeInsetsDirectional.only(top: 24.0 , start: 16 , bottom: 12),                child: Text(
+                  'About Doctor',
+                   style: TextStyle(
+                       color: primaryBlackColor,
+                       fontWeight: FontWeight.w600,
+                       fontSize: 26
+                   ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 26.0),
+                child: Text(
+                  'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled',
+                  style: TextStyle(
+                    color: primaryBlackColor,
+                    fontWeight: FontWeight.w300,
+                    fontSize: 15,
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: 40,
               ),
             ],
           ),
