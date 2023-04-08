@@ -75,7 +75,7 @@ class PaymentScreen extends StatelessWidget {
                                     fontSize: 16,
                                   ),
                                 ),
-                                defaultTextFormFieldWithoutBorder(
+                                DefaultTextFormFieldWithoutBorder(
                                   controller: cardNumberController,
                                 ),
                                 SizedBox(
@@ -96,7 +96,7 @@ class PaymentScreen extends StatelessWidget {
                                               ),
                                             ),
                                             Expanded(
-                                              child: defaultTextFormFieldWithoutBorder(
+                                              child: DefaultTextFormFieldWithoutBorder(
                                                 controller: expiryDateController,
                                               ),
                                             ),
@@ -120,7 +120,7 @@ class PaymentScreen extends StatelessWidget {
                                               ),
                                             ),
                                             Expanded(
-                                              child: defaultTextFormFieldWithoutBorder(
+                                              child: DefaultTextFormFieldWithoutBorder(
                                                 controller: cvvController,
                                               ),
                                             ),
@@ -139,7 +139,7 @@ class PaymentScreen extends StatelessWidget {
                                     fontSize: 16,
                                   ),
                                 ),
-                                defaultTextFormFieldWithoutBorder(
+                                DefaultTextFormFieldWithoutBorder(
                                   controller: nameController,
                                 ),
                                 SizedBox(
@@ -179,7 +179,7 @@ class PaymentScreen extends StatelessWidget {
                                 ),
                                 Spacer(),
                                 Center(
-                                  child: defaultButton(
+                                  child: DefaultButton(
                                       function: (){
                                         navigateTo(context: context, widget: PaymentDoneScreen());
                                       },

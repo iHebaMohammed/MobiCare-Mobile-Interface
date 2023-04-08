@@ -31,7 +31,7 @@ class ChatDetailsScreen extends StatelessWidget {
                 backgroundColor: primaryColor1BA,
                 title: Row(
                   children: [
-                    defaultImageShape(
+                    DefaultImageShape(
                         isMale: userModel.isMale!,
                         image: userModel.imageUrl!,
                         height: 40

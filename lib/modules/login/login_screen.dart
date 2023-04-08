@@ -146,7 +146,7 @@ class LoginScreen extends StatelessWidget {
                           ),
                           ConditionalBuilder(
                             condition: state is! LoginLoadingFirebaseState,
-                            builder: (context) => defaultButton(
+                            builder: (context) => DefaultButton(
                                 text: 'LOGIN' ,
                                 backgroundColor: primaryColor1BA,
                                 function: (){

@@ -54,7 +54,7 @@ class PatientProfileScreen extends StatelessWidget {
                           ],
                         ),
                       ),
-                      defaultImageShape(
+                      DefaultImageShape(
                         isMale: true,
                         height: 80,
                         image: 'https://img.freepik.com/free-photo/smiley-little-boy-isolated-pink_23-2148984798.jpg?w=1060&t=st=1677173572~exp=1677174172~hmac=94a6e1073a52704d51512902c48c715b8754414e819a4a9c88ad63bcbbc756ca',
@@ -149,10 +149,10 @@ class PatientProfileScreen extends StatelessWidget {
                       if(isPrescriptionVisible)
                         Column(
                           children: [
-                            buildPrescriptionItem(dateTime: '5 / 10 ? 2021', doctorName: 'Dr.Ali'),
-                            buildPrescriptionItem(dateTime: '5 / 10 ? 2021', doctorName: 'Dr.Ali'),
-                            buildPrescriptionItem(dateTime: '5 / 10 ? 2021', doctorName: 'Dr.Ali'),
-                            buildPrescriptionItem(dateTime: '5 / 10 ? 2021', doctorName: 'Dr.Ali'),
+                            BuildPrescriptionItem(dateTime: '5 / 10 ? 2021', doctorName: 'Dr.Ali'),
+                            BuildPrescriptionItem(dateTime: '5 / 10 ? 2021', doctorName: 'Dr.Ali'),
+                            BuildPrescriptionItem(dateTime: '5 / 10 ? 2021', doctorName: 'Dr.Ali'),
+                            BuildPrescriptionItem(dateTime: '5 / 10 ? 2021', doctorName: 'Dr.Ali'),
                           ],
                         ),
                       if(isPrescriptionVisible)
@@ -204,13 +204,13 @@ class PatientProfileScreen extends StatelessWidget {
                       if(isFollowUpWithVisible)
                         Column(
                           children: [
-                            defaultFollowUpWithItem(
+                            DefaultFollowUpWithItem(
                               isMale: true,
                               image: 'https://img.freepik.com/free-photo/smiling-doctor-with-strethoscope-isolated-grey_651396-974.jpg?w=1060&t=st=1677180364~exp=1677180964~hmac=322f62b372fd430840916df2f143ee731df2389d1888b370c1725cb50008f371',
                               name: 'Dr. Osama Ali',
                               specialization: 'Pulmonologist',
                             ),
-                            defaultFollowUpWithItem(
+                            DefaultFollowUpWithItem(
                               isMale: false,
                               image: 'https://img.freepik.com/free-photo/smiling-doctor-with-strethoscope-isolated-grey_651396-974.jpg?w=1060&t=st=1677180364~exp=1677180964~hmac=322f62b372fd430840916df2f143ee731df2389d1888b370c1725cb50008f371',
                               name: 'Dr. Asmaa Helal',
@@ -251,22 +251,22 @@ class PatientProfileScreen extends StatelessWidget {
                           padding: const EdgeInsets.symmetric(vertical: 8.0),
                           child: Wrap(
                             children: [
-                              defaultSymptomItem(
+                              DefaultSymptomItem(
                                 nameOfSymptom: 'Headache',
                               ),
-                              defaultSymptomItem(
+                              DefaultSymptomItem(
                                   nameOfSymptom: 'Stomach pain',
                               ),
-                              defaultSymptomItem(
+                              DefaultSymptomItem(
                                   nameOfSymptom: 'shortness of breath',
                               ),
-                              defaultSymptomItem(
+                              DefaultSymptomItem(
                                 nameOfSymptom: 'Headache',
                               ),
-                              defaultSymptomItem(
+                              DefaultSymptomItem(
                                 nameOfSymptom: 'Stomach pain',
                               ),
-                              defaultSymptomItem(
+                              DefaultSymptomItem(
                                 nameOfSymptom: 'shortness of breath',
                               ),
                             ],

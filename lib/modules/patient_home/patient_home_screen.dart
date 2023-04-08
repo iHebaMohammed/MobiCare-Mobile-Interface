@@ -82,7 +82,7 @@ class PatientHomeScreen extends StatelessWidget {
                     ),
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: 10.0),
-                      child: defaultButton(
+                      child: DefaultButton(
                         function: function,
                         text: buttonText,
                         width: 150,

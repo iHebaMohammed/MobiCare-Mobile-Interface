@@ -131,7 +131,7 @@ class PatientMedicationReminderScreen extends StatelessWidget {
                                         SizedBox(
                                           height: 15,
                                         ),
-                                        defaultButton(
+                                        DefaultButton(
                                           function: (){
                                             cubit.insertToDatabase(
                                               nameOfMedicine: medicineNameController.text,
@@ -201,7 +201,7 @@ class PatientMedicationReminderScreen extends StatelessWidget {
                           onDismissed: (direction){
                             cubit.deleteData(id: cubit.medicines[index]['id']);
                           },
-                          child: medicationReminderContainer(
+                          child: MedicationReminderContainer(
                               name: cubit.medicines[index]['name'],
                               timeInHour: DateTime.parse(cubit.medicines[index]['time']).hour.toString(),
                               timeInMinute: DateTime.parse(cubit.medicines[index]['time']).minute.toString(),

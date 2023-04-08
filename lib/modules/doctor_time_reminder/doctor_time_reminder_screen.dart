@@ -135,7 +135,7 @@ class DoctorTimeReminderScreen extends StatelessWidget {
                                         SizedBox(
                                           height: 15,
                                         ),
-                                        defaultButton(
+                                        DefaultButton(
                                           function: (){
                                             cubit.insertToDatabase(
                                               titleOfTask: titleController.text,
@@ -205,7 +205,7 @@ class DoctorTimeReminderScreen extends StatelessWidget {
                           onDismissed: (direction){
                             cubit.deleteData(id: cubit.tasks[index]['id']);
                           },
-                          child: medicationReminderContainer(
+                          child: MedicationReminderContainer(
                             name: cubit.tasks[index]['title'],
                             timeInHour: DateTime.parse(cubit.tasks[index]['time']).hour.toString(),
                             timeInMinute: DateTime.parse(cubit.tasks[index]['time']).minute.toString(),

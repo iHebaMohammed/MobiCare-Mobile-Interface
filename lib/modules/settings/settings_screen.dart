@@ -29,7 +29,7 @@ class SettingScreen extends StatelessWidget {
                       ),
                     ),
                   ),
-                  defaultSettingItem(
+                  DefaultSettingItem(
                       icon: Icons.language,
                       labelName: 'Language',
                       widget: Container(
@@ -52,7 +52,7 @@ class SettingScreen extends StatelessWidget {
                         ),
                       ),
                   ),
-                  defaultSettingItem(
+                  DefaultSettingItem(
                       icon: Icons.wb_sunny_outlined,
                       labelName: 'Light Mode',
                       widget: Icon(
@@ -60,7 +60,7 @@ class SettingScreen extends StatelessWidget {
                         color: primaryBlackColor_60,
                       )
                   ),
-                  defaultSettingItem(
+                  DefaultSettingItem(
                       icon: Icons.favorite_border,
                       labelName: 'Help and support',
                       widget: Icon(
@@ -68,7 +68,7 @@ class SettingScreen extends StatelessWidget {
                         color: primaryBlackColor_60,
                       ),
                   ),
-                  defaultSettingItem(
+                  DefaultSettingItem(
                       icon: Icons.lock_outline,
                       labelName: 'Privacy and security',
                       widget: Icon(
@@ -76,7 +76,7 @@ class SettingScreen extends StatelessWidget {
                         color: primaryBlackColor_60,
                       ),
                   ),
-                  defaultSettingItem(
+                  DefaultSettingItem(
                       icon: Icons.question_mark_outlined,
                       labelName: 'About',
                       widget: Icon(

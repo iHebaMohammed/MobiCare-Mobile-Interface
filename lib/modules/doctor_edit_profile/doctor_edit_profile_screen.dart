@@ -54,7 +54,7 @@ class DoctorEditProfileScreen extends StatelessWidget {
                     children: [
                       SizedBox(
                         width: 115,
-                        child: defaultImageShape(
+                        child: DefaultImageShape(
                             isMale: true,
                             height: 80,
                             image: 'https://img.freepik.com/free-photo/smiling-doctor-with-strethoscope-isolated-grey_651396-974.jpg?w=1060&t=st=1677298982~exp=1677299582~hmac=1adbf7426845a9e3692507cc0f6017fe0df9016d93f502ce163f266f5d4e7d2e'
@@ -104,47 +104,47 @@ class DoctorEditProfileScreen extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 20.0 , vertical: 15),
               child: Column(
                 children: [
-                  buildColumnTextField(
+                  BuildColumnTextField(
                       controller: firstNameController,
                       labelName: 'First Name',
                       validator: (value){
                         if(value!.isEmpty){
                           return 'First Name can\'t be empty';
                         }
-                        return null;
+                        return "null";
                       }
                   ),
-                  buildColumnTextField(
+                  BuildColumnTextField(
                       controller: lastNameController,
                       labelName: 'Last Name',
                       validator: (value){
                         if(value!.isEmpty){
                           return 'Last Name can\'t be empty';
                         }
-                        return null;
+                        return "null";
                       }
                   ),
-                  buildColumnTextField(
+                  BuildColumnTextField(
                       controller: emailController,
                       labelName: 'Email',
                       validator: (value){
                         if(value!.isEmpty){
                           return 'Email can\'t be empty';
                         }
-                        return null;
+                        return "null";
                       }
                   ),
-                  buildColumnTextField(
+                  BuildColumnTextField(
                       controller: passwordController,
                       labelName: 'Password',
                       validator: (value){
                         if(value!.isEmpty){
                           return 'Password can\'t be empty';
                         }
-                        return null;
+                        return "null";
                       }
                   ),
-                  buildColumnTextField(
+                  BuildColumnTextField(
                       controller: confirmPasswordController,
                       labelName: 'Confirm Password',
                       validator: (value){
@@ -153,47 +153,47 @@ class DoctorEditProfileScreen extends StatelessWidget {
                         }else if(value != passwordController.text){
                           return 'Confirm Password Filed not match Password Filed';
                         }
-                        return null;
+                        return "null";
                       }
                   ),
-                  buildColumnTextField(
+                  BuildColumnTextField(
                       controller: addressController,
                       labelName: 'Address',
                       validator: (value){
                         if(value!.isEmpty){
                           return 'Address can\'t be empty';
                         }
-                        return null;
+                        return "null";
                       }
                   ),
-                  buildColumnTextField(
+                  BuildColumnTextField(
                       controller: specialityController,
                       labelName: 'Speciality',
                       validator: (value){
                         if(value!.isEmpty){
                           return 'Speciality can\'t be empty';
                         }
-                        return null;
+                        return "null";
                       }
                   ),
-                  buildColumnTextField(
+                  BuildColumnTextField(
                       controller: clinicNameController,
                       labelName: 'Clinic Name',
                       validator: (value){
                         if(value!.isEmpty){
                           return 'Clinic Name can\'t be empty';
                         }
-                        return null;
+                        return "null";
                       }
                   ),
-                  buildColumnTextField(
+                  BuildColumnTextField(
                       controller: clinicLocationController,
                       labelName: 'Clinic Location',
                       validator: (value){
                         if(value!.isEmpty){
                           return 'Clinic Location can\'t be empty';
                         }
-                        return null;
+                        return "null";
                       }
                   ),
                   Column(
@@ -222,7 +222,7 @@ class DoctorEditProfileScreen extends StatelessWidget {
                           if(value!.isEmpty){
                           return 'Clinic Location can\'t be empty';
                           }
-                          return null;
+                          return "null";
                         },
                       ),
                     ],

@@ -44,9 +44,9 @@ class PatientSearchPrescriptionScreen extends StatelessWidget {
               SingleChildScrollView(
                 child: Column(
                   children: [
-                    buildPrescriptionItem(dateTime: '14 / 2 /2005' , doctorName: 'Dr.Ahmed Ali'),
-                    buildPrescriptionItem(dateTime: '14 / 2 /2005' , doctorName: 'Dr.Ahmed Ali'),
-                    buildPrescriptionItem(dateTime: '14 / 2 /2005' , doctorName: 'Dr.Ahmed Ali'),
+                    BuildPrescriptionItem(dateTime: '14 / 2 /2005' , doctorName: 'Dr.Ahmed Ali'),
+                    BuildPrescriptionItem(dateTime: '14 / 2 /2005' , doctorName: 'Dr.Ahmed Ali'),
+                    BuildPrescriptionItem(dateTime: '14 / 2 /2005' , doctorName: 'Dr.Ahmed Ali'),
                   ],
                 ),
               ),

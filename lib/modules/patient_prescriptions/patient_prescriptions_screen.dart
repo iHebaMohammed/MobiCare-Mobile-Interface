@@ -71,7 +71,7 @@ class PatientPrescriptionScreen extends StatelessWidget {
               padding: const EdgeInsets.all(10.0),
               child: Divider(),
             ),
-            buildPrescriptionItem(dateTime: '14 / 2 / 2001' , doctorName: 'Heba Adel'),
+            BuildPrescriptionItem(dateTime: '14 / 2 / 2001' , doctorName: 'Heba Adel'),
           ],
         ),
       ),

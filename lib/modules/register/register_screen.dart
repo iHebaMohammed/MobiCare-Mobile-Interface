@@ -221,7 +221,7 @@ class RegisterScreen extends StatelessWidget {
                           ),
                           ConditionalBuilder(
                             condition: state is! RegisterLoadingState,
-                            builder: (context) => defaultButton(
+                            builder: (context) => DefaultButton(
                                 text: 'Register' ,
                                 backgroundColor: primaryColor1BA,
                                 function: (){
