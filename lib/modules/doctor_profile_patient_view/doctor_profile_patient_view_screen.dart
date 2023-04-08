@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mobi_care/shared/components/components.dart';
+import 'package:mobi_care/shared/components/doctor_image_component.dart';
 import 'package:mobi_care/shared/styles/colors.dart';
 import 'package:table_calendar/table_calendar.dart';
 
@@ -71,34 +72,7 @@ class DoctorProfilePatientViewScreen extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
                           SvgPicture.asset('assets/icons/chat.svg' , width: 60,),
-                          Stack(
-                            alignment: Alignment.center,
-                            children: [
-                              Container(
-                                height: 105,
-                                width: 105,
-                                decoration: BoxDecoration(
-                                  color: primaryWhiteColor,
-                                  borderRadius: BorderRadius.circular(25),
-                                ),
-                              ),
-                              Container(
-                                height: 100,
-                                width: 100,
-                                decoration: BoxDecoration(
-                                  color: primaryWhiteColor,
-                                  borderRadius: BorderRadius.circular(25),
-                                ),
-                                clipBehavior: Clip.antiAliasWithSaveLayer,
-                                child: Image.network(
-                                    'https://img.freepik.com/free-photo/smiling-doctor-with-strethoscope-isolated-grey_651396-974.jpg?w=1060&t=st=1680033546~exp=1680034146~hmac=49b1ad06bab265f201cad75aca25358d6ec47beab191191254309826830b723a',
-                                  width: 50,
-                                  height: 50,
-                                  fit: BoxFit.cover,
-                                ),
-                              ),
-                            ],
-                          ),
+                          DoctorImageComponent(image: 'https://img.freepik.com/free-photo/smiling-doctor-with-strethoscope-isolated-grey_651396-974.jpg?w=1060&t=st=1680986239~exp=1680986839~hmac=347c4a3241d1741a6b0c5f19e693282afa09b3a37fb08d3cbca683d11e4ba3fb'),
                           SvgPicture.asset('assets/icons/telephone.svg' , width: 60,),
                         ],
                       ),
