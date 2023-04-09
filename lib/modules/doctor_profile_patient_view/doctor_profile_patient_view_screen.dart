@@ -40,11 +40,11 @@ class DoctorProfilePatientViewScreen extends StatelessWidget {
                                 boxShadow: [
                                   BoxShadow(
                                     color: Colors.grey,
-                                    blurRadius: 1.0, // soften the shadow
-                                    spreadRadius: 0.05, //extend the shadow
+                                    blurRadius: 1.0,
+                                    spreadRadius: 0.05,
                                     offset: Offset(
-                                      1.0, // Move to right 5  horizontally
-                                      1.0, // Move to bottom 5 Vertically
+                                      1.0,
+                                      1.0,
                                     ),
                                   )
                                 ],
@@ -152,11 +152,11 @@ class DoctorProfilePatientViewScreen extends StatelessWidget {
                                       boxShadow: [
                                         BoxShadow(
                                           color: Colors.grey,
-                                          blurRadius: 1.0, // soften the shadow
-                                          spreadRadius: 0.05, //extend the shadow
+                                          blurRadius: 1.0,
+                                          spreadRadius: 0.05,
                                           offset: Offset(
-                                            1.0, // Move to right 5  horizontally
-                                            1.0, // Move to bottom 5 Vertically
+                                            1.0,
+                                            1.0,
                                           ),
                                         )
                                       ],
@@ -200,11 +200,11 @@ class DoctorProfilePatientViewScreen extends StatelessWidget {
                                       boxShadow: [
                                         BoxShadow(
                                           color: Colors.grey,
-                                          blurRadius: 1.0, // soften the shadow
-                                          spreadRadius: 0.05, //extend the shadow
+                                          blurRadius: 1.0,
+                                          spreadRadius: 0.05,
                                           offset: Offset(
-                                            1.0, // Move to right 5  horizontally
-                                            1.0, // Move to bottom 5 Vertically
+                                            1.0,
+                                            1.0,
                                           ),
                                         )
                                       ],

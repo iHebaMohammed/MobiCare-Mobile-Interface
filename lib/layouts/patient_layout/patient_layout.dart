@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mobi_care/layouts/drawer_layout_components/drawer_list.dart';
+import 'package:mobi_care/layouts/patient_drawer_layout_components/drawer_list.dart';
 import '../../shared/components/drawer_component.dart';
 import '../../shared/components/navigate_component.dart';
 import 'cubit/cubit.dart';

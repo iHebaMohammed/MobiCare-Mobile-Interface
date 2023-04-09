@@ -6,7 +6,7 @@ import '../../modules/search/search_screen.dart';
 import '../../shared/components/drawer_component.dart';
 import '../../shared/components/navigate_component.dart';
 import '../../shared/styles/colors.dart';
-import '../drawer_layout_components/drawer_list.dart';
+import '../patient_drawer_layout_components/drawer_list.dart';
 import 'cubit/cubit.dart';
 import 'cubit/states.dart';
 

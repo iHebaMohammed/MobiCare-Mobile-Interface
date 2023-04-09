@@ -17,13 +17,15 @@ import 'package:mobi_care/modules/payment/cubit/cubit.dart';
 import 'package:mobi_care/modules/payment/payment_screen.dart';
 import 'package:mobi_care/modules/payment_done/payment_done_screen.dart';
 import 'package:mobi_care/shared/bloc_observer.dart';
-import 'modules/doctor_chats/doctor_chats_screen.dart';
+import 'modules/add_lists/add_lists_screen.dart';
 import 'modules/doctor_home/doctor_home_screen.dart';
 import 'modules/doctor_profile_patient_view/doctor_profile_patient_view_screen.dart';
 import 'modules/edit_doctor_profile/edit_doctor_profile_screen.dart';
 import 'modules/evaluation/evaluation_screen.dart';
+import 'modules/home_visit_requests/home_visit_requests.dart';
 import 'modules/patient_prescriptions/patient_prescriptions_screen.dart';
 import 'modules/post_details/post_details_screen.dart';
+import 'modules/prescription/prescription.dart';
 import 'modules/splash/splash_screen.dart';
 import 'shared/constants/constants.dart';
 import 'shared/styles/themes.dart';
@@ -81,7 +83,7 @@ class MyApp extends StatelessWidget {
             themeMode: ThemeMode.light,
             theme: lightTheme,
             darkTheme: darkTheme,
-            home: EvaluationScreen(),
+            home: Prescription(),
           );
         },
       ),
