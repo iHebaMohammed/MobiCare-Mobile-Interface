@@ -22,6 +22,7 @@ import 'modules/doctor_home/doctor_home_screen.dart';
 import 'modules/doctor_profile_patient_view/doctor_profile_patient_view_screen.dart';
 import 'modules/edit_doctor_profile/edit_doctor_profile_screen.dart';
 import 'modules/evaluation/evaluation_screen.dart';
+import 'modules/patient_prescriptions/cubit/cubit.dart';
 import 'modules/patient_prescriptions/patient_prescriptions_screen.dart';
 import 'modules/post_details/post_details_screen.dart';
 import 'modules/splash/splash_screen.dart';
@@ -29,19 +30,18 @@ import 'shared/constants/constants.dart';
 import 'shared/styles/themes.dart';
 import 'shared/network/local/cache_helper.dart';
 
-void main() async{
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   Bloc.observer = MyBlocObserver();
   await CacheHelper.init();
-  bool? isDark = CacheHelper.getData( key: 'isDark');
+  bool? isDark = CacheHelper.getData(key: 'isDark');
 
   runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
-
-   const MyApp({super.key});
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -51,35 +51,36 @@ class MyApp extends StatelessWidget {
           create: (context) => PatientLayoutCubit()..getChats(),
         ),
         BlocProvider(
-            create: (context) => ChatMessagesCubit(),
+          create: (context) => ChatMessagesCubit(),
         ),
         BlocProvider(
           create: (context) => PaymentCubit(),
         ),
         BlocProvider(
-            create: (context) => PatientProfileCubit(),
+          create: (context) => PatientProfileCubit(),
         ),
         BlocProvider(
           create: (context) => PatientEditProfileCubit(),
         ),
         BlocProvider(
-          create: (context) => PatientMedicationReminderCubit()..createDatabase()
-        ),
+            create: (context) =>
+                PatientMedicationReminderCubit()..createDatabase()),
         BlocProvider(
           create: (context) => DoctorTimeReminderCubit()..createDatabase(),
         ),
+        BlocProvider(
+          create: (context) => PrescriptionCubit()..initialSetup(),
+    ),
       ],
-      child: BlocConsumer<PatientLayoutCubit , PatientLayoutStates>(
-        listener: (context, state) {
-
-        },
+      child: BlocConsumer<PatientLayoutCubit, PatientLayoutStates>(
+        listener: (context, state) {},
         builder: (context, state) {
-          return  MaterialApp(
+          return MaterialApp(
             debugShowCheckedModeBanner: false,
             themeMode: ThemeMode.light,
             theme: lightTheme,
             darkTheme: darkTheme,
-            home: PatientLayout(),
+            home: DoctorLayout(),
           );
         },
       ),
