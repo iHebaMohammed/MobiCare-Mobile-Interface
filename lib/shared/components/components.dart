@@ -18,13 +18,13 @@ class DefaultButton extends StatelessWidget {
 
   DefaultButton({
     Key? key,
-    double width = double.infinity,
-    Color backgroundColor = Colors.teal,
-    double redius = 0.0,
+    this.width = double.infinity,
+    this.backgroundColor = Colors.teal,
+    this.redius = 0.0,
     required this.function,
     required this.text,
-    double height = 52,
-    double fontSize = 15,
+    this.height = 52,
+    this.fontSize = 15,
   }) : super(key: key);
 
   @override
@@ -160,7 +160,7 @@ class DefaultImageShape extends StatelessWidget {
     Key? key,
     required this.isMale,
     required this.image,
-    double height = 70,
+    this.height = 70,
   }) : super(key: key);
 
   @override
@@ -224,9 +224,9 @@ class DefaultPostView extends StatelessWidget {
     required this.publisherImage,
     required this.postText,
     required this.isImage,
-    String? image,
+    this.image,
     required this.isVideo,
-    String? video,
+    this.video,
     required this.isLiked,
     required this.numberOfLikes,
     required this.numberOfComments,
@@ -489,7 +489,7 @@ class DefaultTextFormFieldWithoutBorder extends StatelessWidget {
   DefaultTextFormFieldWithoutBorder({
     Key? key,
     required this.controller,
-    double radius = 10,
+    this.radius = 10,
   }) : super(key: key);
 
   @override

@@ -36,8 +36,6 @@ void main() async{
   await CacheHelper.init();
   bool? isDark = CacheHelper.getData( key: 'isDark');
 
-
-
   runApp(const MyApp());
 }
 
@@ -81,7 +79,7 @@ class MyApp extends StatelessWidget {
             themeMode: ThemeMode.light,
             theme: lightTheme,
             darkTheme: darkTheme,
-            home: EvaluationScreen(),
+            home: PatientLayout(),
           );
         },
       ),
