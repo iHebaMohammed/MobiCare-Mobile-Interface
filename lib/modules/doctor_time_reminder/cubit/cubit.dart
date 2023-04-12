@@ -1,6 +1,11 @@
+import 'dart:async';
+
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:sqflite/sqflite.dart';
+import '../../../models/medicine_model.dart';
 import 'states.dart';
 
 class DoctorTimeReminderCubit extends Cubit<DoctorTimeReminderStates>{
@@ -11,6 +16,8 @@ class DoctorTimeReminderCubit extends Cubit<DoctorTimeReminderStates>{
   Database ? database;
   DateTime ? dateTime;
   List<Map<String , dynamic>> tasks = [];
+  // FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
+  // AudioPlayer audioPlayer = AudioPlayer();
 
   void changeDateTime(DateTime time){
     dateTime = time;
@@ -137,4 +144,59 @@ class DoctorTimeReminderCubit extends Cubit<DoctorTimeReminderStates>{
 //     emit(AppCreateDatabaseState());
 //   });
 // }
+
+  // Future<List<Map<String, dynamic>>> getTasks() async {
+  //   return await database!.query('tasks');
+  // }
+  //
+  // List<TaskModel> taskModel = [];
+  //
+  // void getAndScheduleTasks() async {
+  //   List<Map<String, dynamic>> taskMaps = await getTasks();
+  //
+  //   // Convert the maps to Task objects
+  //   taskMaps.forEach((taskMap) {
+  //     TaskModel task = TaskModel.fromMap(taskMap);
+  //     taskModel.add(task);
+  //   });
+  //
+  //   // Schedule the raining animation for each task
+  //   taskModel.forEach((task) {
+  //     DateTime scheduledTime = DateTime.parse(task.time!);
+  //     Duration difference = scheduledTime.difference(DateTime.now());
+  //
+  //     Timer(difference, () async  {
+  //       const AndroidNotificationDetails androidPlatformChannelSpecifics =
+  //       AndroidNotificationDetails(
+  //         'rain_channel', // Channel ID
+  //         'Rain', // Channel name
+  //         'Show rain notification', // Channel description
+  //         importance: Importance.max,
+  //         priority: Priority.high,
+  //         sound: RawResourceAndroidNotificationSound('rain_sound'),
+  //         playSound: true,
+  //       );
+  //       const NotificationDetails platformChannelSpecifics =
+  //       NotificationDetails(android: androidPlatformChannelSpecifics);
+  //       await flutterLocalNotificationsPlugin.zonedSchedule(
+  //           0, // Notification ID
+  //           'Rain', // Title
+  //           'It\'s time to rain!', // Body
+  //           scheduledTime,
+  //           platformChannelSpecifics,
+  //           androidAllowWhileIdle: true,
+  //           uiLocalNotificationDateInterpretation:
+  //           UILocalNotificationDateInterpretation.absoluteTime);
+  //
+  //       // Play the sound
+  //       await audioPlayer.play('assets/sounds/rain_sound.mp3');
+  //
+  //       // Trigger raining animation here
+  //       // You can pass the task object to the animation widget if needed
+  //
+  //       // Trigger raining animation here
+  //       // You can pass the task object to the animation widget if needed
+  //     });
+  //   });
+  // }
 }
