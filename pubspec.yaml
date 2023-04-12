@@ -55,6 +55,7 @@ dependencies:
   flutter_time_picker_spinner: ^2.0.0
   table_calendar: ^3.0.8
   flutter_rating_bar: ^4.0.1
+  flutter_local_notifications: ^8.2.0
 #  syncfusion_flutter_datepicker: ^21.1.35
 
 dev_dependencies:

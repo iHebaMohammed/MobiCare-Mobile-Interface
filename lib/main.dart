@@ -83,7 +83,7 @@ class MyApp extends StatelessWidget {
             themeMode: ThemeMode.light,
             theme: lightTheme,
             darkTheme: darkTheme,
-            home: DoctorLayout(),
+            home: SplashScreen(),
           );
         },
       ),
