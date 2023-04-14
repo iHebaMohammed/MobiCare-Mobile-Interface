@@ -1,0 +1,1 @@
+const String ADMIN_LOGIN = '/admin/login';

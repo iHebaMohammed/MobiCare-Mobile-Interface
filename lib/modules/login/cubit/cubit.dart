@@ -1,9 +1,17 @@
+import 'dart:convert';
+
+import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mobi_care/models/admin_model.dart';
+import 'package:mobi_care/shared/constants/constants.dart';
+import 'package:mobi_care/shared/network/remote/dio_helper.dart';
+import 'package:mobi_care/shared/network/remote/end_point.dart';
 import '../../../layouts/patient_layout/patient_layout.dart';
 import '../../../shared/components/components.dart';
 import 'states.dart';
+import 'package:http/http.dart' as http;
 
 class LoginCubit extends Cubit<LoginStates>{
 
@@ -20,7 +28,8 @@ class LoginCubit extends Cubit<LoginStates>{
     emit(LoginChangePasswordVisibility());
   }
 
-  void userLogin({required String email ,
+  void userLogin({
+    required String email ,
     required String password
   }){
     // emit(LoginLoadingState());
@@ -60,6 +69,64 @@ class LoginCubit extends Cubit<LoginStates>{
     }).catchError((error) {
       print(error.toString());
       emit(LoginErrorFirebaseState(error: error.toString()));
+    });
+  }
+
+  // Future<void> adminLogin({
+  //   required String email,
+  //   required String password,
+  // }) async{
+  //
+  //   String url = 'http://127.0.0.1:4000$ADMIN_LOGIN';
+  //   Map<String, dynamic> data = {
+  //     'EMAIL': email,
+  //     'PASSWORD':password,
+  //   };
+  //   var jsonData = jsonEncode(data);
+  //
+  //   try{
+  //     emit(AdminLoginLoadingState());
+  //     http.Response response = await http.post(
+  //       Uri.parse(url),
+  //       body: jsonData
+  //     );
+  //     // adminAccessToken = json.decode(response.body)['accessToken'];
+  //     print(json.decode(response.body));
+  //
+  //     // AdminModel adminModel = AdminModel.fromJson(json.decode(response.body));
+  //     // print(adminModel.message);
+  //     emit(AdminLoginSuccessfullyState());
+  //     if(response.statusCode == 200 ){
+  //
+  //     }
+  //
+  //   }catch(error){
+  //     print('ERROR  ${error.toString()}');
+  //   }
+  // }
+
+  AdminModel ? adminModel;
+
+  void adminLogin({
+    required String email ,
+    required String password,
+  }){
+    emit(AdminLoginLoadingState());
+    print('Email : $email , Password: $password');
+    DioHelper.postData(
+      url: ADMIN_LOGIN,
+      data: {
+        'EMAIL': email,
+        'PASSWORD': password,
+      },
+    ).then((value) {
+      print(value);
+      adminModel = AdminModel.fromJson(value.data);
+      print(adminModel!.message);
+    }).catchError((error){
+      print(error.toString());
+      emit(AdminLoginErrorState(error: error.toString()));
+      print('ERROR : ${error.toString()}');
     });
   }
 }

@@ -38,3 +38,16 @@ class LoginErrorState extends LoginStates {
 }
 
 class LoginChangePasswordVisibility extends LoginStates {}
+
+class AdminLoginLoadingState extends LoginStates{}
+
+class AdminLoginSuccessfullyState extends LoginStates{}
+
+class AdminLoginErrorState extends LoginStates{
+
+  final String error;
+
+  AdminLoginErrorState({
+    required this.error,
+  });
+}

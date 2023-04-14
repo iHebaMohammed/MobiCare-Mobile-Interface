@@ -29,6 +29,7 @@ import 'modules/patient_profile/patient_profile.dart';
 import 'modules/post_details/post_details_screen.dart';
 import 'modules/splash/splash_screen.dart';
 import 'shared/constants/constants.dart';
+import 'shared/network/remote/dio_helper.dart';
 import 'shared/styles/themes.dart';
 import 'shared/network/local/cache_helper.dart';
 
@@ -47,6 +48,7 @@ void main() async{
   // await flutterLocalNotificationsPlugin.initialize(initializationSettings,
   //     onSelectNotification: selectNotification);
   await Firebase.initializeApp();
+  DioHelper.init();
   Bloc.observer = MyBlocObserver();
   await CacheHelper.init();
   bool? isDark = CacheHelper.getData( key: 'isDark');
@@ -96,7 +98,7 @@ class MyApp extends StatelessWidget {
             themeMode: ThemeMode.light,
             theme: lightTheme,
             darkTheme: darkTheme,
-            home: SplashScreen(),
+            home: LoginScreen(),
           );
         },
       ),
