@@ -122,7 +122,8 @@ class LoginCubit extends Cubit<LoginStates>{
     ).then((value) {
       print(value);
       adminModel = AdminModel.fromJson(value.data);
-      print(adminModel!.message);
+      print('Message : ${adminModel!.message}');
+      print('Token: ${adminModel!.accessToken}');
     }).catchError((error){
       print(error.toString());
       emit(AdminLoginErrorState(error: error.toString()));
