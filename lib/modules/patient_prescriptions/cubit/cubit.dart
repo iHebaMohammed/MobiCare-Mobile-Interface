@@ -4,8 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:http/http.dart';
+import 'package:url_launcher/url_launcher_string.dart';
+import 'package:walletconnect_dart/walletconnect_dart.dart';
 import 'package:web3dart/web3dart.dart';
 import 'package:web_socket_channel/io.dart';
+
+import '../../../shared/constants/constants.dart';
 import 'states.dart';
 
 class PrescriptionCubit extends Cubit<PrescriptionStates> {
@@ -14,95 +18,153 @@ class PrescriptionCubit extends Cubit<PrescriptionStates> {
   static PrescriptionCubit get(BuildContext context) =>
       BlocProvider.of(context);
 
-  final String _rpcURl = "http://127.0.0.1:7545";
-  final String _wsURl = "ws://127.0.0.1:7545";
-  final String _privateKey =
-      "0x63df1c92de71f8d45fde18cf85677dda18afb2ca3084fc8c0a0ee08fed1d9dc3";
+  final Web3Client client = Web3Client(rpcURL, Client(), socketConnector: () {
+    return IOWebSocketChannel.connect(wsURL).cast<String>();
+  });
 
-  late Web3Client _client;
-  late String _abiCode;
+  final EthereumAddress contractAddress =
+      EthereumAddress.fromHex(sepoliaContractAddress);
 
-  late EthereumAddress _contractAddress;
-  late Credentials _credentials;
+  final connector = WalletConnect(
+    bridge: bridge,
+    clientMeta: const PeerMeta(
+      name: 'MetaMask',
+      description: 'MetaMask Wallet',
+      url: 'https://metamask.io/',
+      icons: [
+        'https://cdn.iconscout.com/icon/free/png-512/metamask-2728406-2261817.png'
+      ],
+    ),
+  );
 
-  late DeployedContract _contract;
+  late String abiCode;
+
+  late DeployedContract deployedContract;
   late ContractFunction _addRecord;
   late ContractFunction _getRecords;
 
+  late EthereumAddress senderAddress;
+  late Credentials credentials;
+
+  dynamic session;
   bool isLoading = true;
-  String? deployedRecord;
 
   initialSetup() async {
     // establish a connection to the ethereum rpc node. The socketConnector
     // property allows more efficient event streams over websockets instead of
     // http-polls. However, the socketConnector property is experimental.
-    _client = Web3Client(_rpcURl, Client());
 
     await getAbi();
-    await getCredentials();
-    await getDeployedContract();
   }
 
   Future<void> getAbi() async {
     // Reading the contract abi
-    String abiStringFile =
-        await rootBundle.loadString("src/artifacts/EHR.json");
-    var jsonAbi = jsonDecode(abiStringFile);
-    _abiCode = jsonEncode(jsonAbi["abi"]);
-    print(jsonAbi["abi"]);
+    await rootBundle.loadString("src/artifacts/EHR.json").then((value) async {
+      dynamic jsonAbi = await jsonDecode(value);
+      String abiCode = jsonEncode(jsonAbi["abi"]);
 
-    _contractAddress =
-        EthereumAddress.fromHex(jsonAbi["networks"]["5777"]["address"]);
-    print(_contractAddress);
+      getDeployedContract(abiCode);
+    });
   }
 
-  Future<void> getCredentials() async {
-    _credentials = await EthPrivateKey.fromHex(_privateKey);
-    print("_credentials: $_credentials");
-  }
-
-  Future<void> getDeployedContract() async {
+  getDeployedContract(String abiCode) {
     // Telling Web3dart where our contract is declared.
-    _contract = DeployedContract(
-        ContractAbi.fromJson(_abiCode, "EHR"), _contractAddress);
+    deployedContract = DeployedContract(
+        ContractAbi.fromJson(abiCode, contractName), contractAddress);
 
     // Extracting the functions, declared in contract.
-    _addRecord = _contract.function("addRecord");
-    _getRecords = _contract.function("getRecords");
-    getRecords();
+    _addRecord = deployedContract.function("addRecord");
+    _getRecords = deployedContract.function("getRecords");
   }
 
-  Future<void> getRecords() async {
-    // Getting the current record declared in the smart contract.
-    EthereumAddress patientAddress =
-        EthereumAddress.fromHex("0xdA46bbDdeFec42d1EEe11B54Ea6c065EBc1Fa850");
-    EthereumAddress doctorAddress =
-        EthereumAddress.fromHex("0xF87547989843cAb53c6Ad35d1a9012935e8aDF8d");
-    var currentRecord = await _client.call(
-        sender: doctorAddress,
-        contract: _contract,
-        function: _getRecords,
-        params: [patientAddress]);
-    print(currentRecord);
-    deployedRecord = currentRecord[0];
-    isLoading = false;
-    emit(GetRecordsState());
+  changeSession(dynamic newSession) {
+    session = newSession;
+    emit(ChangeSessionState());
   }
 
-  Future<void> addRecord(String cid, String fileName, String patientAddress,
-      String doctorAddress) async {
+  connectorEvents() {
+    connector.on('connect', (session) => changeSession(session));
+    connector.on('session_update', (payload) => changeSession(payload));
+    connector.on('disconnect', (session) => changeSession(session));
+  }
+
+  Future<void> connectMetaMaskWallet(BuildContext context) async {
+    connectorEvents();
+
+    if (!connector.connected) {
+      try {
+        session = await connector.createSession(
+          chainId: 11155111,
+          onDisplayUri: (uri) async {
+            await launchUrlString(uri, mode: LaunchMode.externalApplication);
+
+            String privateKey = uri.split('=')[2];
+            credentials = EthPrivateKey.fromHex(privateKey);
+          },
+        );
+
+        senderAddress = EthereumAddress.fromHex(session.accounts[0]);
+
+        await getCredentials();
+      } catch (error) {
+        print("error while connecting to the wallet $error");
+      }
+    }
+  }
+
+  getCredentials() async {
+
+    EtherAmount amount = await client.getBalance(senderAddress);
+    print("Amount: $amount");
+
+    EthereumWalletConnectProvider provider =
+        EthereumWalletConnectProvider(connector);
+
+    print(provider);
+
+  }
+
+  // signTransaction() async {
+  //   final provider = AlgorandWalletConnectProvider(connector);
+  //
+  //   Transaction tx = Transaction(
+  //       from: senderAddress,
+  //       maxGas: 1000000000,
+  //       data: Uint8List.fromList("cid".codeUnits));
+  //
+  //   provider.signTransaction(tx as Uint8List);
+  //
+  //   // Kill the session
+  //   connector.killSession();
+  // }
+
+  Future<void> addRecord(String cid, EthereumAddress patientAddress) async {
     isLoading = true;
-    emit(AddRecordsState());
-    await _client.sendTransaction(
-        _credentials,
+
+    await client.sendTransaction(
+        credentials,
         Transaction.callContract(
-          contract: _contract,
-          function: _addRecord,
-          parameters: [cid, fileName, patientAddress, doctorAddress],
-          // gasPrice: EtherAmount.inWei(BigInt.one),
-          // maxGas: 100000,
-          // value: EtherAmount.fromUnitAndValue(EtherUnit.ether, 1),
-        ));
-    getRecords();
+            contract: deployedContract,
+            function: _addRecord,
+            parameters: [cid, patientAddress]));
+    await getRecords(patientAddress);
+  }
+
+  Future<void> getRecords(EthereumAddress patientAddress) async {
+    // Getting the current record declared in the smart contract.
+    client.call(
+        contract: deployedContract,
+        function: _getRecords,
+        params: [patientAddress]).then((value) {
+      print("================================");
+      print("get records: $value");
+      print("================================");
+
+      var deployedRecord = value[0];
+      print(deployedRecord);
+      isLoading = false;
+
+      emit(GetRecordsState());
+    });
   }
 }

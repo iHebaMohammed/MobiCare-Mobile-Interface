@@ -70,7 +70,7 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => PrescriptionCubit()..initialSetup(),
-    ),
+        ),
       ],
       child: BlocConsumer<PatientLayoutCubit, PatientLayoutStates>(
         listener: (context, state) {},

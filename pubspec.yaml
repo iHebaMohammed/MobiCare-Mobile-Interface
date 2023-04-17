@@ -55,10 +55,13 @@ dependencies:
   flutter_time_picker_spinner: ^2.0.0
   table_calendar: ^3.0.8
   flutter_rating_bar: ^4.0.1
-
   http: ^0.13.4
   web_socket_channel: ^2.4.0
   web3dart: ^2.6.1
+  url_launcher: ^6.1.10
+  ipfs_client_flutter: ^1.0.7
+  webthree: ^2.5.6+1
+  walletconnect_dart: ^0.0.11
 #  syncfusion_flutter_datepicker: ^21.1.35
 
 dev_dependencies:
