@@ -76,7 +76,7 @@ class PatientPrescriptionScreen extends StatelessWidget {
                 ),
                 const BuildPrescriptionItem(
                     dateTime: '14 / 2 / 2001', doctorName: 'Mohammed Moataz'),
-                cubit.session == null
+                !cubit.connector.connected
                     ? Column(
                         children: [
                           TextButton(

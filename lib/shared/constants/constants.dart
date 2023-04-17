@@ -7,3 +7,8 @@ const String sepoliaContractAddress = "0x4DAA732357081AaE4F71Df3773D3cD59b5cB154
 const String projectId = "bbb670a50c47402b960dbe6c0ecf8230";
 const String rpcURL = "https://sepolia.infura.io/v3/bbb670a50c47402b960dbe6c0ecf8230";
 const String wsURL = "wss://sepolia.infura.io/ws/v3/bbb670a50c47402b960dbe6c0ecf8230";
+
+const walletName = "MetaMask";
+const walletDescription = "MetaMask Wallet";
+const walletURL = "https://metamask.io/";
+const walletIcon = "https://github.com/HebaAdelAhmed/MobiCare/blob/moataz/assets/metamask.png?raw=true";

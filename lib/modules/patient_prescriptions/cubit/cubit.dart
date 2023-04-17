@@ -28,16 +28,12 @@ class PrescriptionCubit extends Cubit<PrescriptionStates> {
   final connector = WalletConnect(
     bridge: bridge,
     clientMeta: const PeerMeta(
-      name: 'MetaMask',
-      description: 'MetaMask Wallet',
-      url: 'https://metamask.io/',
-      icons: [
-        'https://cdn.iconscout.com/icon/free/png-512/metamask-2728406-2261817.png'
-      ],
+      name: walletName,
+      description: walletDescription,
+      url: walletURL,
+      icons: [walletIcon],
     ),
   );
-
-  late String abiCode;
 
   late DeployedContract deployedContract;
   late ContractFunction _addRecord;
@@ -120,7 +116,10 @@ class PrescriptionCubit extends Cubit<PrescriptionStates> {
     EthereumWalletConnectProvider provider =
         EthereumWalletConnectProvider(connector);
 
-    print(provider);
+    print("provider: ${provider.chainId}");
+    print("provider: ${provider.connector}");
+    print("provider: ${provider.runtimeType}");
+    print("provider: ${provider.hashCode}");
 
   }
 
