@@ -22,16 +22,16 @@ class PatientChatScreen extends StatelessWidget {
         return Padding(
           padding: const EdgeInsets.all(16.0),
           child: ConditionalBuilder(
-            condition: cubit.users.length > 0,
+            condition: cubit.usersInAnotherTypeOfMe.length > 0,
             builder: (context) => ListView.builder(
               itemBuilder: (context, index) => defaultChatRowUserViewItem(
                   context: context,
-                  model: cubit.users[index],
+                  model: cubit.usersInAnotherTypeOfMe[index],
                   lastMessage: 'Hi',
                   dateOfLastMassage: '5/5/2005',
                   numberOfMessage: '0',
               ),
-              itemCount: cubit.users.length,
+              itemCount: cubit.usersInAnotherTypeOfMe.length,
             ),
             fallback: (context) => Center(
               child: CircularProgressIndicator(

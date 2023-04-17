@@ -68,7 +68,7 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (context) => PatientLayoutCubit()..getChats(),
+          create: (context) => PatientLayoutCubit()..getUIdsOfChatsSender()..getAllUsers..getChats(),
         ),
         BlocProvider(
             create: (context) => ChatMessagesCubit(),

@@ -28,11 +28,6 @@ class LoginScreen extends StatelessWidget {
       create: (BuildContext context) => LoginCubit(),
       child: BlocConsumer<LoginCubit , LoginStates>(
         listener: (context, state){
-          if(state is AdminLoginSuccessfullyState){
-            // CacheHelper.saveData(key: 'token', value: state.token).then((value) {
-              navigateTo(context: context, widget: PatientLayout());
-            // });
-          }
           if(state is LoginErrorFirebaseState){
             showToast(text: state.error, toastStates: ToastStates.ERROR);
           }
@@ -159,14 +154,14 @@ class LoginScreen extends StatelessWidget {
                                 backgroundColor: primaryColor1BA,
                                 function: (){
                                   if(formKey.currentState!.validate()){
-                                    // cubit.userLoginByFirebase(
-                                    //     email: emailController.text,
-                                    //     password: passwordController.text,
-                                    // );
-                                    cubit.adminLogin(
+                                    cubit.userLoginByFirebase(
                                         email: emailController.text,
-                                        password: passwordController.text
+                                        password: passwordController.text,
                                     );
+                                    // cubit.adminLogin(
+                                    //     email: emailController.text,
+                                    //     password: passwordController.text
+                                    // );
                                   }
                                 }
                             ),
