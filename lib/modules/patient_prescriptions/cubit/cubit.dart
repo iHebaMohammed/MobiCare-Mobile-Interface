@@ -43,7 +43,6 @@ class PrescriptionCubit extends Cubit<PrescriptionStates> {
   late Credentials credentials;
 
   dynamic session;
-  bool isLoading = true;
 
   initialSetup() async {
     // establish a connection to the ethereum rpc node. The socketConnector
@@ -75,6 +74,7 @@ class PrescriptionCubit extends Cubit<PrescriptionStates> {
 
   changeSession(dynamic newSession) {
     session = newSession;
+    print("session: $session");
     emit(ChangeSessionState());
   }
 
@@ -90,12 +90,11 @@ class PrescriptionCubit extends Cubit<PrescriptionStates> {
     if (!connector.connected) {
       try {
         session = await connector.createSession(
-          chainId: 11155111,
           onDisplayUri: (uri) async {
             await launchUrlString(uri, mode: LaunchMode.externalApplication);
 
             String privateKey = uri.split('=')[2];
-            credentials = EthPrivateKey.fromHex(privateKey);
+            credentials = await client.credentialsFromPrivateKey(privateKey);
           },
         );
 
@@ -109,18 +108,16 @@ class PrescriptionCubit extends Cubit<PrescriptionStates> {
   }
 
   getCredentials() async {
-
     EtherAmount amount = await client.getBalance(senderAddress);
     print("Amount: $amount");
 
     EthereumWalletConnectProvider provider =
         EthereumWalletConnectProvider(connector);
 
-    print("provider: ${provider.chainId}");
-    print("provider: ${provider.connector}");
-    print("provider: ${provider.runtimeType}");
-    print("provider: ${provider.hashCode}");
-
+    print("provider.chainId: ${provider.chainId}");
+    print("provider.connector: ${provider.connector}");
+    print("provider.runtimeType: ${provider.runtimeType}");
+    print("provider.hashCode: ${provider.hashCode}");
   }
 
   // signTransaction() async {
@@ -134,35 +131,38 @@ class PrescriptionCubit extends Cubit<PrescriptionStates> {
   //   provider.signTransaction(tx as Uint8List);
   //
   //   // Kill the session
-  //   connector.killSession();
   // }
 
   Future<void> addRecord(String cid, EthereumAddress patientAddress) async {
-    isLoading = true;
+    String tx = await client.sendTransaction(
+      credentials,
+      Transaction.callContract(
+        contract: deployedContract,
+        function: _addRecord,
+        parameters: [cid, patientAddress],
+      ),
+      chainId: 4,
+    );
 
-    await client.sendTransaction(
-        credentials,
-        Transaction.callContract(
-            contract: deployedContract,
-            function: _addRecord,
-            parameters: [cid, patientAddress]));
+    print("tx: $tx");
     await getRecords(patientAddress);
   }
 
   Future<void> getRecords(EthereumAddress patientAddress) async {
     // Getting the current record declared in the smart contract.
     client.call(
-        contract: deployedContract,
-        function: _getRecords,
-        params: [patientAddress]).then((value) {
+      contract: deployedContract,
+      function: _getRecords,
+      params: [patientAddress],
+    ).then((value) {
       print("================================");
-      print("get records: $value");
+      print("get records: ${value}");
       print("================================");
 
       var deployedRecord = value[0];
       print(deployedRecord);
-      isLoading = false;
 
+      connector.killSession();
       emit(GetRecordsState());
     });
   }

@@ -96,17 +96,17 @@ class PatientPrescriptionScreen extends StatelessWidget {
               ],
             ),
           ),
-          floatingActionButton: cubit.session == null
+          floatingActionButton: !cubit.connector.connected
               ? null
               : FloatingActionButton(
                   onPressed: () async {
-                    cubit.isLoading
-                        // ? cubit.getRecords(cubit.senderAddress)
-                        ? await cubit.addRecord(
-                            "cid",
-                            EthereumAddress.fromHex(
-                                "0x9839548Ac44A81D26cB944c3f5a164B16C4Ef359"))
-                        : print("cubit not loading!!!");
+                    // await cubit.getRecords(EthereumAddress.fromHex(
+                    //     "0x9839548Ac44A81D26cB944c3f5a164B16C4Ef359"));
+                    await cubit.addRecord(
+                      "cid",
+                      EthereumAddress.fromHex(
+                          "0x9839548Ac44A81D26cB944c3f5a164B16C4Ef359"),
+                    );
                   },
                   backgroundColor: primaryColor1BA,
                   child: const Icon(Icons.add),
