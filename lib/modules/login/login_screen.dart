@@ -34,6 +34,9 @@ class LoginScreen extends StatelessWidget {
           else if(state is LoginErrorState){
             showToast(text: state.error, toastStates: ToastStates.ERROR);
           }
+          else if(state is AdminLoginErrorState){
+            showToast(text: state.error, toastStates: ToastStates.ERROR);
+          }
           if(state is LoginSuccessState){
             CacheHelper.saveData(key: 'token', value: state.token).then((value) {
               navigateTo(context: context, widget: PatientLayout());
@@ -155,6 +158,10 @@ class LoginScreen extends StatelessWidget {
                                         email: emailController.text,
                                         password: passwordController.text,
                                     );
+                                    // cubit.adminLogin(
+                                    //     email: emailController.text,
+                                    //     password: passwordController.text
+                                    // );
                                   }
                                 }
                             ),

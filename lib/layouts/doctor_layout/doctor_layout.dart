@@ -6,7 +6,7 @@ import '../../modules/search/search_screen.dart';
 import '../../shared/components/drawer_component.dart';
 import '../../shared/components/navigate_component.dart';
 import '../../shared/styles/colors.dart';
-import '../drawer_layout_components/drawer_list.dart';
+import '../patient_drawer_layout_components/drawer_list.dart';
 import 'cubit/cubit.dart';
 import 'cubit/states.dart';
 
@@ -58,10 +58,10 @@ class DoctorLayout extends StatelessWidget {
                 cubit.changeBottomIndex(index);
               },
               index: cubit.currentIndex,
-              color: Colors.black12,
-              backgroundColor: Colors.transparent,
+              color: primaryColorD2F_40,
+              backgroundColor: primaryWhiteColor,
               animationCurve: Curves.easeInOut,
-              animationDuration: Duration(milliseconds: 800),
+              animationDuration: const Duration(milliseconds: 600),
               letIndexChange: (index) => true,
             ),
             drawer: Drawer(

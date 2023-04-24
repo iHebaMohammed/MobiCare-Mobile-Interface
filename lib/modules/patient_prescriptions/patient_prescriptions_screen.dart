@@ -75,7 +75,9 @@ class PatientPrescriptionScreen extends StatelessWidget {
                   child: Divider(),
                 ),
                 const BuildPrescriptionItem(
-                    dateTime: '14 / 2 / 2001', doctorName: 'Mohammed Moataz'),
+                  dateTime: '14 / 2 / 2001',
+                  doctorName: 'Mohammed Moataz',
+                ),
                 !cubit.connector.connected
                     ? Column(
                         children: [
@@ -92,7 +94,18 @@ class PatientPrescriptionScreen extends StatelessWidget {
                           const Text("You are connected"),
                           Text("senderAddress\n ${cubit.senderAddress}"),
                         ],
-                      )
+                      ),
+                const SizedBox(
+                  height: 50,
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: Column(
+                    children: [
+                      Text(cubit.records.toString())
+                    ],
+                  ),
+                ),
               ],
             ),
           ),
@@ -103,7 +116,7 @@ class PatientPrescriptionScreen extends StatelessWidget {
                     // await cubit.getRecords(EthereumAddress.fromHex(
                     //     "0x9839548Ac44A81D26cB944c3f5a164B16C4Ef359"));
                     await cubit.addRecord(
-                      "cid",
+                      "Last one",
                       EthereumAddress.fromHex(
                           "0x9839548Ac44A81D26cB944c3f5a164B16C4Ef359"),
                     );

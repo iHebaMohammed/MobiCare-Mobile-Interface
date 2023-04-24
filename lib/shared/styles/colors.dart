@@ -5,6 +5,7 @@ Color primaryColor1BA_75 = const Color(0xFF1BAEA6).withOpacity(0.75);
 Color primaryColor60D = const Color(0xFF60D2CE);
 Color primaryColor60D_10 = const Color(0xFF60D2CE).withOpacity(0.10);
 Color primaryColor60D_50 = const Color(0xFF60D2CE).withOpacity(0.50);
+Color primaryColorD2F_40 = const Color(0xFFD2FFFF).withOpacity(0.40);
 Color primaryColorD2F = const Color(0xFFD2FFFF);
 Color primaryColorBBF = const Color(0xFFBBFFFF);
 Color primaryColor8DB = const Color(0xFF8DB2B0);

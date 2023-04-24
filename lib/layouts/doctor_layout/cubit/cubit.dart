@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:mobi_care/modules/doctor_chat/doctor_chats_screen.dart';
+import 'package:mobi_care/modules/doctor_chats/doctor_chats_screen.dart';
 import 'package:mobi_care/modules/doctor_home/doctor_home_screen.dart';
 import 'package:mobi_care/modules/doctor_patients_list/doctor_patients_list_screen.dart';
 import 'package:mobi_care/modules/doctor_time_reminder/doctor_time_reminder_screen.dart';

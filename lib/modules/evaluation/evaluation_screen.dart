@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:mobi_care/shared/components/doctor_image_component.dart';
+import 'package:mobi_care/shared/styles/colors.dart';
 
 class EvaluationScreen extends StatelessWidget {
   @override
@@ -8,7 +9,7 @@ class EvaluationScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         elevation: 1,
-        backgroundColor: Color(0xFF1BAEA6),
+        backgroundColor: primaryColor1BA,
         actions: [
           IconButton(
             onPressed: () {},

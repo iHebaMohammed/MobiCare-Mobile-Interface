@@ -41,6 +41,9 @@ class PrescriptionCubit extends Cubit<PrescriptionStates> {
 
   late EthereumAddress senderAddress;
   late Credentials credentials;
+  late EtherAmount amount;
+
+  late List<dynamic> records = [];
 
   dynamic session;
 
@@ -94,7 +97,7 @@ class PrescriptionCubit extends Cubit<PrescriptionStates> {
             await launchUrlString(uri, mode: LaunchMode.externalApplication);
 
             String privateKey = uri.split('=')[2];
-            credentials = await client.credentialsFromPrivateKey(privateKey);
+            credentials = await EthPrivateKey.fromHex(privateKey);
           },
         );
 
@@ -108,62 +111,55 @@ class PrescriptionCubit extends Cubit<PrescriptionStates> {
   }
 
   getCredentials() async {
-    EtherAmount amount = await client.getBalance(senderAddress);
+    amount = await client.getBalance(senderAddress);
     print("Amount: $amount");
 
     EthereumWalletConnectProvider provider =
         EthereumWalletConnectProvider(connector);
-
-    print("provider.chainId: ${provider.chainId}");
-    print("provider.connector: ${provider.connector}");
-    print("provider.runtimeType: ${provider.runtimeType}");
-    print("provider.hashCode: ${provider.hashCode}");
   }
 
-  // signTransaction() async {
-  //   final provider = AlgorandWalletConnectProvider(connector);
-  //
-  //   Transaction tx = Transaction(
-  //       from: senderAddress,
-  //       maxGas: 1000000000,
-  //       data: Uint8List.fromList("cid".codeUnits));
-  //
-  //   provider.signTransaction(tx as Uint8List);
-  //
-  //   // Kill the session
-  // }
-
   Future<void> addRecord(String cid, EthereumAddress patientAddress) async {
-    String tx = await client.sendTransaction(
-      credentials,
-      Transaction.callContract(
-        contract: deployedContract,
-        function: _addRecord,
-        parameters: [cid, patientAddress],
-      ),
-      chainId: 4,
-    );
+    try {
+      List params = [cid, patientAddress]; // function parameters
 
-    print("tx: $tx");
-    await getRecords(patientAddress);
+      final gas = await client.estimateGas(
+        sender: senderAddress,
+        to: contractAddress,
+        data: _addRecord.encodeCall(params),
+      );
+      print("gas: $gas");
+
+      String txHash = await client.sendTransaction(
+        credentials,
+        Transaction.callContract(
+          contract: deployedContract,
+          function: _addRecord,
+          parameters: params,
+          gasPrice: EtherAmount.fromInt(EtherUnit.wei, 200000000000000000),
+          from: senderAddress,
+          maxGas: 115525,
+        ),
+        chainId: 11155111,
+      );
+      print("tx hash: $txHash");
+
+    } catch (err) {
+      print("err: $err");
+    }
   }
 
   Future<void> getRecords(EthereumAddress patientAddress) async {
     // Getting the current record declared in the smart contract.
-    client.call(
+    records = await client.call(
       contract: deployedContract,
       function: _getRecords,
       params: [patientAddress],
-    ).then((value) {
-      print("================================");
-      print("get records: ${value}");
-      print("================================");
+    );
 
-      var deployedRecord = value[0];
-      print(deployedRecord);
+    var deployedRecord = records.toString();
+    print("records: $deployedRecord");
 
-      connector.killSession();
-      emit(GetRecordsState());
-    });
+    // connector.killSession();
+    emit(GetRecordsState());
   }
 }

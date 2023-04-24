@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:mobi_care/layouts/drawer_layout_components/cubit/cubit.dart';
-import 'package:mobi_care/layouts/drawer_layout_components/cubit/states.dart';
+import '../../layouts/patient_drawer_layout_components/cubit/cubit.dart';
+import '../../layouts/patient_drawer_layout_components/cubit/states.dart';
 import '../styles/colors.dart';
 import 'components.dart';
 

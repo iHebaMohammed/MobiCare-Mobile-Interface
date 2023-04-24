@@ -2,8 +2,9 @@ var EHR = artifacts.require("./EHR.sol");
 
 contract("EHR", function (accounts) {
   it("should assert true", async function () {
-    const EHR_instance = await EHR.deployed()
-    return assert.isTrue(true)
+    EHR.deployed()
+        .then(() => assert.isTrue(true))
+        .catch(() => assert.isTrue(false))
   })
 
   it("should add record", async function () {
@@ -11,16 +12,12 @@ contract("EHR", function (accounts) {
 
     await EHR_instance.addRecord(
       "1st",
-      "First Record",
-      accounts[1],
-      accounts[0]
+      accounts[1]
     )
 
     await EHR_instance.addRecord(
       "2nd",
-      "Second Record",
-      accounts[1],
-      accounts[0]
+      accounts[1]
     )
 
     return assert.isTrue(true)

@@ -80,22 +80,77 @@ class PatientLayoutCubit extends Cubit<PatientLayoutStates> {
     emit(PatientLayoutChangeBottomNavigationBarState());
   }
 
-  UserModel ? userModel;
+  // UserModel ? userModel;
+
+  List<UserModel> allUsers = [];
+  List<UserModel> usersInAnotherTypeOfMe = [];
+  List<String> uIdsOfChatsSender = [];
 
   List<UserModel> users = [];
 
-  void getChats(){
-    emit(LayoutGetUsersInChatLoadingState());
-    if(users.length == 0){
+  void getAllUsers(){
+    emit(LayoutGetAllUsersLoadingState());
+    if(allUsers.isEmpty){
       FirebaseFirestore.instance
           .collection('users')
           .get()
           .then((value) {
         value.docs.forEach((element) {
-          if(element.data()['uId'] != uId)
-            users.add(UserModel.fromJson(element.data()));
-          emit(LayoutGetUsersInChatSuccessState());
+          if(element.data()['uId'] != uId) {
+            allUsers.add(UserModel.fromJson(element.data()));
+          }
         });
+        emit(LayoutGetAllUsersSuccessfullyState());
+      }).catchError((error) {
+        print(error.toString());
+        emit(LayoutGetAllUsersErrorState());
+      });
+    }
+
+  }
+
+  void getUIdsOfChatsSender() {
+    emit(LayoutGetUIdsOfChatsSenderLoadingState());
+    print('==========#####==========');
+    FirebaseFirestore.instance
+        .collection('users')
+        .doc(uId)
+        .collection('chats')
+        .get()
+        .then((value) {
+          print('value.docs:   ${value.docs}');
+          value.docs.forEach((element) {
+            print('************************************');
+            uIdsOfChatsSender.add(element.id);
+            print('====================');
+            print(uIdsOfChatsSender[0]);
+          });
+          print('====================');
+          emit(LayoutGetUIdsOfChatsSenderSuccessfullyState());
+          print('UId Sender: ');
+          print(uIdsOfChatsSender);
+    }).catchError((error){
+      emit(LayoutGetUIdsOfChatsSenderErrorState());
+      print(error.toString());
+    });
+  }
+
+  void getChats(){
+    usersInAnotherTypeOfMe = [];
+    emit(LayoutGetUsersInChatLoadingState());
+    if(allUsers.isEmpty){
+      FirebaseFirestore.instance
+          .collection('users')
+          .get()
+          .then((value) {
+        value.docs.forEach((element) {
+          if(element.data()['uId'] != uId && element.data()['role'] != role){
+            usersInAnotherTypeOfMe.add(UserModel.fromJson(element.data()));
+          }
+        });
+        emit(LayoutGetUsersInChatSuccessState());
+        getUIdsOfChatsSender();
+        print('uId: ======= $uId');
       }).catchError((error) {
         print(error.toString());
         emit(LayoutGetUsersInChatErrorState());
