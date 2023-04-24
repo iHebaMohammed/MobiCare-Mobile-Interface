@@ -55,9 +55,12 @@ dependencies:
   flutter_time_picker_spinner: ^2.0.0
   table_calendar: ^3.0.8
   flutter_rating_bar: ^4.0.1
-  flutter_local_notifications: ^8.2.0
-  audioplayers: ^4.0.0
-  http: ^0.13.5
+  http: ^0.13.4
+  web_socket_channel: ^2.4.0
+  web3dart: ^2.5.1
+  url_launcher: ^6.1.10
+  walletconnect_dart: ^0.0.11
+
 #  syncfusion_flutter_datepicker: ^21.1.35
 
 dev_dependencies:
@@ -96,7 +99,8 @@ flutter:
     - assets/svg/payment/
     - assets/svg/prescription/
     - assets/svg/doctor_time_reminder/
-  #   - images/a_dot_ham.jpeg
+    - src/artifacts/EHR.json
+    #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
