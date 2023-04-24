@@ -21,7 +21,7 @@ class DoctorChatComponent extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        defaultImageShape(
+        DefaultImageShape(
           isMale: isMale,
           height: 50,
           image: image

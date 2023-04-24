@@ -7,38 +7,34 @@ import '../styles/colors.dart';
 import 'components.dart';
 
 class BuildClickableDrawerItem extends StatelessWidget {
-
   final String svgIcon;
   final String title;
   final BuildContext context;
   final int index;
 
-  const BuildClickableDrawerItem({
-    required this.svgIcon,
-    required this.title,
-    required this.context,
-    required this.index
-  });
+  const BuildClickableDrawerItem(
+      {required this.svgIcon,
+      required this.title,
+      required this.context,
+      required this.index});
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => DrawerLayoutCubit(),
-      child: BlocConsumer<DrawerLayoutCubit , DrawerLayoutStates>(
+      child: BlocConsumer<DrawerLayoutCubit, DrawerLayoutStates>(
         listener: (context, state) {},
         builder: (context, state) {
           return BlocProvider(
             create: (context) => DrawerLayoutCubit(),
-            child: BlocConsumer<DrawerLayoutCubit , DrawerLayoutStates>(
-              listener: (context, state) {
-
-              },
+            child: BlocConsumer<DrawerLayoutCubit, DrawerLayoutStates>(
+              listener: (context, state) {},
               builder: (context, state) {
                 DrawerLayoutCubit cubit = DrawerLayoutCubit.get(context);
                 return Padding(
                   padding: const EdgeInsets.symmetric(vertical: 4.0),
                   child: InkWell(
-                    onTap: (){
+                    onTap: () {
                       cubit.changeScreen(index, context);
                     },
                     child: Padding(
@@ -46,20 +42,21 @@ class BuildClickableDrawerItem extends StatelessWidget {
                       child: Row(
                         children: [
                           SvgPicture.asset(svgIcon),
-                          SizedBox(
+                          const SizedBox(
                             width: 16,
                           ),
                           Expanded(
                             child: Text(
                               title,
                               style: TextStyle(
-                                  color: primaryBlackColor,
-                                  fontSize: 16
-                              ),
+                                  color: primaryBlackColor, fontSize: 16),
                             ),
                           ),
-                          Spacer(),
-                          Icon(Icons.arrow_forward_ios , size: 15,),
+                          const Spacer(),
+                          const Icon(
+                            Icons.arrow_forward_ios,
+                            size: 15,
+                          ),
                         ],
                       ),
                     ),
@@ -75,20 +72,16 @@ class BuildClickableDrawerItem extends StatelessWidget {
 }
 
 class DrawerLayoutHeader extends StatelessWidget {
-
   final String image;
   final String name;
   final String email;
 
-  const DrawerLayoutHeader({
-    required this.image,
-    required this.name,
-    required this.email
-  });
+  const DrawerLayoutHeader(
+      {required this.image, required this.name, required this.email});
 
   @override
   Widget build(BuildContext context) {
-    return  Container(
+    return Container(
       color: primaryColor60D_50,
       width: double.infinity,
       height: 240,
@@ -96,33 +89,24 @@ class DrawerLayoutHeader extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          defaultImageShape(
-              isMale: false,
-              image: image
-          ),
-          SizedBox(
+          DefaultImageShape(isMale: false, image: image),
+          const SizedBox(
             height: 15,
           ),
           Text(
             name,
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
-            style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.w600
-            ),
+            style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
           ),
-          SizedBox(
+          const SizedBox(
             height: 10,
           ),
           Text(
             email,
             overflow: TextOverflow.ellipsis,
             maxLines: 1,
-            style: TextStyle(
-                fontSize: 14,
-                fontWeight: FontWeight.w300
-            ),
+            style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w300),
           ),
         ],
       ),

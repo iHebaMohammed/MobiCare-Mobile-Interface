@@ -19,12 +19,14 @@ import 'package:mobi_care/modules/payment/cubit/cubit.dart';
 import 'package:mobi_care/modules/payment/payment_screen.dart';
 import 'package:mobi_care/modules/payment_done/payment_done_screen.dart';
 import 'package:mobi_care/shared/bloc_observer.dart';
-import 'modules/add_lists/add_lists_screen.dart';
+import 'modules/doctor_chats/doctor_chats_screen.dart';
 import 'modules/doctor_home/doctor_home_screen.dart';
 import 'modules/doctor_profile_patient_view/doctor_profile_patient_view_screen.dart';
 import 'modules/edit_doctor_profile/edit_doctor_profile_screen.dart';
 import 'modules/evaluation/evaluation_screen.dart';
 import 'modules/home_visit_requests/home_visit_requests.dart';
+import 'modules/home_visit_requests/home_visit_requests.dart';
+import 'modules/patient_prescriptions/cubit/cubit.dart';
 import 'modules/patient_prescriptions/patient_prescriptions_screen.dart';
 import 'modules/patient_profile/patient_profile.dart';
 import 'modules/post_details/post_details_screen.dart';
@@ -34,7 +36,7 @@ import 'shared/network/remote/dio_helper.dart';
 import 'shared/styles/themes.dart';
 import 'shared/network/local/cache_helper.dart';
 
-void main() async{
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   // const AndroidInitializationSettings initializationSettingsAndroid = AndroidInitializationSettings('app_icon');
   // final IOSInitializationSettings initializationSettingsIOS = IOSInitializationSettings(
@@ -52,7 +54,7 @@ void main() async{
   DioHelper.init();
   Bloc.observer = MyBlocObserver();
   await CacheHelper.init();
-  bool? isDark = CacheHelper.getData( key: 'isDark');
+  bool? isDark = CacheHelper.getData(key: 'isDark');
 
 
 
@@ -88,13 +90,14 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (context) => DoctorTimeReminderCubit()..createDatabase(),
         ),
+        BlocProvider(
+          create: (context) => PrescriptionCubit()..initialSetup(),
+        ),
       ],
-      child: BlocConsumer<PatientLayoutCubit , PatientLayoutStates>(
-        listener: (context, state) {
-
-        },
+      child: BlocConsumer<PatientLayoutCubit, PatientLayoutStates>(
+        listener: (context, state) {},
         builder: (context, state) {
-          return  MaterialApp(
+          return MaterialApp(
             debugShowCheckedModeBanner: false,
             themeMode: ThemeMode.light,
             theme: lightTheme,

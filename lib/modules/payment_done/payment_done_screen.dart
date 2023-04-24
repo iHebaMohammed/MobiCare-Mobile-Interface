@@ -42,7 +42,7 @@ class PaymentDoneScreen extends StatelessWidget {
                     ),
                   ],
                 ),
-                defaultButton(function: (){}, text: 'Ok' , redius: 6)
+                DefaultButton(function: (){}, text: 'Ok' , redius: 6)
               ],
             ),
           ),

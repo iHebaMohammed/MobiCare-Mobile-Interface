@@ -21,7 +21,7 @@ class PatientComponentInPatientsList extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        defaultImageShape(
+        DefaultImageShape(
             isMale: isMale,
             image: image,
             height: 60
@@ -42,7 +42,7 @@ class PatientComponentInPatientsList extends StatelessWidget {
         SizedBox(
           width: 5,
         ),
-        defaultButton(
+        DefaultButton(
             function: function,
             text: 'View Profile',
             width: 130,

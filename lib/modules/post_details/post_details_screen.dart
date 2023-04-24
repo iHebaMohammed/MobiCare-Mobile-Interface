@@ -23,7 +23,7 @@ class PostDetailsScreen extends StatelessWidget {
       ),
       body: Column(
         children: [
-          defaultPostView(
+          DefaultPostView(
               publisherName: 'Heba Adel',
               publisherImage: 'https://img.freepik.com/free-photo/stylish-good-looking-ambitious-smiling-brunette-woman-with-curly-hairstyle-cross-hands-chest-confident-professional-pose-smiling-standing-casually-summer-outfit-talking-friend-white-wall_176420-36248.jpg?w=1060&t=st=1677748376~exp=1677748976~hmac=a47d157f52938100a52d24cd7cd9802ee2f14fb84fe30813bc1994956a3a20b7',
               postText: 'Hi',
@@ -38,13 +38,13 @@ class PostDetailsScreen extends StatelessWidget {
           SizedBox(
             height: 10,
           ),
-          defaultCommentShape(
+          DefaultCommentShape(
               image: 'https://img.freepik.com/free-photo/pretty-smiling-joyfully-female-with-fair-hair-dressed-casually-looking-with-satisfaction_176420-15187.jpg?w=1060&t=st=1677749858~exp=1677750458~hmac=ce1ac83e76dd7c93703d46dd8310eee222d6545f29a15240cb9f2952c1371719',
               name: 'Naira Mahmoud',
               isMale: false,
               textOfComment: 'Hello'
           ),
-          defaultCommentShape(
+          DefaultCommentShape(
               image: 'https://img.freepik.com/free-photo/pretty-smiling-joyfully-female-with-fair-hair-dressed-casually-looking-with-satisfaction_176420-15187.jpg?w=1060&t=st=1677749858~exp=1677750458~hmac=ce1ac83e76dd7c93703d46dd8310eee222d6545f29a15240cb9f2952c1371719',
               name: 'Naira Mahmoud',
               isMale: false,

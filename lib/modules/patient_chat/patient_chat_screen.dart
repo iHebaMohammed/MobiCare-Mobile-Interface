@@ -24,7 +24,7 @@ class PatientChatScreen extends StatelessWidget {
           child: ConditionalBuilder(
             condition: cubit.usersInAnotherTypeOfMe.length > 0,
             builder: (context) => ListView.builder(
-              itemBuilder: (context, index) => defaultChatRowUserViewItem(
+              itemBuilder: (context, index) => DefaultChatRowUserViewItem(
                   context: context,
                   model: cubit.usersInAnotherTypeOfMe[index],
                   lastMessage: 'Hi',

@@ -11,7 +11,7 @@ class PatientPostsViewScreen extends StatelessWidget {
       child: SingleChildScrollView(
         child: Column(
           children: [
-            defaultPostView(
+            DefaultPostView(
                 publisherName: 'Heba Adel',
                 publisherImage: 'https://img.freepik.com/free-psd/3d-illustration-person-with-sunglasses_23-2149436188.jpg?w=740&t=st=1677116117~exp=1677116717~hmac=0eaee5fcf6754432b852deadbe808bb6b5344e8ef73dc3e38fa9847446bcbcd0',
                 postText: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printe',
@@ -23,7 +23,7 @@ class PatientPostsViewScreen extends StatelessWidget {
                 numberOfComments: '14' ,
                 dateOfPublish: '14/2/15',
             ),
-            defaultPostView(
+            DefaultPostView(
               publisherName: 'Heba Adel',
               publisherImage: 'https://img.freepik.com/free-psd/3d-illustration-person-with-sunglasses_23-2149436188.jpg?w=740&t=st=1677116117~exp=1677116717~hmac=0eaee5fcf6754432b852deadbe808bb6b5344e8ef73dc3e38fa9847446bcbcd0',
               postText: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printe',

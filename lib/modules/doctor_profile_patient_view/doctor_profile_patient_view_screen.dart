@@ -380,7 +380,7 @@ class DoctorProfilePatientViewScreen extends StatelessWidget {
                     ),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 4.0),
-                      child: defaultButton(
+                      child: DefaultButton(
                           function: (){},
                           text: 'Book a home visit',
                           redius: 30,

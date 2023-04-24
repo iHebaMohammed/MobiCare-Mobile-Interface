@@ -58,10 +58,10 @@ class DoctorLayout extends StatelessWidget {
                 cubit.changeBottomIndex(index);
               },
               index: cubit.currentIndex,
-              color: Colors.black12,
-              backgroundColor: Colors.transparent,
+              color: primaryColorD2F_40,
+              backgroundColor: primaryWhiteColor,
               animationCurve: Curves.easeInOut,
-              animationDuration: Duration(milliseconds: 800),
+              animationDuration: const Duration(milliseconds: 600),
               letIndexChange: (index) => true,
             ),
             drawer: Drawer(

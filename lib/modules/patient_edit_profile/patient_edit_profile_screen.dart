@@ -19,18 +19,17 @@ class PatientEditProfileScreen extends StatelessWidget {
   DateTime dateOfBirth = DateTime.now();
   bool isSymptomsVisible = true;
 
-  List<int> addItemsInWeightList(){
+  List<int> addItemsInWeightList() {
     List<int> widthList = [];
-    for(int i = 4 ; i <= 200 ; i++){
+    for (int i = 4; i <= 200; i++) {
       widthList.add(i);
     }
     return widthList;
   }
 
-
-  List<int> addItemsInHeightList(){
+  List<int> addItemsInHeightList() {
     List<int> widthList = [];
-    for(int i = 90 ; i <= 190 ; i++){
+    for (int i = 90; i <= 190; i++) {
       widthList.add(i);
     }
     return widthList;
@@ -38,23 +37,24 @@ class PatientEditProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<PatientEditProfileCubit , PatientEditProfileStates>(
-      listener: (context, state) {
-
-      },
+    return BlocConsumer<PatientEditProfileCubit, PatientEditProfileStates>(
+      listener: (context, state) {},
       builder: (context, state) {
         PatientEditProfileCubit cubit = PatientEditProfileCubit.get(context);
-        dateOfBirthController.text = cubit.datePiker != null ? '${cubit.datePiker!.day} / ${cubit.datePiker!.month} / ${cubit.datePiker!.year}' : '${dateOfBirth.day} / ${dateOfBirth.month} / ${dateOfBirth.year}';
+        dateOfBirthController.text = cubit.datePiker != null
+            ? '${cubit.datePiker!.day} / ${cubit.datePiker!.month} / ${cubit.datePiker!.year}'
+            : '${dateOfBirth.day} / ${dateOfBirth.month} / ${dateOfBirth.year}';
         return Scaffold(
           floatingActionButton: InkWell(
-            onTap: (){},
+            onTap: () {},
             child: Container(
               decoration: BoxDecoration(
                 color: primaryColor1BA,
                 borderRadius: BorderRadius.circular(25),
               ),
               child: Padding(
-                padding: const EdgeInsets.symmetric(vertical: 15.0 , horizontal: 20),
+                padding:
+                    const EdgeInsets.symmetric(vertical: 15.0, horizontal: 20),
                 child: Text(
                   'Add Symptom',
                   style: TextStyle(
@@ -86,8 +86,7 @@ class PatientEditProfileScreen extends StatelessWidget {
                                   borderRadius: BorderRadiusDirectional.only(
                                     bottomStart: Radius.circular(8),
                                     bottomEnd: Radius.circular(8),
-                                  )
-                              ),
+                                  )),
                             )
                           ],
                         ),
@@ -97,16 +96,14 @@ class PatientEditProfileScreen extends StatelessWidget {
                         children: [
                           SizedBox(
                             width: 115,
-                            child: defaultImageShape(
+                            child: DefaultImageShape(
                                 isMale: true,
                                 height: 80,
-                                image: 'https://img.freepik.com/free-photo/smiley-little-boy-isolated-pink_23-2148984798.jpg?w=1060&t=st=1677173572~exp=1677174172~hmac=94a6e1073a52704d51512902c48c715b8754414e819a4a9c88ad63bcbbc756ca'
-                            ),
+                                image:
+                                    'https://img.freepik.com/free-photo/smiley-little-boy-isolated-pink_23-2148984798.jpg?w=1060&t=st=1677173572~exp=1677174172~hmac=94a6e1073a52704d51512902c48c715b8754414e819a4a9c88ad63bcbbc756ca'),
                           ),
                           IconButton(
-                            onPressed: (){
-
-                            },
+                            onPressed: () {},
                             icon: CircleAvatar(
                               backgroundColor: primaryColor1BA,
                               radius: 15,
@@ -144,83 +141,78 @@ class PatientEditProfileScreen extends StatelessWidget {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsetsDirectional.only(top: 8.0 , start: 20.0 , end: 20.0 , bottom: 70),
+                  padding: const EdgeInsetsDirectional.only(
+                      top: 8.0, start: 20.0, end: 20.0, bottom: 70),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Row(
                         children: [
                           Expanded(
-                            child: buildColumnTextField(
+                            child: BuildColumnTextField(
                                 controller: firstNameController,
                                 labelName: 'First Name',
-                                validator: (value){
-                                  if(value!.isEmpty){
+                                validator: (value) {
+                                  if (value!.isEmpty) {
                                     return 'First Name can\'t be empty';
                                   }
-                                  return null;
-                                }
-                            ),
+                                  return "null";
+                                }),
                           ),
                           SizedBox(
                             width: 15,
                           ),
                           Expanded(
-                            child: buildColumnTextField(
+                            child: BuildColumnTextField(
                                 controller: lastNameController,
                                 labelName: 'Last Name',
-                                validator: (value){
-                                  if(value!.isEmpty){
+                                validator: (value) {
+                                  if (value!.isEmpty) {
                                     return 'Last Name can\'t be empty';
                                   }
-                                  return null;
-                                }
-                            ),
+                                  return "null";
+                                }),
                           ),
                         ],
                       ),
-                      buildColumnTextField(
+                      BuildColumnTextField(
                           controller: emailController,
                           labelName: 'Email',
-                          validator: (value){
-                            if(value!.isEmpty){
+                          validator: (value) {
+                            if (value!.isEmpty) {
                               return 'Email can\'t be empty';
                             }
-                            return null;
-                          }
-                      ),
-                      buildColumnTextField(
+                            return "null";
+                          }),
+                      BuildColumnTextField(
                           controller: passwordController,
                           labelName: 'Password',
-                          validator: (value){
-                            if(value!.isEmpty){
+                          validator: (value) {
+                            if (value!.isEmpty) {
                               return 'Password can\'t be empty';
                             }
-                            return null;
-                          }
-                      ),
-                      buildColumnTextField(
+                            return "null";
+                          }),
+                      BuildColumnTextField(
                           controller: confirmPasswordController,
                           labelName: 'Confirm Password',
-                          validator: (value){
-                            if(value!.isEmpty){
+                          validator: (value) {
+                            if (value!.isEmpty) {
                               return 'Confirm Password can\'t be empty';
-                            }else if(value != passwordController.text){
+                            } else if (value != passwordController.text) {
                               return 'Confirm Password Filed not match Password Filed';
                             }
-                            return null;
-                          }
-                      ),
-                      buildColumnTextField(
+                            return "null";
+                          }),
+                      BuildColumnTextField(
                           controller: addressController,
                           labelName: 'Address',
-                          validator: (value){
-                            if(value!.isEmpty){
+                          validator: (value) {
+                            if (value!.isEmpty) {
                               return 'Address can\'t be empty';
                             }
-                            return null;
-                          }
-                      ),
+                            return "null";
+                          }),
                       SizedBox(
                         height: 12,
                       ),
@@ -231,31 +223,30 @@ class PatientEditProfileScreen extends StatelessWidget {
                         height: 5,
                       ),
                       InkWell(
-                          onTap: () async{
-                            DateTime ? newDate = await showDatePicker(
-                              context: context,
-                              firstDate: DateTime(1950),
-                              initialDate: DateTime(2001 , 1 , 15),
-                              lastDate: DateTime.now(),
-                            );
-                            if(newDate != null)
-                              cubit.selectDatePiker(newDate);
-                          },
-                          child: TextFormField(
-                            enabled: false,
-                            controller: dateOfBirthController,
-                            decoration: InputDecoration(
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(5.0),
-                              ),
+                        onTap: () async {
+                          DateTime? newDate = await showDatePicker(
+                            context: context,
+                            firstDate: DateTime(1950),
+                            initialDate: DateTime(2001, 1, 15),
+                            lastDate: DateTime.now(),
+                          );
+                          if (newDate != null) cubit.selectDatePiker(newDate);
+                        },
+                        child: TextFormField(
+                          enabled: false,
+                          controller: dateOfBirthController,
+                          decoration: InputDecoration(
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(5.0),
                             ),
-                            validator: (value){
-                              if(value!.isEmpty){
-                                return 'Address can\'t be empty';
-                              }
-                              return null;
-                            },
                           ),
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return 'Address can\'t be empty';
+                            }
+                            return "null";
+                          },
+                        ),
                       ),
                       SizedBox(
                         height: 12,
@@ -266,30 +257,29 @@ class PatientEditProfileScreen extends StatelessWidget {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text(
-                                    'Weight'
-                                ),
+                                Text('Weight'),
                                 Container(
                                   decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(5),
-                                      color: primaryWhiteColor
-                                  ),
+                                      color: primaryWhiteColor),
                                   child: Padding(
-                                    padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 15.0),
                                     child: Row(
                                       children: [
                                         DropdownButton<String>(
-                                          value: '${addItemsInWeightList().first.toString()}',
+                                          value:
+                                              '${addItemsInWeightList().first.toString()}',
                                           underline: Container(
                                             color: primaryColor1BA,
                                             height: 1,
                                           ),
                                           icon: Container(),
                                           elevation: 16,
-                                          onChanged: (String? value) {
-
-                                          },
-                                          items: addItemsInWeightList().map<DropdownMenuItem<String>>((value) {
+                                          onChanged: (String? value) {},
+                                          items: addItemsInWeightList()
+                                              .map<DropdownMenuItem<String>>(
+                                                  (value) {
                                             return DropdownMenuItem<String>(
                                               value: value.toString(),
                                               child: Text(value.toString()),
@@ -314,30 +304,29 @@ class PatientEditProfileScreen extends StatelessWidget {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text(
-                                  'Height'
-                                ),
+                                Text('Height'),
                                 Container(
                                   decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(5),
-                                      color: primaryWhiteColor
-                                  ),
+                                      color: primaryWhiteColor),
                                   child: Padding(
-                                    padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 15.0),
                                     child: Row(
                                       children: [
                                         DropdownButton<String>(
-                                          value: '${addItemsInHeightList().first.toString()}',
+                                          value:
+                                              '${addItemsInHeightList().first.toString()}',
                                           underline: Container(
                                             color: primaryColor1BA,
                                             height: 1,
                                           ),
                                           icon: Container(),
                                           elevation: 16,
-                                          onChanged: (value) {
-
-                                          },
-                                          items: addItemsInHeightList().map<DropdownMenuItem<String>>((value) {
+                                          onChanged: (value) {},
+                                          items: addItemsInHeightList()
+                                              .map<DropdownMenuItem<String>>(
+                                                  (value) {
                                             return DropdownMenuItem<String>(
                                               value: value.toString(),
                                               child: Text(value.toString()),
@@ -359,7 +348,7 @@ class PatientEditProfileScreen extends StatelessWidget {
                       ),
                       Divider(),
                       InkWell(
-                        onTap: (){
+                        onTap: () {
                           isSymptomsVisible = !isSymptomsVisible;
                           cubit.changeSymptomsVisibility(isSymptomsVisible);
                         },
@@ -376,34 +365,33 @@ class PatientEditProfileScreen extends StatelessWidget {
                                 ),
                               ),
                               Spacer(),
-                              Icon(
-                                  Icons.keyboard_arrow_down
-                              ),
+                              Icon(Icons.keyboard_arrow_down),
                             ],
                           ),
                         ),
                       ),
-                      if(isSymptomsVisible)
+                      if (isSymptomsVisible)
                         SizedBox(
                           width: double.infinity,
                           child: Padding(
                             padding: const EdgeInsets.symmetric(vertical: 8.0),
                             child: Wrap(
                               children: [
-                                defaultSymptomWithRemoveItem(nameOfSymptom: 'Headache'),
-                                defaultSymptomWithRemoveItem(
+                                DefaultSymptomWithRemoveItem(
+                                    nameOfSymptom: 'Headache'),
+                                DefaultSymptomWithRemoveItem(
                                   nameOfSymptom: 'Stomach pain',
                                 ),
-                                defaultSymptomWithRemoveItem(
+                                DefaultSymptomWithRemoveItem(
                                   nameOfSymptom: 'shortness of breath',
                                 ),
-                                defaultSymptomWithRemoveItem(
+                                DefaultSymptomWithRemoveItem(
                                   nameOfSymptom: 'Headache',
                                 ),
-                                defaultSymptomWithRemoveItem(
+                                DefaultSymptomWithRemoveItem(
                                   nameOfSymptom: 'Stomach pain',
                                 ),
-                                defaultSymptomWithRemoveItem(
+                                DefaultSymptomWithRemoveItem(
                                   nameOfSymptom: 'shortness of breath',
                                 ),
                               ],
@@ -413,7 +401,6 @@ class PatientEditProfileScreen extends StatelessWidget {
                     ],
                   ),
                 ),
-
               ],
             ),
           ),
