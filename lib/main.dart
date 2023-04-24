@@ -99,7 +99,7 @@ class MyApp extends StatelessWidget {
             themeMode: ThemeMode.light,
             theme: lightTheme,
             darkTheme: darkTheme,
-            home: LoginScreen(),
+            home: DoctorLayout(),
           );
         },
       ),

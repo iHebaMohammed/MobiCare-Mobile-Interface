@@ -112,6 +112,7 @@ class PatientLayoutCubit extends Cubit<PatientLayoutStates> {
   void getUIdsOfChatsSender() {
     emit(LayoutGetUIdsOfChatsSenderLoadingState());
     print('==========#####==========');
+    print(uId);
     FirebaseFirestore.instance
         .collection('users')
         .doc(uId)
@@ -135,7 +136,7 @@ class PatientLayoutCubit extends Cubit<PatientLayoutStates> {
     });
   }
 
-  void getChats(){
+  void getChats()   {
     usersInAnotherTypeOfMe = [];
     emit(LayoutGetUsersInChatLoadingState());
     if(allUsers.isEmpty){

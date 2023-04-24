@@ -53,6 +53,7 @@ class RegisterCubit extends Cubit<RegisterStates>{
     // });
   }
 
+
   void userCreateByFirebase({
     required String email ,
     required String firstName,
