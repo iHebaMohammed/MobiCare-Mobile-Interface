@@ -135,7 +135,7 @@ class PrescriptionCubit extends Cubit<PrescriptionStates> {
           contract: deployedContract,
           function: _addRecord,
           parameters: params,
-          gasPrice: EtherAmount.fromInt(EtherUnit.wei, 200000000000000000),
+          gasPrice: EtherAmount.inWei(BigInt.from(200000000000000000)),
           from: senderAddress,
           maxGas: 115525,
         ),
