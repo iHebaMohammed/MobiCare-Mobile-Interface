@@ -346,76 +346,68 @@ class DefaultChatRowUserViewItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(top: 10.0),
-      child: InkWell(
-        onTap: () {
-          navigateTo(
-            context: context,
-            widget: ChatDetailsScreen(userModel: model),
-          );
-        },
-        child: Row(
-          children: [
-            DefaultImageShape(
-              isMale: model.isMale!,
-              image: model.imageUrl!,
-              height: 60,
-            ),
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      '${model.firstName} ${model.lastName}',
-                      style: const TextStyle(
-                          fontSize: 15, fontWeight: FontWeight.w500),
-                    ),
-                    const SizedBox(
-                      height: 5,
-                    ),
-                    Text(
-                      lastMessage,
-                      overflow: TextOverflow.ellipsis,
-                      style: const TextStyle(
-                          fontSize: 14, fontWeight: FontWeight.w300),
-                    ),
-                  ],
-                ),
+      child: Row(
+        children: [
+          DefaultImageShape(
+            isMale: model.isMale!,
+            image: model.imageUrl!,
+            height: 60,
+          ),
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    '${model.firstName} ${model.lastName}',
+                    style: const TextStyle(
+                        fontSize: 15, fontWeight: FontWeight.w500),
+                  ),
+                  const SizedBox(
+                    height: 5,
+                  ),
+                  Text(
+                    lastMessage,
+                    overflow: TextOverflow.ellipsis,
+                    style: const TextStyle(
+                        fontSize: 14, fontWeight: FontWeight.w300),
+                  ),
+                ],
               ),
             ),
-            // Spacer(),
-            Column(
-              children: [
-                Text(
-                  dateOfLastMassage,
-                  style: TextStyle(
-                    fontSize: 11,
-                    fontWeight: FontWeight.w300,
-                    color: primaryColor1BA,
+          ),
+          // Spacer(),
+          Column(
+            children: [
+              Text(
+                dateOfLastMassage,
+                style: TextStyle(
+                  fontSize: 11,
+                  fontWeight: FontWeight.w300,
+                  color: primaryColor1BA,
+                ),
+              ),
+              Container(
+                decoration: BoxDecoration(
+                  color: primaryColor1BA,
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 10.0, vertical: 4.0),
+                  child: Text(
+                    numberOfMessage,
+                    style: TextStyle(
+                        color: primaryWhiteColor,
+                        fontSize: 11,
+                        fontWeight: FontWeight.w300),
                   ),
                 ),
-                Container(
-                  decoration: BoxDecoration(
-                    color: primaryColor1BA,
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 10.0, vertical: 4.0),
-                    child: Text(
-                      numberOfMessage,
-                      style: TextStyle(
-                          color: primaryWhiteColor,
-                          fontSize: 11,
-                          fontWeight: FontWeight.w300),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ],
-        ),
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }

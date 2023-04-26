@@ -12,6 +12,7 @@ import 'package:mobi_care/shared/components/text_form_field_component.dart';
 import 'package:mobi_care/shared/network/local/cache_helper.dart';
 import 'package:mobi_care/shared/styles/colors.dart';
 
+import '../../layouts/doctor_layout/doctor_layout.dart';
 import '../../shared/components/navigate_component.dart';
 import '../../shared/components/toast_component.dart';
 
@@ -28,7 +29,7 @@ class LoginScreen extends StatelessWidget {
       create: (BuildContext context) => LoginCubit(),
       child: BlocConsumer<LoginCubit , LoginStates>(
         listener: (context, state){
-          if(state is LoginErrorFirebaseState){
+          if(state is LoginPatientErrorFirebaseState){
             showToast(text: state.error, toastStates: ToastStates.ERROR);
           }
           else if(state is LoginErrorState){
@@ -42,10 +43,21 @@ class LoginScreen extends StatelessWidget {
               navigateTo(context: context, widget: PatientLayout());
             });
           }
-          else if(state is LoginSuccessFirebaseState){
+          else if(state is LoginPatientSuccessFirebaseState){
             CacheHelper.saveData(key: 'uId', value: state.uId).then((value) {
               navigateTo(context: context, widget: PatientLayout());
             });
+          }
+          else if(state is LoginPatientErrorFirebaseState){
+            showToast(text: state.error, toastStates: ToastStates.ERROR);
+          }
+          else if(state is LoginDoctorSuccessFirebaseState){
+            CacheHelper.saveData(key: 'uId', value: state.uId).then((value) {
+              navigateTo(context: context, widget: DoctorLayout());
+            });
+          }
+          else if(state is LoginDoctorErrorFirebaseState){
+            showToast(text: state.error, toastStates: ToastStates.ERROR);
           }
         },
         builder: (context, state) {
@@ -154,7 +166,7 @@ class LoginScreen extends StatelessWidget {
                                 backgroundColor: primaryColor1BA,
                                 function: (){
                                   if(formKey.currentState!.validate()){
-                                    cubit.userLoginByFirebase(
+                                    cubit.loginPatientByFirebase(
                                         email: emailController.text,
                                         password: passwordController.text,
                                     );

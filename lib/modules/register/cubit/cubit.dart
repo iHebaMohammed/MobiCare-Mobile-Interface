@@ -54,40 +54,105 @@ class RegisterCubit extends Cubit<RegisterStates>{
   }
 
 
-  void userCreateByFirebase({
+  void createPatientUsingFirebase({
     required String email ,
     required String firstName,
     required String lastName,
     required String phone,
     required String address,
     required String uId,
-}){
 
+}){
     UserModel userModel = UserModel(
       email: email,
       firstName: firstName,
       lastName: lastName,
       phoneNumber: phone,
       address: address,
-      imageUrl: 'https://cdn-icons-png.flaticon.com/512/727/727399.png?w=740&t=st=1676862815~exp=1676863415~hmac=d7a606f49dd55d1e9b966c52ae63fa89c8073e562ea0dd048658e9d7aaf4f6a9',
+      imageUrl: 'https://cdn-icons-png.flaticon.com/512/727/727369.png?w=740&t=st=1682386759~exp=1682387359~hmac=c7ad8bed588c7760e0b5701f3de6468304217539c53f8a9c018e3f8bcbba0b33',
+      uId: uId,
+      isMale: false,
+      role: 'P',
+    );
+    emit(CreatePatientLoadingFirebaseState());
+    FirebaseFirestore.instance
+        .collection('patients')
+        .doc(uId)
+        .set(userModel.toMap())
+        .then((value) {
+          emit(CreatePatientSuccessFirebaseState());
+    }).catchError((error){
+      emit(CreatePatientErrorFirebaseState());
+      print(error.toString());
+    });
+  }
+
+  void createDoctorUsingFirebase({
+    required String email ,
+    required String firstName,
+    required String lastName,
+    required String phone,
+    required String address,
+    required String uId,
+  }){
+    UserModel userModel = UserModel(
+      email: email,
+      firstName: firstName,
+      lastName: lastName,
+      phoneNumber: phone,
+      address: address,
+      imageUrl: 'https://cdn-icons-png.flaticon.com/512/727/727369.png?w=740&t=st=1682386759~exp=1682387359~hmac=c7ad8bed588c7760e0b5701f3de6468304217539c53f8a9c018e3f8bcbba0b33',
       uId: uId,
       isMale: false,
       role: 'D',
     );
-
+    emit(CreateDoctorLoadingFirebaseState());
     FirebaseFirestore.instance
-        .collection('users')
+        .collection('doctors')
         .doc(uId)
         .set(userModel.toMap())
         .then((value) {
-         emit(CreateUserSuccessFirebaseState());
-    }).catchError((error) {
-      emit(CreateUserErrorFirebaseState(error: error));
+      emit(CreateDoctorSuccessFirebaseState());
+    }).catchError((error){
+      emit(CreateDoctorErrorFirebaseState());
+      print(error.toString());
     });
-
   }
 
-  void userRegisterByFirebase({
+//   void userCreateByFirebase({
+//     required String email ,
+//     required String firstName,
+//     required String lastName,
+//     required String phone,
+//     required String address,
+//     required String uId,
+// }){
+//
+//     UserModel userModel = UserModel(
+//       email: email,
+//       firstName: firstName,
+//       lastName: lastName,
+//       phoneNumber: phone,
+//       address: address,
+//       imageUrl: 'https://cdn-icons-png.flaticon.com/512/727/727369.png?w=740&t=st=1682386759~exp=1682387359~hmac=c7ad8bed588c7760e0b5701f3de6468304217539c53f8a9c018e3f8bcbba0b33',
+//       uId: uId,
+//       isMale: false,
+//       role: 'D',
+//     );
+//
+//     FirebaseFirestore.instance
+//         .collection('users')
+//         .doc(uId)
+//         .set(userModel.toMap())
+//         .then((value) {
+//          emit(CreateUserSuccessFirebaseState());
+//     }).catchError((error) {
+//       emit(CreateUserErrorFirebaseState(error: error));
+//     });
+//
+//   }
+
+  void registerPatientByFirebase({
     required String email ,
     required String password,
     required String firstName,
@@ -96,26 +161,87 @@ class RegisterCubit extends Cubit<RegisterStates>{
     required String address,
     String ? diseasesNote,
   }){
-    emit(RegisterLoadingFirebaseState());
+    emit(RegisterPatientLoadingFirebaseState());
     FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: email,
         password: password
     ).then((value) {
       print(value.user!.email);
       print(value.user!.uid);
-
-      userCreateByFirebase(
-          email: email,
-          firstName: firstName,
-          lastName: lastName,
-          phone: phone,
-          address: address,
-          uId: value.user!.uid,
+      createPatientUsingFirebase(
+        email: email,
+        firstName: firstName,
+        lastName: lastName,
+        phone: phone,
+        address: address,
+        uId: value.user!.uid,
       );
-      // emit(RegisterSuccessFirebaseState());
     }).catchError((error) {
       print(error.toString());
-      emit(RegisterErrorFirebaseState(error: error));
+      emit(RegisterPatientErrorFirebaseState());
+
     });
   }
+
+  void registerDoctorByFirebase({
+    required String email ,
+    required String password,
+    required String firstName,
+    required String lastName,
+    required String phone,
+    required String address,
+    String ? diseasesNote,
+  }){
+    emit(RegisterDoctorLoadingFirebaseState());
+    FirebaseAuth.instance.createUserWithEmailAndPassword(
+        email: email,
+        password: password
+    ).then((value) {
+      print(value.user!.email);
+      print(value.user!.uid);
+      createDoctorUsingFirebase(
+        email: email,
+        firstName: firstName,
+        lastName: lastName,
+        phone: phone,
+        address: address,
+        uId: value.user!.uid,
+      );
+    }).catchError((error) {
+      print(error.toString());
+      emit(RegisterDoctorErrorFirebaseState());
+    });
+  }
+
+//
+//   void userRegisterByFirebase({
+//     required String email ,
+//     required String password,
+//     required String firstName,
+//     required String lastName,
+//     required String phone,
+//     required String address,
+//     String ? diseasesNote,
+//   }){
+//     emit(RegisterLoadingFirebaseState());
+//     FirebaseAuth.instance.createUserWithEmailAndPassword(
+//         email: email,
+//         password: password
+//     ).then((value) {
+//       print(value.user!.email);
+//       print(value.user!.uid);
+//       userCreateByFirebase(
+//           email: email,
+//           firstName: firstName,
+//           lastName: lastName,
+//           phone: phone,
+//           address: address,
+//           uId: value.user!.uid,
+//       );
+//       // emit(RegisterSuccessFirebaseState());
+//     }).catchError((error) {
+//       print(error.toString());
+//       emit(RegisterErrorFirebaseState(error: error));
+//     });
+//   }
 }

@@ -11,66 +11,153 @@ class ChatMessagesCubit extends Cubit<ChatMessagesStates>{
 
   static ChatMessagesCubit get(BuildContext context) => BlocProvider.of(context);
 
+  String getChatId({
+    required String receiverUId,
+  }){
+    if(uId!.substring(0,1).codeUnitAt(0) > receiverUId.substring(0,1).codeUnitAt(0)){
+      return '$receiverUId\_${uId!}';
+    }else{
+      return '${uId!}\_${receiverUId}';
+    }
+  }
+
+  void createChat({required String receiverUId}) {
+
+    List<String> users = [
+      uId!,
+      receiverUId
+    ];
+    Map<String , dynamic> chatMap = {
+      'users': users,
+      'chatId' : getChatId(receiverUId: receiverUId),
+    };
+    emit(CreateChatLoadingState());
+    FirebaseFirestore.instance
+        .collection('chats')
+        .doc('${uId!}_$receiverUId')
+        .set(chatMap)
+        .then((value) {
+          emit(CreateChatSuccessState());
+    }).catchError((error){
+      print('Error : ${error.toString()}');
+      emit(CreateChatErrorState());
+    });
+  }
+
   void sendMessage({
+    required String messageText,
     required String receiverId,
     required String dateTime,
-    required String textMessage,
   }){
-    MessageModel model = MessageModel(
+
+    MessageModel messageModel = MessageModel(
       senderId: uId!,
       receiverId: receiverId,
       dateTime: dateTime,
-      messageText: textMessage,
+      messageText: messageText,
     );
 
-    FirebaseFirestore.instance
-        .collection('users')
-        .doc(uId!)
-        .collection('chats')
-        .doc(receiverId)
-        .collection('messages')
-        .add(model.toMap())
-        .then((value) {
-      emit(SendMessageSuccessState());
-    }).catchError((error) {
-      print(error.toString());
-      emit(SendMessageErrorState());
-    });
+    String chatId = getChatId(receiverUId: receiverId);
 
     FirebaseFirestore.instance
-        .collection('users')
-        .doc(receiverId)
         .collection('chats')
-        .doc(uId!)
+        .doc(chatId)
         .collection('messages')
-        .add(model.toMap())
+        .add(messageModel.toMap())
         .then((value) {
       emit(SendMessageSuccessState());
-    }).catchError((error) {
+    }).catchError((error){
       print(error.toString());
       emit(SendMessageErrorState());
     });
   }
 
   List<MessageModel> messages = [];
-
   void getMessages({
-  required String receiverId
+  required String receiverId,
 }){
-    FirebaseFirestore.instance
-        .collection('users')
-        .doc(uId)
-        .collection('chats')
-        .doc(receiverId)
-        .collection('messages')
-        .orderBy('dateTime')
-        .snapshots()
-        .listen((event) {
-          messages = [];
-          event.docs.forEach((element) {
-              messages.add(MessageModel.fromJson(element.data()));
-          });
-          emit(GetMessageSuccessState());
-    });
+    try{
+      String chatId = getChatId(receiverUId: receiverId);
+      FirebaseFirestore.instance
+          .collection('chats')
+          .doc(chatId)
+          .collection('messages')
+          .orderBy('dateTime')
+          .snapshots()
+          .listen((event) {
+        messages = [];
+        event.docs.forEach((element) {
+          messages.add(MessageModel.fromJson(element.data()));
+        });
+        emit(GetMessageSuccessState());
+      });
+    }catch(e){
+      emit(GetMessageErrorState());
+    }
   }
+
+
+
+  // void sendMessage({
+  //   required String receiverId,
+  //   required String dateTime,
+  //   required String textMessage,
+  // }){
+  //   MessageModel model = MessageModel(
+  //     senderId: uId!,
+  //     receiverId: receiverId,
+  //     dateTime: dateTime,
+  //     messageText: textMessage,
+  //   );
+  //
+  //   FirebaseFirestore.instance
+  //       .collection('users')
+  //       .doc(uId!)
+  //       .collection('chats')
+  //       .doc(receiverId)
+  //       .collection('messages')
+  //       .add(model.toMap())
+  //       .then((value) {
+  //     emit(SendMessageSuccessState());
+  //   }).catchError((error) {
+  //     print(error.toString());
+  //     emit(SendMessageErrorState());
+  //   });
+  //
+  //   FirebaseFirestore.instance
+  //       .collection('users')
+  //       .doc(receiverId)
+  //       .collection('chats')
+  //       .doc(uId!)
+  //       .collection('messages')
+  //       .add(model.toMap())
+  //       .then((value) {
+  //     emit(SendMessageSuccessState());
+  //   }).catchError((error) {
+  //     print(error.toString());
+  //     emit(SendMessageErrorState());
+  //   });
+  // }
+
+  // List<MessageModel> messages = [];
+
+//   void getMessages({
+//   required String receiverId
+// }){
+//     FirebaseFirestore.instance
+//         .collection('users')
+//         .doc(uId)
+//         .collection('chats')
+//         .doc(receiverId)
+//         .collection('messages')
+//         .orderBy('dateTime')
+//         .snapshots()
+//         .listen((event) {
+//           messages = [];
+//           event.docs.forEach((element) {
+//               messages.add(MessageModel.fromJson(element.data()));
+//           });
+//           emit(GetMessageSuccessState());
+//     });
+//   }
 }

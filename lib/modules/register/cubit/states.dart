@@ -30,3 +30,27 @@ class CreateUserErrorFirebaseState extends RegisterStates {
 }
 
 class RegisterChangePasswordVisibility extends RegisterStates {}
+
+class CreatePatientLoadingFirebaseState extends RegisterStates {}
+
+class CreatePatientSuccessFirebaseState extends RegisterStates {}
+
+class CreatePatientErrorFirebaseState extends RegisterStates {}
+
+class CreateDoctorLoadingFirebaseState extends RegisterStates {}
+
+class CreateDoctorSuccessFirebaseState extends RegisterStates {}
+
+class CreateDoctorErrorFirebaseState extends RegisterStates {}
+
+class RegisterPatientLoadingFirebaseState extends RegisterStates {}
+
+class RegisterPatientSuccessFirebaseState extends RegisterStates {}
+
+class RegisterPatientErrorFirebaseState extends RegisterStates {}
+
+class RegisterDoctorLoadingFirebaseState extends RegisterStates {}
+
+class RegisterDoctorSuccessFirebaseState extends RegisterStates {}
+
+class RegisterDoctorErrorFirebaseState extends RegisterStates {}

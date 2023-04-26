@@ -41,6 +41,18 @@ class RegisterScreen extends StatelessWidget {
           else if(state is CreateUserSuccessFirebaseState){
             navigateTo(context: context, widget: LoginScreen());
           }
+          if(state is RegisterPatientSuccessFirebaseState){
+            navigateTo(context: context, widget: LoginScreen());
+          }
+          else if(state is CreatePatientSuccessFirebaseState){
+            navigateTo(context: context, widget: LoginScreen());
+          }
+          if(state is RegisterDoctorSuccessFirebaseState){
+            navigateTo(context: context, widget: LoginScreen());
+          }
+          else if(state is CreateDoctorSuccessFirebaseState){
+            navigateTo(context: context, widget: LoginScreen());
+          }
         },
         builder: (context, state) {
           RegisterCubit cubit = RegisterCubit.get(context);
@@ -226,7 +238,7 @@ class RegisterScreen extends StatelessWidget {
                                 backgroundColor: primaryColor1BA,
                                 function: (){
                                   if(formKey.currentState!.validate()){
-                                    cubit.userRegisterByFirebase(
+                                    cubit.registerDoctorByFirebase(
                                       email: emailController.text,
                                       password: passwordController.text,
                                       firstName: firstNameController.text,

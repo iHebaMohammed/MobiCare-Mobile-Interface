@@ -6,6 +6,9 @@ import 'package:mobi_care/layouts/patient_layout/cubit/states.dart';
 import 'package:mobi_care/shared/components/components.dart';
 import 'package:mobi_care/shared/styles/colors.dart';
 
+import '../../shared/components/navigate_component.dart';
+import '../chat_details/chat_details_screen.dart';
+
 class PatientChatScreen extends StatelessWidget {
   const PatientChatScreen({Key? key}) : super(key: key);
 
@@ -22,16 +25,25 @@ class PatientChatScreen extends StatelessWidget {
         return Padding(
           padding: const EdgeInsets.all(16.0),
           child: ConditionalBuilder(
-            condition: cubit.usersInAnotherTypeOfMe.length > 0,
+            condition: cubit.doctors.length > 0,
             builder: (context) => ListView.builder(
-              itemBuilder: (context, index) => DefaultChatRowUserViewItem(
-                  context: context,
-                  model: cubit.usersInAnotherTypeOfMe[index],
-                  lastMessage: 'Hi',
-                  dateOfLastMassage: '5/5/2005',
-                  numberOfMessage: '0',
+              itemBuilder: (context, index) => InkWell(
+                onTap: (){
+                  navigateTo(
+                    context: context,
+                    widget: ChatDetailsScreen(userModel: cubit.doctors[index]),
+                  );
+                  cubit.createChat(receiverUId: cubit.doctors[index].uId!);
+                },
+                child: DefaultChatRowUserViewItem(
+                    context: context,
+                    model: cubit.doctors[index],
+                    lastMessage: 'Hi',
+                    dateOfLastMassage: '5/5/2005',
+                    numberOfMessage: '0',
+                ),
               ),
-              itemCount: cubit.usersInAnotherTypeOfMe.length,
+              itemCount: cubit.doctors.length,
             ),
             fallback: (context) => Center(
               child: CircularProgressIndicator(

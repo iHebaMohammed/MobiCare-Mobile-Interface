@@ -2,26 +2,26 @@ import 'dart:math';
 
 class UserModel{
 
-  late String ? firstName;
-  late String ? lastName;
-  late String ? email;
-  late String ? uId;
-  late String ? imageUrl;
-  late String ? address;
-  late String ? phoneNumber;
-  late bool ? isMale;
-  late String ? role;
+  late String firstName;
+  late String lastName;
+  late String email;
+  late String uId;
+  late String imageUrl;
+  late String address;
+  late String phoneNumber;
+  late bool isMale;
+  late String role;
 
   UserModel({
-    this.firstName,
-    this.lastName,
-    this.email,
-    this.phoneNumber,
-    this.address,
-    this.imageUrl,
-    this.uId,
-    this.isMale,
-    this.role,
+    required this.firstName,
+    required this.lastName,
+    required this.email,
+    required this.phoneNumber,
+    required this.address,
+    required this.imageUrl,
+    required this.uId,
+    required this.isMale,
+    required this.role,
   });
 
   UserModel.fromJson(Map<String , dynamic> json){

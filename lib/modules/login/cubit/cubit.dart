@@ -73,6 +73,44 @@ class LoginCubit extends Cubit<LoginStates>{
     });
   }
 
+  void loginPatientByFirebase({
+    required String email ,
+    required String password,
+  }){
+    emit(LoginPatientLoadingFirebaseState());
+    FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: email,
+        password: password
+    ).then((value) {
+      print(value.user!.email);
+      print(value.user!.uid);
+      uId = value.user!.uid;
+      emit(LoginPatientSuccessFirebaseState(uId: value.user!.uid));
+    }).catchError((error) {
+      print(error.toString());
+      emit(LoginPatientErrorFirebaseState(error: error.toString()));
+    });
+  }
+
+  void loginDoctorByFirebase({
+    required String email ,
+    required String password,
+  }){
+    emit(LoginDoctorLoadingFirebaseState());
+    FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: email,
+        password: password
+    ).then((value) {
+      print(value.user!.email);
+      print(value.user!.uid);
+      uId = value.user!.uid;
+      emit(LoginDoctorSuccessFirebaseState(uId: value.user!.uid));
+    }).catchError((error) {
+      print(error.toString());
+      emit(LoginPatientErrorFirebaseState(error: error.toString()));
+    });
+  }
+
   // Future<void> adminLogin({
   //   required String email,
   //   required String password,

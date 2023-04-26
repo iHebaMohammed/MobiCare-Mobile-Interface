@@ -70,7 +70,7 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (context) => PatientLayoutCubit()..getUIdsOfChatsSender()..getAllUsers..getChats(),
+          create: (context) => PatientLayoutCubit()..getChats(),
         ),
         BlocProvider(
             create: (context) => ChatMessagesCubit(),
@@ -102,7 +102,7 @@ class MyApp extends StatelessWidget {
             themeMode: ThemeMode.light,
             theme: lightTheme,
             darkTheme: darkTheme,
-            home: DoctorLayout(),
+            home: LoginScreen(),
           );
         },
       ),

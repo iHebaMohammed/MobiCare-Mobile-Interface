@@ -109,7 +109,7 @@ class ChatDetailsScreen extends StatelessWidget {
                               cubit.sendMessage(
                                 receiverId: userModel.uId!,
                                 dateTime: DateTime.now().toString(),
-                                textMessage: messageController.text,
+                                  messageText: messageController.text,
                               );
                               messageController.text = '';
                             },

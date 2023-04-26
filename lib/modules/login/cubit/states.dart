@@ -19,6 +19,40 @@ class LoginErrorFirebaseState extends LoginStates {
   });
 }
 
+class LoginPatientLoadingFirebaseState extends LoginStates {}
+
+class LoginPatientSuccessFirebaseState extends LoginStates {
+  final String uId;
+  LoginPatientSuccessFirebaseState({
+    required this.uId,
+  });
+}
+
+class LoginPatientErrorFirebaseState extends LoginStates {
+  final String error;
+
+  LoginPatientErrorFirebaseState({
+    required this.error,
+  });
+}
+
+class LoginDoctorLoadingFirebaseState extends LoginStates {}
+
+class LoginDoctorSuccessFirebaseState extends LoginStates {
+  final String uId;
+  LoginDoctorSuccessFirebaseState({
+    required this.uId,
+  });
+}
+
+class LoginDoctorErrorFirebaseState extends LoginStates {
+  final String error;
+
+  LoginDoctorErrorFirebaseState({
+    required this.error,
+  });
+}
+
 class LoginLoadingState extends LoginStates {}
 
 class LoginSuccessState extends LoginStates {
