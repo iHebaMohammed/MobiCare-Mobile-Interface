@@ -4,11 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mobi_care/models/message_model.dart';
-import 'package:mobi_care/modules/patient_chat/patient_chat_screen.dart';
-import 'package:mobi_care/modules/patient_home/patient_home_screen.dart';
-import 'package:mobi_care/modules/patient_medication_reminder/patient_medication_reminder_screen.dart';
-import 'package:mobi_care/modules/patient_posts_view/patient_posts_view_screen.dart';
 import '../../../models/user_model.dart';
+import '../../../modules/patinet_modules/patient_chat/patient_chat_screen.dart';
+import '../../../modules/patinet_modules/patient_home/patient_home_screen.dart';
+import '../../../modules/patinet_modules/patient_medication_reminder/patient_medication_reminder_screen.dart';
+import '../../../modules/patinet_modules/patient_posts_view/patient_posts_view_screen.dart';
 import '../../../shared/constants/constants.dart';
 import 'states.dart';
 
@@ -187,7 +187,7 @@ class PatientLayoutCubit extends Cubit<PatientLayoutStates> {
   }
 
 
-  
+
   // void getAllUsers(){
   //   emit(LayoutGetAllUsersLoadingState());
   //   if(allUsers.isEmpty){

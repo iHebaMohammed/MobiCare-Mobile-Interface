@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_time_picker_spinner/flutter_time_picker_spinner.dart';
-import 'package:mobi_care/modules/patient_medication_reminder/cubit/cubit.dart';
-import 'package:mobi_care/modules/patient_medication_reminder/cubit/states.dart';
 import 'package:mobi_care/shared/components/components.dart';
 import 'package:mobi_care/shared/styles/colors.dart';
+
+import 'cubit/cubit.dart';
+import 'cubit/states.dart';
 
 class PatientMedicationReminderScreen extends StatelessWidget {
   PatientMedicationReminderScreen({Key? key}) : super(key: key);

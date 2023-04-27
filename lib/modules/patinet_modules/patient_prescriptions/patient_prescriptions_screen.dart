@@ -3,12 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:url_launcher/url_launcher_string.dart';
-
-import 'package:mobi_care/modules/patient_search_prescription/patient_search_prescription_screen.dart';
 import 'package:mobi_care/shared/styles/colors.dart';
 import 'package:web3dart/credentials.dart';
-import '../../shared/components/components.dart';
-import '../../shared/components/navigate_component.dart';
+import '../../../shared/components/components.dart';
+import '../../../shared/components/navigate_component.dart';
+import '../patient_search_prescription/patient_search_prescription_screen.dart';
 import 'cubit/cubit.dart';
 import 'cubit/states.dart';
 

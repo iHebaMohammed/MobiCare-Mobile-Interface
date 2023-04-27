@@ -2,9 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:flutter_time_picker_spinner/flutter_time_picker_spinner.dart';
-
-import '../../shared/components/components.dart';
-import '../../shared/styles/colors.dart';
+import '../../../shared/components/components.dart';
+import '../../../shared/styles/colors.dart';
 import 'cubit/cubit.dart';
 import 'cubit/states.dart';
 

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobi_care/modules/login/login_screen.dart';
-import 'package:mobi_care/modules/patient_prescriptions/patient_prescriptions_screen.dart';
-import 'package:mobi_care/modules/patient_profile/patient_profile_screen.dart';
 import 'package:mobi_care/modules/settings/settings_screen.dart';
 import 'package:mobi_care/shared/components/components.dart';
 
+import '../../../modules/patinet_modules/patient_prescriptions/patient_prescriptions_screen.dart';
+import '../../../modules/patinet_modules/patient_profile/patient_profile_screen.dart';
 import '../../../shared/components/navigate_component.dart';
 import 'states.dart';
 

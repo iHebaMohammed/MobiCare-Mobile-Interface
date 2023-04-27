@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mobi_care/modules/patient_profile/cubit/states.dart';
+
+import 'states.dart';
 
 class PatientProfileCubit extends Cubit<PatientProfileStates> {
   PatientProfileCubit() : super(PatientProfileInitiateState());

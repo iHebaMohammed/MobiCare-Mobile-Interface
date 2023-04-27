@@ -2,14 +2,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:mobi_care/modules/patient_edit_profile/patient_edit_profile_screen.dart';
-import 'package:mobi_care/modules/patient_prescriptions/patient_prescriptions_screen.dart';
-import 'package:mobi_care/modules/patient_profile/cubit/cubit.dart';
-import 'package:mobi_care/modules/patient_profile/cubit/states.dart';
 import 'package:mobi_care/shared/components/components.dart';
 import 'package:mobi_care/shared/styles/colors.dart';
 
-import '../../shared/components/navigate_component.dart';
+import '../../../shared/components/navigate_component.dart';
+import '../patient_edit_profile/patient_edit_profile_screen.dart';
+import '../patient_prescriptions/patient_prescriptions_screen.dart';
+import 'cubit/cubit.dart';
+import 'cubit/states.dart';
 
 class PatientProfileScreen extends StatelessWidget {
   PatientProfileScreen({Key? key}) : super(key: key);

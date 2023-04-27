@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
-import '../../shared/components/components.dart';
-import '../../shared/styles/colors.dart';
+import '../../../shared/components/components.dart';
+import '../../../shared/styles/colors.dart';
+
 
 class DoctorHomeScreen extends StatelessWidget {
   const DoctorHomeScreen({Key? key}) : super(key: key);

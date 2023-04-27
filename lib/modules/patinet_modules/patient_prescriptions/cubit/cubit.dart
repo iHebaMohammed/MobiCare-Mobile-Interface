@@ -8,8 +8,7 @@ import 'package:url_launcher/url_launcher_string.dart';
 import 'package:walletconnect_dart/walletconnect_dart.dart';
 import 'package:web3dart/web3dart.dart';
 import 'package:web_socket_channel/io.dart';
-
-import '../../../shared/constants/constants.dart';
+import '../../../../shared/constants/constants.dart';
 import 'states.dart';
 
 class PrescriptionCubit extends Cubit<PrescriptionStates> {

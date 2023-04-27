@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:mobi_care/shared/components/patient_component_in_patients_list.dart';
 import 'package:mobi_care/shared/styles/colors.dart';
 
-import '../../shared/components/components.dart';
 
 class DoctorPatientsListScreen extends StatelessWidget {
   const DoctorPatientsListScreen({Key? key}) : super(key: key);

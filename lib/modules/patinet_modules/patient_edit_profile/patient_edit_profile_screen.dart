@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mobi_care/modules/patient_edit_profile/cubit/cubit.dart';
-import 'package:mobi_care/modules/patient_edit_profile/cubit/states.dart';
 import 'package:mobi_care/shared/components/components.dart';
 
-import '../../shared/styles/colors.dart';
+import '../../../shared/styles/colors.dart';
+import 'cubit/cubit.dart';
+import 'cubit/states.dart';
+
 
 class PatientEditProfileScreen extends StatelessWidget {
   PatientEditProfileScreen({Key? key}) : super(key: key);

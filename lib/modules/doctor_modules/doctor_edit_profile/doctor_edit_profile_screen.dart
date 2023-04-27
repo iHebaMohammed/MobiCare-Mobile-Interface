@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import '../../shared/components/components.dart';
-import '../../shared/styles/colors.dart';
+import '../../../shared/components/components.dart';
+import '../../../shared/styles/colors.dart';
+
 
 class DoctorEditProfileScreen extends StatelessWidget {
   DoctorEditProfileScreen({Key? key}) : super(key: key);

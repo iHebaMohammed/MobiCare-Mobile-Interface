@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mobi_care/shared/components/components.dart';
 
-import '../../shared/styles/colors.dart';
+import '../../../shared/styles/colors.dart';
 
 class PatientSearchPrescriptionScreen extends StatelessWidget {
   PatientSearchPrescriptionScreen({Key? key}) : super(key: key);
