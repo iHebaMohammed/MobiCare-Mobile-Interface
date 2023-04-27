@@ -3,18 +3,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mobi_care/layouts/patient_layout/patient_layout.dart';
-import 'package:mobi_care/modules/login/cubit/cubit.dart';
-import 'package:mobi_care/modules/login/cubit/states.dart';
-import 'package:mobi_care/modules/register/register_screen.dart';
 import 'package:mobi_care/shared/components/components.dart';
 import 'package:mobi_care/shared/components/text_button_component.dart';
 import 'package:mobi_care/shared/components/text_form_field_component.dart';
 import 'package:mobi_care/shared/network/local/cache_helper.dart';
 import 'package:mobi_care/shared/styles/colors.dart';
-
-import '../../layouts/doctor_layout/doctor_layout.dart';
-import '../../shared/components/navigate_component.dart';
-import '../../shared/components/toast_component.dart';
+import '../../../layouts/doctor_layout/doctor_layout.dart';
+import '../../../shared/components/navigate_component.dart';
+import '../../../shared/components/toast_component.dart';
+import '../../patinet_modules/register/register_screen.dart';
+import 'cubit/cubit.dart';
+import 'cubit/states.dart';
 
 class LoginScreen extends StatelessWidget {
   LoginScreen({Key? key}) : super(key: key);

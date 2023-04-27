@@ -1,12 +1,11 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-import '../../modules/search/search_screen.dart';
+import 'package:mobi_care/layouts/doctor_drawer/doctor_drawer_list.dart';
+import '../../modules/patinet_modules/search/search_screen.dart';
 import '../../shared/components/drawer_component.dart';
 import '../../shared/components/navigate_component.dart';
 import '../../shared/styles/colors.dart';
-import '../patient_drawer_layout_components/drawer_list.dart';
 import 'cubit/cubit.dart';
 import 'cubit/states.dart';
 
@@ -68,12 +67,12 @@ class DoctorLayout extends StatelessWidget {
               child: SingleChildScrollView(
                 child: Column(
                   children: [
-                    DrawerLayoutHeader(
-                      image: 'https://img.freepik.com/free-psd/3d-illustration-person-with-sunglasses_23-2149436188.jpg?w=740&t=st=1677116117~exp=1677116717~hmac=0eaee5fcf6754432b852deadbe808bb6b5344e8ef73dc3e38fa9847446bcbcd0',
-                      name: 'Heba Adel',
-                      email: 'hebaadelahmedmohammed@hmail.com',
+                    DoctorDrawerLayoutHeader(
+                      image: 'https://img.freepik.com/free-photo/smiling-doctor-with-strethoscope-isolated-grey_651396-974.jpg?w=1060&t=st=1682593217~exp=1682593817~hmac=e0cc3f61d6942cdbba91d78d525a722cbac431d92f4facb3116299efa079353f',
+                      name: 'Mohammed Ahmed',
+                      email: 'mohammedahmed@hmail.com',
                     ),
-                    DrawerLayoutList(),
+                    DoctorDrawerLayoutList(),
                   ],
                 ),
               ),

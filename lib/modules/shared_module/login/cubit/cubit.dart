@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -8,8 +6,7 @@ import 'package:mobi_care/models/admin_model.dart';
 import 'package:mobi_care/shared/constants/constants.dart';
 import 'package:mobi_care/shared/network/remote/dio_helper.dart';
 import 'package:mobi_care/shared/network/remote/end_point.dart';
-import '../../../layouts/patient_layout/patient_layout.dart';
-import '../../../shared/components/components.dart';
+
 import 'states.dart';
 import 'package:http/http.dart' as http;
 

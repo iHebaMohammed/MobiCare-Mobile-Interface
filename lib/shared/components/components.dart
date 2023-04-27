@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:mobi_care/models/user_model.dart';
-import 'package:mobi_care/modules/chat_details/chat_details_screen.dart';
 import 'package:mobi_care/shared/styles/colors.dart';
 
 import 'navigate_component.dart';
@@ -41,6 +40,66 @@ class DefaultButton extends StatelessWidget {
         child: Text(
           text.toUpperCase(),
           style: TextStyle(color: Colors.white, fontSize: fontSize),
+        ),
+      ),
+    );
+  }
+}
+
+class DefaultButtonWithCircleAvatar extends StatelessWidget {
+  late double width;
+  late Color backgroundColor;
+  late double redius;
+  final Function() function;
+  final String text;
+  late double height;
+  late double fontSize;
+  late String numberOfRequistes;
+
+  DefaultButtonWithCircleAvatar({
+    Key? key,
+    this.width = double.infinity,
+    this.backgroundColor = Colors.teal,
+    this.redius = 0.0,
+    required this.function,
+    required this.text,
+    this.height = 52,
+    this.fontSize = 15,
+    this.numberOfRequistes = '0',
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: height,
+      decoration: BoxDecoration(
+        color: backgroundColor,
+        borderRadius: BorderRadius.circular(redius),
+      ),
+      width: width,
+      child: MaterialButton(
+        onPressed: function,
+        child: Row(
+          children: [
+            Text(
+              text.toUpperCase(),
+              style: TextStyle(color: Colors.white, fontSize: fontSize),
+            ),
+            SizedBox(
+              width: 3,
+            ),
+            CircleAvatar(
+              backgroundColor: Colors.red,
+              radius: 10,
+              child: Text(
+                '$numberOfRequistes',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 12
+                ),
+              ),
+            ),
+          ],
         ),
       ),
     );

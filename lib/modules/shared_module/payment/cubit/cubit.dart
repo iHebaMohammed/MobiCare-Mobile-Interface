@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mobi_care/modules/payment/cubit/status.dart';
+
+import 'status.dart';
 
 class PaymentCubit extends Cubit<PaymentStates> {
 

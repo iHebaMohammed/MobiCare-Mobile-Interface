@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:mobi_care/modules/doctor_modules/home_visit_requests/home_visit_requests.dart';
+import 'package:mobi_care/shared/components/navigate_component.dart';
 
 import '../../../shared/components/components.dart';
 import '../../../shared/styles/colors.dart';
@@ -17,70 +19,13 @@ class DoctorHomeScreen extends StatelessWidget {
           SingleChildScrollView(
             child: Column(
               children: [
-                Container(
-                  decoration: BoxDecoration(
-                    color: primaryColor60D_10,
-                    borderRadius: BorderRadius.circular(15),
-                  ),
-                  child: Row(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(
-                            left: 20, top: 10, bottom: 10),
-                        child: SizedBox(
-                          height: 100,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                'Home Visit',
-                                style: TextStyle(
-                                    fontSize: 16, fontWeight: FontWeight.w500),
-                              ),
-                              Spacer(),
-                              MaterialButton(
-                                color: primaryColor1BA,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(18.0),
-                                ),
-                                onPressed: () {},
-                                child: Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      vertical: 5.0, horizontal: 5),
-                                  child: Row(
-                                    children: [
-                                      Text(
-                                        'See Requests',
-                                        style: TextStyle(
-                                            color: Colors.white, fontSize: 14),
-                                      ),
-                                      SizedBox(
-                                        width: 10,
-                                      ),
-                                      CircleAvatar(
-                                        backgroundColor: primaryEmergencyColor,
-                                        radius: 10,
-                                        child: Text(
-                                          '5',
-                                          style: TextStyle(
-                                              color: Colors.white,
-                                              fontSize: 14),
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
-                      ),
-                      Spacer(),
-                      SvgPicture.asset(
-                        'assets/svg/patient_home/patient_home_1.svg',
-                      )
-                    ],
-                  ),
+                buildHomeItemContainer(
+                  title: 'Home visit',
+                  buttonText: 'Book a home visit',
+                  function: (){
+                    navigateTo(context: context, widget: HomeVisitRequestsScreen());
+                  },
+                  svgPath: 'assets/svg/patient_home/patient_home_1.svg',
                 ),
                 SizedBox(
                   height: 20,
@@ -126,6 +71,64 @@ class DoctorHomeScreen extends StatelessWidget {
             ),
           ),
         ],
+      ),
+    );
+  }
+
+  Widget buildHomeItemContainer({
+    required String title,
+    required String buttonText,
+    required Function() function,
+    required String svgPath,
+  }){
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 10.0),
+      child: Container(
+        decoration: BoxDecoration(
+          color: primaryColor60D_10 ,
+          borderRadius: BorderRadius.circular(14),
+        ),
+        child: Row(
+          children: [
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.symmetric(vertical: 10),
+                      child: Text(title , style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16,
+                      ),),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 10.0),
+                      child: DefaultButtonWithCircleAvatar(
+                          function: function,
+                          text: 'Show Requisites',
+                          numberOfRequistes: '3',
+                          redius: 20,
+                          width: 200,
+                          height: 45,
+                          fontSize: 14,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            Container(
+              margin: EdgeInsets.all(10),
+              clipBehavior: Clip.antiAlias,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: SvgPicture.asset(svgPath),
+            ),
+          ],
+        ),
       ),
     );
   }

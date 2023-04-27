@@ -1,18 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mobi_care/modules/login/login_screen.dart';
-import 'package:mobi_care/modules/settings/settings_screen.dart';
-import 'package:mobi_care/shared/components/components.dart';
-
 import '../../../modules/patinet_modules/patient_prescriptions/patient_prescriptions_screen.dart';
 import '../../../modules/patinet_modules/patient_profile/patient_profile_screen.dart';
+import '../../../modules/shared_module/login/login_screen.dart';
+import '../../../modules/shared_module/settings/settings_screen.dart';
 import '../../../shared/components/navigate_component.dart';
 import 'states.dart';
 
-class DrawerLayoutCubit extends Cubit<DrawerLayoutStates>{
-  DrawerLayoutCubit() : super(DrawerLayoutInitiateState());
+class PatientDrawerLayoutCubit extends Cubit<PatientDrawerLayoutStates>{
+  PatientDrawerLayoutCubit() : super(DrawerLayoutInitiateState());
 
-  static DrawerLayoutCubit get(BuildContext context) => BlocProvider.of(context);
+  static PatientDrawerLayoutCubit get(BuildContext context) => BlocProvider.of(context);
 
   int ? currentIndex;
 

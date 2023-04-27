@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mobi_care/layouts/patient_layout/patient_layout.dart';
-import 'package:mobi_care/modules/on_boarding/on_boarding_screen.dart';
-
-import '../../shared/constants/constants.dart';
-import '../../shared/network/local/cache_helper.dart';
+import '../../../shared/constants/constants.dart';
+import '../../../shared/network/local/cache_helper.dart';
 import '../login/login_screen.dart';
+import '../on_boarding/on_boarding_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);

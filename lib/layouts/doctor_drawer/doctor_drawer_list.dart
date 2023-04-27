@@ -1,14 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/svg.dart';
-import '../../shared/components/build_clickable_drawer_item_component.dart';
+
 import '../../shared/components/drawer_component.dart';
 import '../../shared/styles/colors.dart';
-import 'cubit/cubit.dart';
-import 'cubit/states.dart';
 
-class DrawerLayoutList extends StatelessWidget {
-  const DrawerLayoutList({Key? key}) : super(key: key);
+class DoctorDrawerLayoutList extends StatelessWidget {
+  const DoctorDrawerLayoutList({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -16,19 +12,19 @@ class DrawerLayoutList extends StatelessWidget {
       padding: EdgeInsets.only(top: 10),
       child: Column(
         children: [
-          BuildClickableDrawerItem(
-              index: 0,
-              svgIcon: 'assets/drawer_icons/profile.svg',
-              title: 'Profile',
-              context: context,
+          BuildClickableDrawerItemForDoctor(
+            index: 0,
+            svgIcon: 'assets/drawer_icons/profile.svg',
+            title: 'Profile',
+            context: context,
           ),
-          BuildClickableDrawerItem(
+          BuildClickableDrawerItemForDoctor(
               index: 1,
               svgIcon: 'assets/drawer_icons/prescriptions.svg',
-              title: 'Prescription',
+              title: 'Add My Patient',
               context: context
           ),
-          BuildClickableDrawerItem(
+          BuildClickableDrawerItemForDoctor(
               index: 2,
               svgIcon: 'assets/drawer_icons/setting.svg',
               title: 'Settings',
@@ -38,7 +34,7 @@ class DrawerLayoutList extends StatelessWidget {
             height: 1.0,
             color: primaryGreyColor808,
           ),
-          BuildClickableDrawerItem(
+          BuildClickableDrawerItemForDoctor(
               index: 3,
               svgIcon: 'assets/drawer_icons/log_out.svg',
               title: 'Log out',

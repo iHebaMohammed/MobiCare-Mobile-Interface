@@ -2,11 +2,12 @@ import 'package:conditional_builder_null_safety/conditional_builder_null_safety.
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobi_care/models/user_model.dart';
-import 'package:mobi_care/modules/chat_details/cubit/cubit.dart';
-import 'package:mobi_care/modules/chat_details/cubit/states.dart';
 import 'package:mobi_care/shared/components/components.dart';
 import 'package:mobi_care/shared/constants/constants.dart';
 import 'package:mobi_care/shared/styles/colors.dart';
+
+import 'cubit/cubit.dart';
+import 'cubit/states.dart';
 
 class ChatDetailsScreen extends StatelessWidget {
 

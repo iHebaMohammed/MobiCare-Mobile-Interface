@@ -1,9 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mobi_care/modules/chat_details/cubit/states.dart';
-import '../../../models/message_model.dart';
-import '../../../shared/constants/constants.dart';
+
+import '../../../../models/message_model.dart';
+import '../../../../shared/constants/constants.dart';
+import 'states.dart';
+
 
 class ChatMessagesCubit extends Cubit<ChatMessagesStates>{
 

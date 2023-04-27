@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
-import '../../shared/components/navigate_component.dart';
-import '/shared/styles/colors.dart';
-import '../../models/on_boarding_model.dart';
-import '../../shared/components/components.dart';
-import '../../shared/network/local/cache_helper.dart';
+import '../../../models/on_boarding_model.dart';
+import '../../../shared/components/navigate_component.dart';
+import '../../../shared/network/local/cache_helper.dart';
 import '../login/login_screen.dart';
+import '/shared/styles/colors.dart';
+
 
 class OnBoardingScreen extends StatefulWidget {
   const OnBoardingScreen({Key? key}) : super(key: key);

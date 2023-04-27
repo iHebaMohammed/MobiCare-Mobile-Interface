@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mobi_care/shared/components/components.dart';
 
-import '../../shared/styles/colors.dart';
+import '../../../shared/styles/colors.dart';
 
 class SettingScreen extends StatelessWidget {
   SettingScreen({Key? key}) : super(key: key);

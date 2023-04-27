@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mobi_care/modules/payment/cubit/cubit.dart';
-import 'package:mobi_care/modules/payment/cubit/status.dart';
-import 'package:mobi_care/modules/payment_done/payment_done_screen.dart';
 import 'package:mobi_care/shared/components/components.dart';
 import 'package:mobi_care/shared/styles/colors.dart';
 
-import '../../shared/components/navigate_component.dart';
+import '../../../shared/components/navigate_component.dart';
+import '../payment_done/payment_done_screen.dart';
+import 'cubit/cubit.dart';
+import 'cubit/status.dart';
 
 class PaymentScreen extends StatelessWidget {
   PaymentScreen({Key? key}) : super(key: key);
