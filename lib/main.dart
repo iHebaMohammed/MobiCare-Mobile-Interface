@@ -14,6 +14,7 @@ import 'modules/patinet_modules/patient_medication_reminder/cubit/cubit.dart';
 import 'modules/patinet_modules/patient_prescriptions/cubit/cubit.dart';
 import 'modules/patinet_modules/patient_profile/cubit/cubit.dart';
 import 'modules/shared_modules/chat_details/cubit/cubit.dart';
+import 'modules/shared_modules/login/login_screen.dart';
 import 'modules/shared_modules/payment/cubit/cubit.dart';
 import 'shared/network/remote/dio_helper.dart';
 import 'shared/styles/themes.dart';
@@ -85,7 +86,7 @@ class MyApp extends StatelessWidget {
             themeMode: ThemeMode.light,
             theme: lightTheme,
             darkTheme: darkTheme,
-            home: DoctorLayout(),
+            home: LoginScreen(),
           );
         },
       ),

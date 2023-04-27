@@ -131,43 +131,52 @@ class PatientLayoutCubit extends Cubit<PatientLayoutStates> {
     }
   }
 
+  List<UserModel> users = [];
   List<String> chatsUsersId = [];
   Future<void> getChatsUsersId() async{
+    List<String> chatsUsersId = [];
     await FirebaseFirestore.instance
         .collection('chats')
         .where('users' , arrayContains: uId)
         .get()
         .then((value) {
           value.docs.forEach((element) {
-            chatsUsersId.add(element.data().values.toString().replaceAll(uId!, '').replaceAll('_', ''));
+            for(int i = 0 ; i < doctors.length ; i++){
+              // print(doctors[i]);
+              if(doctors[i].uId == element.data().values.first.replaceAll(uId!, '').replaceAll('_', '').trim()){
+                users.add(doctors[i]);
+              }
+
+            }
+            chatsUsersId.add(element.data().values.first.replaceAll(uId!, '').replaceAll('_', '').trim());
           });
-          // print('chatsUsersId: $chatsUsersId');
-          // print('Length: ${chatsUsersId.length}');
-          emit(LayoutGetUsersInChatSuccessState());
+      print(users);
     }).catchError((error) {
       emit(LayoutGetUsersInChatErrorState());
     });
   }
 
-  List<UserModel> users = [];
+
   void getChatsITalkWith(){
     emit(LayoutGetUsersLoadingState());
     if(chatsUsersId.isNotEmpty){
       for(int i = 0 ; i < chatsUsersId.length ; i++){
         for(int j = 0 ; j < doctors.length ; j++){
           if(chatsUsersId[i] == doctors[j].uId!){
-            // users.add(UserModel(
-            //   uId: doctors[j].uId,
-            //   imageUrl: doctors[j].imageUrl,
-            //   lastName: doctors[j].lastName,
-            //   firstName: doctors[j].firstName,
-            //   role: doctors[j].role,
-            //   isMale: doctors[j].isMale,
-            //   address: doctors[j].address,
-            //   phoneNumber: doctors[j].phoneNumber,
-            //   email: doctors[j].email,
-            // ));
-            users.add(doctors[i]);
+            users.add(UserModel(
+              uId: doctors[j].uId,
+              imageUrl: doctors[j].imageUrl,
+              lastName: doctors[j].lastName,
+              firstName: doctors[j].firstName,
+              role: doctors[j].role,
+              isMale: doctors[j].isMale,
+              address: doctors[j].address,
+              phoneNumber: doctors[j].phoneNumber,
+              email: doctors[j].email,
+            ));
+            // users.add(doctors[i]);
+            print('users :   $users');
+            print(users.length);
           }
           break;
         }

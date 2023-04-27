@@ -165,7 +165,7 @@ class LoginScreen extends StatelessWidget {
                                 backgroundColor: primaryColor1BA,
                                 function: (){
                                   if(formKey.currentState!.validate()){
-                                    cubit.loginPatientByFirebase(
+                                    cubit.loginDoctorByFirebase(
                                         email: emailController.text,
                                         password: passwordController.text,
                                     );
