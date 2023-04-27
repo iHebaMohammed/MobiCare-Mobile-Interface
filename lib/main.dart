@@ -136,7 +136,7 @@ class IPFS extends StatelessWidget {
         child: Center(
           child: MaterialButton(
             onPressed: () => FilePickerService.pickFile(context)
-                .then((value) => print(value)),
+                .then((value) => print("value: $value")),
             color: Colors.black,
             textColor: Colors.white,
             shape: RoundedRectangleBorder(
