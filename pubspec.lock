@@ -153,14 +153,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.0.6"
-  eip1559:
-    dependency: transitive
-    description:
-      name: eip1559
-      sha256: de454d6321bd753eb79116e9ec4f8df20895c2e97f9a3839a032f3a728985516
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.6.1"
   eip55:
     dependency: transitive
     description:
@@ -408,14 +400,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.17.0"
-  ipfs_client_flutter:
-    dependency: "direct main"
-    description:
-      name: ipfs_client_flutter
-      sha256: e9ec8c3b33af20240cdfcb1316ef0804be68d5237df65a82ff3f3a2cfc2fd497
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.0.7"
   js:
     dependency: transitive
     description:
@@ -837,14 +821,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.4"
-  wallet:
-    dependency: transitive
-    description:
-      name: wallet
-      sha256: "569c91c2af13a9e1119c001f9c09218eccf3f383eb8d15ba13a5b558010c1bc0"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.0.12+1"
   walletconnect_dart:
     dependency: "direct main"
     description:
@@ -857,10 +833,10 @@ packages:
     dependency: "direct main"
     description:
       name: web3dart
-      sha256: "0b96223a6b284e3146e65dc842ded139eca68a85c4ab79c5ba1a73284927d3cd"
+      sha256: "9d5e75475011d4da90add824c17aa7a5740d76f33886d240cb2f22f733254265"
       url: "https://pub.dev"
     source: hosted
-    version: "2.6.1"
+    version: "2.5.1"
   web_socket_channel:
     dependency: "direct main"
     description:

@@ -5,9 +5,11 @@ import '../styles/colors.dart';
 class DoctorImageComponent extends StatelessWidget {
 
   String image;
+  double height;
 
   DoctorImageComponent({
     required this.image,
+    this.height = 105,
   });
 
   @override
@@ -16,16 +18,16 @@ class DoctorImageComponent extends StatelessWidget {
       alignment: Alignment.center,
       children: [
         Container(
-          height: 105,
-          width: 105,
+          height: height,
+          width: height,
           decoration: BoxDecoration(
             color: primaryWhiteColor,
             borderRadius: BorderRadius.circular(25),
           ),
         ),
         Container(
-          height: 100,
-          width: 100,
+          height: height-5,
+          width: height-5,
           decoration: BoxDecoration(
             color: primaryWhiteColor,
             borderRadius: BorderRadius.circular(25),
@@ -33,8 +35,8 @@ class DoctorImageComponent extends StatelessWidget {
           clipBehavior: Clip.antiAliasWithSaveLayer,
           child: Image.network(
             image,
-            width: 50,
-            height: 50,
+            width: height/2,
+            height: height/2,
             fit: BoxFit.cover,
           ),
         ),

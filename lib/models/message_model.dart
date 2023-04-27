@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class MessageModel {
   late String senderId;
   late String receiverId;
@@ -19,6 +21,25 @@ class MessageModel {
   }
 
   Map<String, dynamic> toMap() {
+  factory MessageModel.fromFirestore(DocumentSnapshot snapshot) {
+    return MessageModel(
+        senderId: snapshot['senderId'],
+        receiverId:  snapshot['receiverId'],
+        dateTime:  snapshot['dateTime'],
+        messageText:  snapshot['messageText'],
+    );
+  }
+
+  Map<String, dynamic> toFirestore() {
+    return {
+      'senderId': senderId,
+      'receiverId': receiverId,
+      'dateTime': dateTime,
+      'messageText': messageText,
+    };
+  }
+
+  Map<String , dynamic> toMap(){
     return {
       'senderId': senderId,
       'receiverId': receiverId,

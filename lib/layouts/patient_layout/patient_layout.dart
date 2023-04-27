@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mobi_care/layouts/patient_drawer_layout_components/drawer_list.dart';
+import '../../modules/patinet_modules/search/search_screen.dart';
 import '../../shared/components/drawer_component.dart';
 import '../../shared/components/navigate_component.dart';
+import '../patient_drawer/patient_drawer_list.dart';
 import 'cubit/cubit.dart';
 import 'cubit/states.dart';
-import '../../modules/search/search_screen.dart';
 import '/shared/styles/colors.dart';
 import '../../shared/components/components.dart';
 
@@ -73,7 +73,7 @@ class PatientLayout extends StatelessWidget {
                         name: 'Heba Adel',
                         email: 'hebaadelahmedmohammed@hmail.com',
                     ),
-                    DrawerLayoutList(),
+                    PatientDrawerLayoutList(),
                   ],
                 ),
               ),
