@@ -8,7 +8,7 @@ import '../../../shared/components/components.dart';
 import '../../../shared/components/navigate_component.dart';
 import '../../../shared/components/toast_component.dart';
 import '../../../shared/styles/colors.dart';
-import '../../shared_module/login/login_screen.dart';
+import '../../shared_modules/login/login_screen.dart';
 import 'cubit/states.dart';
 import 'cubit/cubit.dart';
 

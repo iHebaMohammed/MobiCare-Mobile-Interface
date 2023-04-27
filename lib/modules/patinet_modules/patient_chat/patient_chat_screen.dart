@@ -7,7 +7,7 @@ import 'package:mobi_care/shared/components/components.dart';
 import 'package:mobi_care/shared/styles/colors.dart';
 
 import '../../../shared/components/navigate_component.dart';
-import '../../shared_module/chat_details/chat_details_screen.dart';
+import '../../shared_modules/chat_details/chat_details_screen.dart';
 
 class PatientChatScreen extends StatelessWidget {
   const PatientChatScreen({Key? key}) : super(key: key);

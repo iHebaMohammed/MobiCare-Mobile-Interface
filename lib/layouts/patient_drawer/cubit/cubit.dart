@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../modules/patinet_modules/patient_prescriptions/patient_prescriptions_screen.dart';
 import '../../../modules/patinet_modules/patient_profile/patient_profile_screen.dart';
-import '../../../modules/shared_module/login/login_screen.dart';
-import '../../../modules/shared_module/settings/settings_screen.dart';
+import '../../../modules/shared_modules/login/login_screen.dart';
+import '../../../modules/shared_modules/settings/settings_screen.dart';
 import '../../../shared/components/navigate_component.dart';
 import 'states.dart';
 
