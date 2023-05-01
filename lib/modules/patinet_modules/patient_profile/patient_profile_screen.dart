@@ -1,10 +1,7 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mobi_care/shared/components/components.dart';
 import 'package:mobi_care/shared/styles/colors.dart';
-
 import '../../../shared/components/navigate_component.dart';
 import '../patient_edit_profile/patient_edit_profile_screen.dart';
 import '../patient_prescriptions/patient_prescriptions_screen.dart';
@@ -31,7 +28,7 @@ class PatientProfileScreen extends StatelessWidget {
             child: ListView(
               children: [
                 Container(
-                  height: 200,
+                  height: 240,
                   child: Stack(
                     alignment: AlignmentDirectional.bottomCenter,
                     children: [
@@ -41,14 +38,19 @@ class PatientProfileScreen extends StatelessWidget {
                           alignment: AlignmentDirectional.topEnd,
                           children: [
                             Container(
-                              height: 160,
+                              height: 200,
                               width: double.infinity,
                               decoration: BoxDecoration(
-                                  color: primaryColor1BA,
+                                  color: primaryColor4DC_20,
                                   borderRadius: BorderRadiusDirectional.only(
                                     bottomStart: Radius.circular(8),
                                     bottomEnd: Radius.circular(8),
                                   )
+                              ),
+                              child: Row(
+                                children: [
+
+                                ],
                               ),
                             )
                           ],
