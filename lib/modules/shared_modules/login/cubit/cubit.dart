@@ -6,9 +6,8 @@ import 'package:mobi_care/models/admin_model.dart';
 import 'package:mobi_care/shared/constants/constants.dart';
 import 'package:mobi_care/shared/network/remote/dio_helper.dart';
 import 'package:mobi_care/shared/network/remote/end_point.dart';
-
 import 'states.dart';
-import 'package:http/http.dart' as http;
+
 
 class LoginCubit extends Cubit<LoginStates>{
 
@@ -34,8 +33,8 @@ class LoginCubit extends Cubit<LoginStates>{
     //     url: LOGIN ,
     //     data:
     //     {
-    //       'email' : email,
-    //       'password' : password,
+    //       'EMAIL' : email,
+    //       'PASSWORD' : password,
     //     }
     // ).then((value) {
     //   print(value.data);
