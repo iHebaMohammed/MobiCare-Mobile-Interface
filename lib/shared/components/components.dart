@@ -929,3 +929,65 @@ class DefaultCommentShape extends StatelessWidget {
     );
   }
 }
+
+class CalculateBox extends StatelessWidget {
+  final double width;
+  final String header;
+  final Widget child;
+
+  const CalculateBox(
+      {Key? key,
+        required this.width,
+        required this.header,
+        required this.child})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final Size size = MediaQuery.of(context).size;
+
+    return Padding(
+      padding: EdgeInsets.symmetric(
+        horizontal: size.width * 0.05,
+        // vertical: size.height * 0.02,
+      ),
+      child: Column(
+        children: [
+          Container(
+            width: size.width * 0.32,
+            child: Text(
+              header,
+              style: TextStyle(
+                color: primaryColor1BA,
+                fontSize: 14,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+          ),
+          SizedBox(
+            height: 5,
+          ),
+          Container(
+            width: width,
+            padding: EdgeInsets.symmetric(
+              horizontal: 12.0,
+            ),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(
+                10.0,
+              ),
+              color: primaryGreyColorD9D_50.withOpacity(0.3),
+              border: Border.all(
+                color: primaryColor1BA,
+                style: BorderStyle.solid,
+                width: 1.0,
+              ),
+            ),
+            child: child,
+          ),
+        ],
+      ),
+    );
+  }
+}
+

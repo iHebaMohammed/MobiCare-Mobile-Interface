@@ -8,7 +8,7 @@ class DioHelper {
   static init(){
     dio = Dio(
       BaseOptions(
-        baseUrl: 'http://$IP4v:4000',
+        baseUrl: 'http://$IP4v:5000',
         receiveDataWhenStatusError: true,
       ),
     );

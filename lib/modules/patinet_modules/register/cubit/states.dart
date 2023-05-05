@@ -54,3 +54,18 @@ class RegisterDoctorLoadingFirebaseState extends RegisterStates {}
 class RegisterDoctorSuccessFirebaseState extends RegisterStates {}
 
 class RegisterDoctorErrorFirebaseState extends RegisterStates {}
+
+class ChangeWeightState extends RegisterStates {}
+
+class ChangeTallState extends RegisterStates {}
+
+class ChangeGenderValueState extends RegisterStates {}
+
+class SelectDateOfBirthState extends RegisterStates {}
+
+class RegisterationSuccessfullyState extends RegisterStates {}
+
+class RegisterationErrorState extends RegisterStates {
+  final String error;
+  RegisterationErrorState({required this.error});
+}

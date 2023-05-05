@@ -79,6 +79,7 @@ class PatientLayoutCubit extends Cubit<PatientLayoutStates> {
     }
     emit(PatientLayoutChangeBottomNavigationBarState());
   }
+
   String getChatId({
     required String receiverUId,
   }){
@@ -156,7 +157,6 @@ class PatientLayoutCubit extends Cubit<PatientLayoutStates> {
     });
   }
 
-
   void getChatsITalkWith(){
     emit(LayoutGetUsersLoadingState());
     if(chatsUsersId.isNotEmpty){
@@ -171,7 +171,6 @@ class PatientLayoutCubit extends Cubit<PatientLayoutStates> {
               role: doctors[j].role,
               isMale: doctors[j].isMale,
               address: doctors[j].address,
-              phoneNumber: doctors[j].phoneNumber,
               email: doctors[j].email,
             ));
             // users.add(doctors[i]);

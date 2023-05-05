@@ -171,7 +171,6 @@ class DoctorLayoutCubit extends Cubit<DoctorLayoutStates> {
               role: patients[j].role,
               isMale: patients[j].isMale,
               address: patients[j].address,
-              phoneNumber: patients[j].phoneNumber,
               email: patients[j].email,
             ));
             // users.add(patients[i]);

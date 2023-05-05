@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobi_care/layouts/doctor_layout/doctor_layout.dart';
 import 'package:mobi_care/layouts/patient_layout/cubit/cubit.dart';
 import 'package:mobi_care/layouts/patient_layout/cubit/states.dart';
+import 'package:mobi_care/modules/patinet_modules/register/register_screen.dart';
 import 'package:mobi_care/shared/bloc_observer.dart';
 import 'modules/doctor_modules/doctor_time_reminder/cubit/cubit.dart';
 import 'modules/patinet_modules/doctor_profile_patient_view/doctor_profile_patient_view_screen.dart';
@@ -87,7 +88,7 @@ class MyApp extends StatelessWidget {
             themeMode: ThemeMode.light,
             theme: lightTheme,
             darkTheme: darkTheme,
-            home: PatientProfileScreen(),
+            home: RegisterScreen(),
           );
         },
       ),
