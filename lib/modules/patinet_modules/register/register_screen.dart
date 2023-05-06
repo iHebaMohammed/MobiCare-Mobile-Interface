@@ -144,7 +144,7 @@ class RegisterScreen extends StatelessWidget {
                               onSubmit: (value){
                                 if(formKey.currentState!.validate()){
                                   cubit.register(
-                                    dateOfBirth: cubit.selectedDate.toString(),
+                                    dateOfBirth: cubit.selectedDate!,
                                     patientAddress: addressController.text,
                                     patientEmail: emailController.text,
                                     patientFirstName: firstNameController.text,
@@ -315,7 +315,7 @@ class RegisterScreen extends StatelessWidget {
                                 function: (){
                                   if(formKey.currentState!.validate()){
                                     cubit.register(
-                                      dateOfBirth: cubit.selectedDate.toString(),
+                                      dateOfBirth: cubit.selectedDate!,
                                       patientAddress: addressController.text,
                                       patientEmail: emailController.text,
                                       patientFirstName: firstNameController.text,

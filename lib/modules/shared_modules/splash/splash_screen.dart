@@ -23,7 +23,7 @@ class _SplashScreenState extends State<SplashScreen> {
     late Widget startWidget;
     bool ? onBoarding = CacheHelper.getData(key: 'onBoarding');
     uId = CacheHelper.getData(key: 'uId');
-    token = CacheHelper.getData(key: 'token');
+    accessToken = CacheHelper.getData(key: 'token');
 
     if(onBoarding != null){
       if(uId != null){

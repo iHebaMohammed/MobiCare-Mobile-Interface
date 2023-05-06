@@ -1,7 +1,13 @@
+import 'package:mobi_care/models/doctor_login_model.dart';
+
+import '../../models/patient_login_model.dart';
+
 String ? uId;
-String ? token;
+String ? accessToken;
 String ? refreshToken;
-String ? role = 'D';
+String ? role;
+PatientLoginModel ? patientLoginModel;
+DoctorLoginModel ? doctorLoginModel;
 
 const String bridge = "https://bridge.walletconnect.org";
 const String contractName = "EHR";

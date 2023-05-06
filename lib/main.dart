@@ -6,9 +6,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobi_care/layouts/doctor_layout/doctor_layout.dart';
 import 'package:mobi_care/layouts/patient_layout/cubit/cubit.dart';
 import 'package:mobi_care/layouts/patient_layout/cubit/states.dart';
+import 'package:mobi_care/modules/doctor_modules/patient_profile_doctor_view/cubit/cubit.dart';
 import 'package:mobi_care/modules/patinet_modules/register/register_screen.dart';
 import 'package:mobi_care/shared/bloc_observer.dart';
 import 'modules/doctor_modules/doctor_time_reminder/cubit/cubit.dart';
+import 'modules/doctor_modules/patient_profile_doctor_view/patient_profile_doctor_view_screen.dart';
 import 'modules/patinet_modules/doctor_profile_patient_view/doctor_profile_patient_view_screen.dart';
 import 'modules/patinet_modules/patient_edit_profile/cubit/cubit.dart';
 import 'modules/patinet_modules/patient_medication_reminder/cubit/cubit.dart';
@@ -79,6 +81,9 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (context) => PrescriptionCubit()..initialSetup(),
         ),
+        BlocProvider(
+          create: (context) => PatientProfileDoctorViewCubit(),
+        )
       ],
       child: BlocConsumer<PatientLayoutCubit, PatientLayoutStates>(
         listener: (context, state) {},
@@ -88,7 +93,7 @@ class MyApp extends StatelessWidget {
             themeMode: ThemeMode.light,
             theme: lightTheme,
             darkTheme: darkTheme,
-            home: RegisterScreen(),
+            home: PatientProfileDoctorViewScreen(),
           );
         },
       ),

@@ -4,3 +4,4 @@ const String ADMIN_GET_SPECIFICDOCTOR = '/admin/doctor/get/2';
 const String ADMIN_ADD_NEW_DOCTOR = '/admin/doctor/add';
 const String GET_NEW_ACCESS_TOKEN = '/token';
 const String REGISTRATION = '/admin/patient/add';
+const String LOGIN = '/login';

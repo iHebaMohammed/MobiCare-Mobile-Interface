@@ -28,35 +28,35 @@ class LoginScreen extends StatelessWidget {
       create: (BuildContext context) => LoginCubit(),
       child: BlocConsumer<LoginCubit , LoginStates>(
         listener: (context, state){
-          if(state is LoginPatientErrorFirebaseState){
+          if(state is MainPatientLoginErrorState){
             showToast(text: state.error, toastStates: ToastStates.ERROR);
           }
-          else if(state is LoginErrorState){
+          else if(state is MainDoctorLoginErrorState){
             showToast(text: state.error, toastStates: ToastStates.ERROR);
           }
-          else if(state is AdminLoginErrorState){
-            showToast(text: state.error, toastStates: ToastStates.ERROR);
+          // if(state is LoginSuccessState){
+          //   CacheHelper.saveData(key: 'token', value: state.token).then((value) {
+          //     navigateTo(context: context, widget: PatientLayout());
+          //   });
+          // }
+          // else if(state is LoginPatientSuccessFirebaseState){
+          //   CacheHelper.saveData(key: 'uId', value: state.uId).then((value) {
+          //     navigateTo(context: context, widget: PatientLayout());
+          //   });
+          // }
+          // else if(state is LoginPatientErrorFirebaseState){
+          //   showToast(text: state.error, toastStates: ToastStates.ERROR);
+          // }
+          // else if(state is LoginDoctorSuccessFirebaseState){
+          //   CacheHelper.saveData(key: 'uId', value: state.uId).then((value) {
+          //     navigateTo(context: context, widget: DoctorLayout());
+          //   });
+          // }
+          if(state is MainDoctorLoginSuccessState){
+            navigateAndFinish(context: context, widget: DoctorLayout());
           }
-          if(state is LoginSuccessState){
-            CacheHelper.saveData(key: 'token', value: state.token).then((value) {
-              navigateTo(context: context, widget: PatientLayout());
-            });
-          }
-          else if(state is LoginPatientSuccessFirebaseState){
-            CacheHelper.saveData(key: 'uId', value: state.uId).then((value) {
-              navigateTo(context: context, widget: PatientLayout());
-            });
-          }
-          else if(state is LoginPatientErrorFirebaseState){
-            showToast(text: state.error, toastStates: ToastStates.ERROR);
-          }
-          else if(state is LoginDoctorSuccessFirebaseState){
-            CacheHelper.saveData(key: 'uId', value: state.uId).then((value) {
-              navigateTo(context: context, widget: DoctorLayout());
-            });
-          }
-          else if(state is LoginDoctorErrorFirebaseState){
-            showToast(text: state.error, toastStates: ToastStates.ERROR);
+          if(state is MainPatientLoginSuccessState){
+            navigateAndFinish(context: context, widget: PatientLayout());
           }
         },
         builder: (context, state) {
@@ -165,7 +165,7 @@ class LoginScreen extends StatelessWidget {
                                 backgroundColor: primaryColor1BA,
                                 function: (){
                                   if(formKey.currentState!.validate()){
-                                    cubit.loginDoctorByFirebase(
+                                    cubit.login(
                                         email: emailController.text,
                                         password: passwordController.text,
                                     );

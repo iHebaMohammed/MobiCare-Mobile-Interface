@@ -133,7 +133,7 @@ class RegisterCubit extends Cubit<RegisterStates>{
     required String patientEmail,
     required String patientPassword,
     required String patientAddress,
-    required String dateOfBirth,
+    required DateTime dateOfBirth,
     required int patientGender,
     required String patientHeight,
     required String patientWeight,
@@ -148,12 +148,13 @@ class RegisterCubit extends Cubit<RegisterStates>{
           'PATIENT_EMAIL' : patientEmail,
           'PATIENT_PASSWORD' : patientPassword,
           'PATIENT_ADDRESS' : patientAddress,
-          'DOB' : dateOfBirth,
+          'DOB' : '${dateOfBirth.year}-${dateOfBirth.month}-${dateOfBirth.day}',
           'PATIENT_GENDER' : patientGender,
           'PATIENT_WEIGHT' : patientWeight,
           'PATIENT_HEIGHT' : patientHeight,
         }
     ).then((value) {
+      print('***********************************************');
       print(value.data);
       emit(RegisterSuccessState());
     }).catchError((error) {
@@ -168,7 +169,7 @@ class RegisterCubit extends Cubit<RegisterStates>{
     required String patientEmail,
     required String patientPassword,
     required String patientAddress,
-    required String dateOfBirth,
+    required DateTime dateOfBirth,
     required int patientGender,
     required String patientHeight,
     required String patientWeight,
@@ -184,6 +185,7 @@ class RegisterCubit extends Cubit<RegisterStates>{
         patientHeight: patientHeight,
         patientWeight: patientWeight
     ).then((value) {
+      print('#################################################');
       registerPatientByFirebase(
           email: patientEmail,
           password: patientPassword,
