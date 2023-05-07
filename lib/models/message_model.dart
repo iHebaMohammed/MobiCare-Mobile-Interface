@@ -20,13 +20,12 @@ class MessageModel {
     messageText = json['messageText'];
   }
 
-  Map<String, dynamic> toMap() {
   factory MessageModel.fromFirestore(DocumentSnapshot snapshot) {
     return MessageModel(
-        senderId: snapshot['senderId'],
-        receiverId:  snapshot['receiverId'],
-        dateTime:  snapshot['dateTime'],
-        messageText:  snapshot['messageText'],
+      senderId: snapshot['senderId'],
+      receiverId: snapshot['receiverId'],
+      dateTime: snapshot['dateTime'],
+      messageText: snapshot['messageText'],
     );
   }
 
@@ -39,7 +38,7 @@ class MessageModel {
     };
   }
 
-  Map<String , dynamic> toMap(){
+  Map<String, dynamic> toMap() {
     return {
       'senderId': senderId,
       'receiverId': receiverId,

@@ -44,3 +44,6 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+# IP address
+/lib/shared/network/remote/ip_address.dart

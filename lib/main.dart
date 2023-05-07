@@ -16,10 +16,9 @@ import 'modules/patinet_modules/patient_profile/cubit/cubit.dart';
 import 'modules/shared_modules/chat_details/cubit/cubit.dart';
 import 'modules/shared_modules/payment/cubit/cubit.dart';
 import 'shared/network/remote/dio_helper.dart';
+import 'shared/network/remote/web3_dio_helper.dart';
 import 'shared/styles/themes.dart';
 import 'shared/network/local/cache_helper.dart';
-
-import 'package:flutter_ipfs/src/service/file_picker.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -37,6 +36,7 @@ void main() async {
   //     onSelectNotification: selectNotification);
   await Firebase.initializeApp();
   DioHelper.init();
+  Web3DioHelper.init();
   Bloc.observer = MyBlocObserver();
   await CacheHelper.init();
   bool? isDark = CacheHelper.getData(key: 'isDark');
@@ -53,10 +53,7 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (context) => PatientLayoutCubit()
-            ..getUIdsOfChatsSender()
-            ..getAllUsers
-            ..getChats(),
+          create: (context) => PatientLayoutCubit(),
         ),
         BlocProvider(
             create: (context) => ChatMessagesCubit(),
@@ -77,7 +74,7 @@ class MyApp extends StatelessWidget {
           create: (context) => DoctorTimeReminderCubit()..createDatabase(),
         ),
         BlocProvider(
-          create: (context) => PrescriptionCubit()..initialSetup(),
+          create: (context) => PrescriptionCubit()..blockchainSetup(),
         ),
       ],
       child: BlocConsumer<PatientLayoutCubit, PatientLayoutStates>(
@@ -91,54 +88,6 @@ class MyApp extends StatelessWidget {
             home: DoctorLayout(),
           );
         },
-      ),
-    );
-  }
-}
-
-class IPFS extends StatelessWidget {
-  const IPFS({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 1,
-        centerTitle: true,
-        title: const Text(
-          'Flutter Ipfs',
-          style: TextStyle(
-            letterSpacing: 1.2,
-            color: Colors.black,
-            fontSize: 19,
-            fontWeight: FontWeight.w600,
-          ),
-        ),
-      ),
-      body: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 25),
-        child: Center(
-          child: MaterialButton(
-            onPressed: () => FilePickerService.pickFile(context)
-                .then((value) => print("value: $value")),
-            color: Colors.black,
-            textColor: Colors.white,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(25),
-            ),
-            child: const SizedBox(
-              height: 50,
-              child: Center(
-                child: Text(
-                  'Upload File',
-                  style: TextStyle(fontSize: 18, fontFamily: 'Brand-Bold'),
-                ),
-              ),
-            ),
-          ),
-        ),
       ),
     );
   }

@@ -60,8 +60,7 @@ dependencies:
   web3dart: ^2.6.1
   walletconnect_dart: ^0.0.11
   url_launcher: ^6.1.10
-  ipfs_client_flutter: ^1.0.7
-  flutter_ipfs: ^0.0.2
+  file_picker: ^5.2.11
 #  syncfusion_flutter_datepicker: ^21.1.35
 
 dev_dependencies:
@@ -100,7 +99,7 @@ flutter:
     - assets/svg/payment/
     - assets/svg/prescription/
     - assets/svg/doctor_time_reminder/
-    - src/artifacts/EHR.json
+    - contracts/
     #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

@@ -6,4 +6,4 @@ class ChangeSessionState extends PrescriptionStates {}
 
 class GetRecordsState extends PrescriptionStates {}
 
-class AddRecordsState extends PrescriptionStates {}
+class GetSenderAddressState extends PrescriptionStates {}

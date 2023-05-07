@@ -1,18 +1,24 @@
-import 'package:flutter/cupertino.dart';
+import 'dart:convert';
+import 'dart:io';
+
+import 'package:dio/dio.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:url_launcher/url_launcher_string.dart';
-import 'package:mobi_care/shared/styles/colors.dart';
-import 'package:web3dart/credentials.dart';
+
+import 'package:mobi_care/shared/network/remote/dio_helper.dart';
+import 'package:mobi_care/shared/network/remote/web3_dio_helper.dart';
 import '../../../shared/components/components.dart';
 import '../../../shared/components/navigate_component.dart';
+import '../../../shared/network/remote/ip_address.dart';
+import '../../../shared/styles/colors.dart';
 import '../patient_search_prescription/patient_search_prescription_screen.dart';
 import 'cubit/cubit.dart';
 import 'cubit/states.dart';
 
 class PatientPrescriptionScreen extends StatelessWidget {
-  const PatientPrescriptionScreen({Key? key}) : super(key: key);
+  PatientPrescriptionScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -74,7 +80,7 @@ class PatientPrescriptionScreen extends StatelessWidget {
                   child: Divider(),
                 ),
                 const BuildPrescriptionItem(
-                  dateTime: '14 / 2 / 2001',
+                  dateTime: '13 / 2 / 2001',
                   doctorName: 'Mohammed Moataz',
                 ),
                 !cubit.connector.connected
@@ -88,11 +94,18 @@ class PatientPrescriptionScreen extends StatelessWidget {
                           )
                         ],
                       )
-                    : Column(
-                        children: [
-                          const Text("You are connected"),
-                          Text("senderAddress\n ${cubit.senderAddress}"),
-                        ],
+                    : Padding(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 20.0,
+                          vertical: 20.0,
+                        ),
+                        child: Column(
+                          children: [
+                            const Text("You are connected"),
+                            Text(
+                                "senderAddress ${cubit.senderAddress ?? "not found!!"}"),
+                          ],
+                        ),
                       ),
                 const SizedBox(
                   height: 50,
@@ -101,28 +114,50 @@ class PatientPrescriptionScreen extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(horizontal: 20),
                   child: Column(
                     children: [
-                      Text(cubit.records.toString())
+                      Text(cubit.records.toString()),
                     ],
                   ),
                 ),
               ],
             ),
           ),
-          floatingActionButton: !cubit.connector.connected
-              ? null
-              : FloatingActionButton(
-                  onPressed: () async {
-                    // await cubit.getRecords(EthereumAddress.fromHex(
-                    //     "0x9839548Ac44A81D26cB944c3f5a164B16C4Ef359"));
-                    await cubit.addRecord(
-                      "Last one",
-                      EthereumAddress.fromHex(
-                          "0x9839548Ac44A81D26cB944c3f5a164B16C4Ef359"),
-                    );
-                  },
-                  backgroundColor: primaryColor1BA,
-                  child: const Icon(Icons.add),
-                ),
+          floatingActionButton: FloatingActionButton(
+            child: Icon(
+              Icons.add,
+              color: primaryWhiteColor,
+            ),
+            onPressed: () async {
+              FilePickerResult? result = await FilePicker.platform.pickFiles();
+
+              if (result != null) {
+                File file = File(result.files.single.path!);
+                final bytes = file.readAsBytesSync();
+                final encodedFile = base64Encode(bytes);
+
+                print(encodedFile);
+
+                final decodedBytes = base64Decode(encodedFile);
+                print(decodedBytes);
+
+                File newFile = await File("newFile.jpeg").writeAsBytes(bytes);
+                print(newFile);
+
+//                 Directory appDocDirectory = await getApplicationDocumentsDirectory();
+//
+//                 new Directory(appDocDirectory.path+'/'+'dir').create(recursive: true)
+// // The created directory is returned as a Future.
+//                     .then((Directory directory) {
+//                   print('Path of New Dir: '+directory.path);
+//                 });
+
+                Web3DioHelper.postData(data: {"file": bytes})
+                    .then((value) => print(value))
+                    .catchError((err) => print(err));
+              } else {
+                print("Canceled");
+              }
+            },
+          ),
         );
       },
     );
