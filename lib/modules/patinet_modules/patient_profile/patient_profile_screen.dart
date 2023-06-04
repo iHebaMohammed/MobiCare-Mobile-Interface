@@ -66,7 +66,7 @@ class PatientProfileScreen extends StatelessWidget {
                         DefaultImageShape(
                           isMale:  asPatientModel!.data!.gender! == 0 ? false : true,
                           height: 80,
-                          image: 'https://img.freepik.com/free-vector/hand-drawn-flat-design-shrug-illustration_23-2149333146.jpg?w=740&t=st=1685824454~exp=1685825054~hmac=92a6fb8c199c42ea7109d6418f183fe65392b52a37040bd23e305d2f675f1f7a',
+                          image: 'https://cdn-icons-png.flaticon.com/512/727/727399.png?w=740&t=st=1685896888~exp=1685897488~hmac=d1e52ed88325af9d153a52cc517b162ed28c158ecf2c917d7faa12849488be12',
                         ),
                       ],
                     ),

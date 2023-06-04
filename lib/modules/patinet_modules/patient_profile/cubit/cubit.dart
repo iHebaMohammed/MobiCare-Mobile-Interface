@@ -81,7 +81,7 @@ class PatientProfileCubit extends Cubit<PatientProfileStates> {
   void getDoctors(){
     emit(GetDoctorsListLoadingState());
     DioHelper.getData(
-      path: 'Get_Doctors',
+      path: Get_Doctors,
       queryParameters: {
         'id': asPatientModel!.data!.iD!,
       },
