@@ -3,7 +3,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobi_care/models/admin_model.dart';
-import 'package:mobi_care/models/doctor_login_model.dart';
 import 'package:mobi_care/models/doctor_model.dart';
 import 'package:mobi_care/models/patient_login_model.dart';
 import 'package:mobi_care/shared/constants/constants.dart';

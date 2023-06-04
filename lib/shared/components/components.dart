@@ -476,56 +476,43 @@ class DefaultSearchRowUserViewItem extends StatelessWidget {
   final bool isMale;
   final String image;
   final String name;
-  final bool isDoctor;
 
   const DefaultSearchRowUserViewItem({
     Key? key,
     required this.isMale,
     required this.image,
     required this.name,
-    required this.isDoctor,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(top: 14.0),
+    return SizedBox(
+      height: 60,
       child: Row(
         children: [
           DefaultImageShape(
             isMale: isMale,
             image: image,
-            height: 55,
+            height: 50,
           ),
           const SizedBox(
             width: 16,
           ),
-          Expanded(
-            child: Text(
-              name,
-              overflow: TextOverflow.ellipsis,
-              style: const TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.w500,
-              ),
+          Text(
+            name,
+            overflow: TextOverflow.ellipsis,
+            style: const TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.w500,
             ),
           ),
           const Spacer(),
-          if (isDoctor)
-            Text(
+          Text(
               'Doctor',
               style: TextStyle(
-                  fontSize: 18,
+                  fontSize: 14,
                   color: primaryGreyColor808,
-                  fontWeight: FontWeight.w500),
-            ),
-          if (!isDoctor)
-            Text(
-              'Clinic',
-              style: TextStyle(
-                  fontSize: 18,
-                  color: primaryGreyColor808,
-                  fontWeight: FontWeight.w500),
+                  fontWeight: FontWeight.w400),
             ),
         ],
       ),

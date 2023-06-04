@@ -58,7 +58,7 @@ class PatientProfileCubit extends Cubit<PatientProfileStates> {
   void getSymptoms(){
     emit(GetSymptomsLoadingState());
     DioHelper.getData(
-      path: '${Get_Symptoms}${asPatientModel!.data!.iD!}',
+      path: Get_Symptoms,
       queryParameters: {
         'id': asPatientModel!.data!.iD!,
       },
@@ -81,7 +81,7 @@ class PatientProfileCubit extends Cubit<PatientProfileStates> {
   void getDoctors(){
     emit(GetDoctorsListLoadingState());
     DioHelper.getData(
-      path: '${Get_Doctors}${asPatientModel!.data!.iD!}',
+      path: 'Get_Doctors',
       queryParameters: {
         'id': asPatientModel!.data!.iD!,
       },
