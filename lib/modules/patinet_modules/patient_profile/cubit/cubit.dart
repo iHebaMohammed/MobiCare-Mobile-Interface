@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mobi_care/models/get_symptoms_model.dart';
 import 'package:mobi_care/shared/constants/constants.dart';
 import 'package:mobi_care/shared/network/remote/dio_helper.dart';
 import 'package:mobi_care/shared/network/remote/end_point.dart';
@@ -53,7 +54,7 @@ class PatientProfileCubit extends Cubit<PatientProfileStates> {
     });
   }
 
-  List<dynamic> ? symptoms ;
+  GetSymptomsModel ? symptoms ;
 
   void getSymptoms(){
     emit(GetSymptomsLoadingState());
@@ -64,11 +65,8 @@ class PatientProfileCubit extends Cubit<PatientProfileStates> {
       },
       token: token
     ).then((value) {
-      symptoms = [];
-      if(symptoms!.isEmpty) {
-        symptoms =value.data['data'];
-      }
-      print(symptoms);
+      symptoms = GetSymptomsModel.fromJson(value.data);
+      print(symptoms!.data!.length);
       emit(GetSymptomsSuccessfullyState());
     }).catchError((error){
       print(error.toString());

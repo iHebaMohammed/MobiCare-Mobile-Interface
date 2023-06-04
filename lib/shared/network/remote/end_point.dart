@@ -8,3 +8,4 @@ const String LOGIN = '/login';
 const String SEARCH_DOCTOR_BY_NAME = '/doctor/search';
 const String Get_Symptoms = '/patient/symptom/getAll';
 const String Get_Doctors = '/patient/getDoctors';
+const String Add_Symptom = '/patient/symptom/add';

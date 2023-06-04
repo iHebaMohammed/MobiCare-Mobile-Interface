@@ -410,16 +410,16 @@ class PatientProfileScreen extends StatelessWidget {
                         ),
                         if(isSymptomsVisible)
                           ConditionalBuilder(
-                            condition: isThereSymptomsInList && cubit.symptoms!.length > 0,
+                            condition: isThereSymptomsInList && cubit.symptoms!.data!.length > 0,
                             builder: (context) => SizedBox(
                             width: double.infinity,
                             child: Padding(
                               padding: const EdgeInsets.symmetric(vertical: 8.0),
                               child: Wrap(
                                 children: [
-                                  for(int i = 0 ; i < cubit.symptoms!.length ; i++)
+                                  for(int i = 0 ; i < cubit.symptoms!.data!.length ; i++)
                                     DefaultSymptomItem(
-                                      nameOfSymptom: cubit.symptoms![i],
+                                      nameOfSymptom: cubit.symptoms!.data![i].symptom!,
                                     ),
                                 ],
                               ),
