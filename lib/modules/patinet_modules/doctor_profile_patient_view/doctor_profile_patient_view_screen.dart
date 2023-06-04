@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:mobi_care/models/search_doctor_model.dart';
 import 'package:mobi_care/shared/components/components.dart';
 import 'package:mobi_care/shared/components/doctor_image_component.dart';
 import 'package:mobi_care/shared/styles/colors.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 class DoctorProfilePatientViewScreen extends StatelessWidget {
-  const DoctorProfilePatientViewScreen({Key? key}) : super(key: key);
+
+  final Data dataModel;
+  DoctorProfilePatientViewScreen({required this.dataModel});
 
   @override
   Widget build(BuildContext context) {
@@ -72,7 +75,9 @@ class DoctorProfilePatientViewScreen extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
                           SvgPicture.asset('assets/icons/chat.svg' , width: 60,),
-                          DoctorImageComponent(image: 'https://img.freepik.com/free-photo/smiling-doctor-with-strethoscope-isolated-grey_651396-974.jpg?w=1060&t=st=1680986239~exp=1680986839~hmac=347c4a3241d1741a6b0c5f19e693282afa09b3a37fb08d3cbca683d11e4ba3fb'),
+                          DoctorImageComponent(
+                            image: 'https://img.freepik.com/premium-vector/graphic-element-printing-poster-banner-website-cartoon-flat-vector-illustration_755718-18.jpg?w=740',
+                          ),
                           SvgPicture.asset('assets/icons/telephone.svg' , width: 60,),
                         ],
                       ),
@@ -83,7 +88,7 @@ class DoctorProfilePatientViewScreen extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Text(
-                            'Dr. Ahmed Ali',
+                            'Dr. ${dataModel.fName} ${dataModel.lName}',
                             style: TextStyle(
                               color: primaryBlackColor,
                               fontSize: 18,
@@ -94,7 +99,7 @@ class DoctorProfilePatientViewScreen extends StatelessWidget {
                             height: 5,
                           ),
                           Text(
-                            'Pulmonologist',
+                            '${dataModel.specialization}',
                             style: TextStyle(
                               color: primaryBlackColor,
                               fontSize: 14,
@@ -245,6 +250,118 @@ class DoctorProfilePatientViewScreen extends StatelessWidget {
                     ],
                   ),
                 ),
+              ),
+              SizedBox(
+                  height: 20
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                child: Column(
+                  children: [
+                    Row(
+                      children: [
+                        Icon(
+                          Icons.date_range,
+                          size: 28,
+                          color: primaryColor1BA,
+                        ),
+                        SizedBox(width: 20,),
+                        Text(
+                          'Birth Date ${dataModel.dOB!}',
+                          style: TextStyle(
+                            fontWeight: FontWeight.w400,
+                            fontSize: 16,
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Row(
+                      children: [
+                        Icon(
+                          Icons.location_on,
+                          size: 28,
+                          color: primaryColor1BA,
+                        ),
+                        SizedBox(width: 20,),
+                        Text(
+                          'Lives in ${dataModel.address!}',
+                          style: TextStyle(
+                            fontWeight: FontWeight.w400,
+                            fontSize: 16,
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Row(
+                      children: [
+                        Icon(
+                          Icons.email,
+                          size: 28,
+                          color: primaryColor1BA,
+                        ),
+                        SizedBox(width: 20,),
+                        Expanded(
+                          child: Text(
+                            'Email ${dataModel.email!}',
+                            style: TextStyle(
+                              fontWeight: FontWeight.w400,
+                              fontSize: 16,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Row(
+                      children: [
+                        Icon(
+                          dataModel.gender! == 0 ? Icons.female :Icons.male,
+                          size: 28,
+                          color: primaryColor1BA,
+                        ),
+                        SizedBox(width: 20,),
+                        Text(
+                          'Gender ${dataModel.gender! == 0 ? 'Female' : 'Male'}',
+                          style: TextStyle(
+                            fontWeight: FontWeight.w400,
+                            fontSize: 16,
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Row(
+                      children: [
+                        Icon(
+                          Icons.phone,
+                          size: 28,
+                          color: primaryColor1BA,
+                        ),
+                        SizedBox(width: 20,),
+                        Text(
+                          'Phone ${dataModel.phone!}',
+                          style: TextStyle(
+                            fontWeight: FontWeight.w400,
+                            fontSize: 16,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+              SizedBox(
+                  height: 20
               ),
               Padding(
                 padding: const EdgeInsetsDirectional.only(top: 24.0 , start: 16 , bottom: 12),
@@ -406,7 +523,7 @@ class DoctorProfilePatientViewScreen extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 26.0),
                 child: Text(
-                  'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled',
+                  dataModel.bio != null ? dataModel.bio! : 'Write something about you',
                   style: TextStyle(
                     color: primaryBlackColor,
                     fontWeight: FontWeight.w300,

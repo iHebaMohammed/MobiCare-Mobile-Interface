@@ -5,7 +5,10 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mobi_care/modules/patinet_modules/search_about_doctor/cubit/cubit.dart';
 import 'package:mobi_care/modules/patinet_modules/search_about_doctor/cubit/states.dart';
 import 'package:mobi_care/shared/components/components.dart';
+import 'package:mobi_care/shared/components/navigate_component.dart';
 import 'package:mobi_care/shared/components/text_form_field_component.dart';
+
+import '../doctor_profile_patient_view/doctor_profile_patient_view_screen.dart';
 
 class SearchAboutDoctorScreen extends StatelessWidget {
   SearchAboutDoctorScreen({Key? key}) : super(key: key);
@@ -71,10 +74,15 @@ class SearchAboutDoctorScreen extends StatelessWidget {
                           condition: cubit.searchDoctorModel!.data!.isNotEmpty,
                           builder: (context) => Expanded(
                             child: ListView.separated(
-                              itemBuilder: (context, index) => DefaultSearchRowUserViewItem(
-                                isMale: cubit.searchDoctorModel!.data![index].gender == 0 ? false : true,
-                                image: 'https://img.freepik.com/premium-vector/graphic-element-printing-poster-banner-website-cartoon-flat-vector-illustration_755718-18.jpg?w=740',
-                                name: '${cubit.searchDoctorModel!.data![index].fName} ${cubit.searchDoctorModel!.data![index].lName}',
+                              itemBuilder: (context, index) => InkWell(
+                                onTap: (){
+                                  navigateTo(context: context, widget: DoctorProfilePatientViewScreen(dataModel: cubit.searchDoctorModel!.data![index],));
+                                },
+                                child: DefaultSearchRowUserViewItem(
+                                  isMale: cubit.searchDoctorModel!.data![index].gender == 0 ? false : true,
+                                  image: 'https://img.freepik.com/premium-vector/graphic-element-printing-poster-banner-website-cartoon-flat-vector-illustration_755718-18.jpg?w=740',
+                                  name: '${cubit.searchDoctorModel!.data![index].fName} ${cubit.searchDoctorModel!.data![index].lName}',
+                                ),
                               ),
                               separatorBuilder: (context, index) => SizedBox(
                                 height: 10,
