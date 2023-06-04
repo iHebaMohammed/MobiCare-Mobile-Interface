@@ -33,25 +33,11 @@ class LoginScreen extends StatelessWidget {
           }
           else if(state is MainDoctorLoginErrorState){
             showToast(text: state.error, toastStates: ToastStates.ERROR);
+          }else if(state is MainPatientLoginSuccessState){
+            navigateAndFinish(context: context, widget: PatientLayout());
+          }else if(state is MainDoctorLoginSuccessState){
+            navigateAndFinish(context: context, widget: DoctorLayout());
           }
-          // if(state is LoginSuccessState){
-          //   CacheHelper.saveData(key: 'token', value: state.token).then((value) {
-          //     navigateTo(context: context, widget: PatientLayout());
-          //   });
-          // }
-          // else if(state is LoginPatientSuccessFirebaseState){
-          //   CacheHelper.saveData(key: 'uId', value: state.uId).then((value) {
-          //     navigateTo(context: context, widget: PatientLayout());
-          //   });
-          // }
-          // else if(state is LoginPatientErrorFirebaseState){
-          //   showToast(text: state.error, toastStates: ToastStates.ERROR);
-          // }
-          // else if(state is LoginDoctorSuccessFirebaseState){
-          //   CacheHelper.saveData(key: 'uId', value: state.uId).then((value) {
-          //     navigateTo(context: context, widget: DoctorLayout());
-          //   });
-          // }
           if(state is MainDoctorLoginSuccessState){
             navigateAndFinish(context: context, widget: DoctorLayout());
           }
@@ -169,10 +155,6 @@ class LoginScreen extends StatelessWidget {
                                         email: emailController.text,
                                         password: passwordController.text,
                                     );
-                                    // cubit.adminLogin(
-                                    //     email: emailController.text,
-                                    //     password: passwordController.text
-                                    // );
                                   }
                                 }
                             ),

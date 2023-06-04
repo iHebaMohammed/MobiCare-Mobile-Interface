@@ -33,11 +33,8 @@ class RegisterScreen extends StatelessWidget {
         listener: (context, state){
           if(state is RegisterationErrorState){
             showToast(text: state.error.toString(), toastStates: ToastStates.ERROR);
-          }else if(state is RegisterErrorFirebaseState){
-            showToast(text: state.error.toString(), toastStates: ToastStates.ERROR);
-          }
-          if(state is RegisterationSuccessfullyState){
-            navigateTo(context: context, widget: LoginScreen());
+          }else if(state is RegisterationSuccessfullyState){
+            navigateAndFinish(context: context, widget: LoginScreen());
           }
         },
         builder: (context, state) {

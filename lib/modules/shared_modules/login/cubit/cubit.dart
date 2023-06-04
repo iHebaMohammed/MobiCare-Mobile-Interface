@@ -4,10 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobi_care/models/admin_model.dart';
 import 'package:mobi_care/models/doctor_login_model.dart';
+import 'package:mobi_care/models/doctor_model.dart';
 import 'package:mobi_care/models/patient_login_model.dart';
 import 'package:mobi_care/shared/constants/constants.dart';
 import 'package:mobi_care/shared/network/remote/dio_helper.dart';
 import 'package:mobi_care/shared/network/remote/end_point.dart';
+import '../../../../models/patient_model.dart';
 import 'states.dart';
 
 
@@ -42,9 +44,13 @@ class LoginCubit extends Cubit<LoginStates>{
       role = value.data['role'];
       print(value.data);
       if(value.data['role'] == 'DOCTOR'){
-        doctorLoginModel = DoctorLoginModel.fromJson(value.data);
+        asDoctorModel = DoctorModel.fromJson(value.data);
+        print(asDoctorModel);
       }else{
-        patientLoginModel = PatientLoginModel.fromJson(value.data);
+        asPatientModel = PatientModel.fromJson(value.data);
+        print('MODEL:################################################');
+        print(asPatientModel);
+        print(asPatientModel!.data!.address);
       }
       emit(UserLoginSuccessfullyState(token: value.data['accessToken']));
     }).catchError((error) {

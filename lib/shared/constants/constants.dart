@@ -1,13 +1,12 @@
-import 'package:mobi_care/models/doctor_login_model.dart';
-
-import '../../models/patient_login_model.dart';
+import '../../models/doctor_model.dart';
+import '../../models/patient_model.dart';
 
 String ? uId;
 String ? accessToken;
 String ? refreshToken;
 String ? role;
-PatientLoginModel ? patientLoginModel;
-DoctorLoginModel ? doctorLoginModel;
+PatientModel ? asPatientModel;
+DoctorModel ? asDoctorModel;
 
 const String bridge = "https://bridge.walletconnect.org";
 const String contractName = "EHR";
@@ -20,3 +19,4 @@ const walletName = "MetaMask";
 const walletDescription = "MetaMask Wallet";
 const walletURL = "https://metamask.io/";
 const walletIcon = "https://github.com/HebaAdelAhmed/MobiCare/blob/moataz/assets/metamask.png?raw=true";
+

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../modules/patinet_modules/search/search_screen.dart';
+import '../../modules/patinet_modules/search_about_doctor/search_about_doctor_screen.dart';
 import '../../shared/components/drawer_component.dart';
 import '../../shared/components/navigate_component.dart';
 import '../patient_drawer/patient_drawer_list.dart';
@@ -33,7 +33,7 @@ class PatientLayout extends StatelessWidget {
                   onPressed: (){
                     navigateTo(
                       context: context,
-                      widget: SearchScreen(),
+                      widget: SearchAboutDoctorScreen(),
                     );
                   },
                   icon: Icon(

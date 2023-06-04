@@ -31,7 +31,7 @@ class PatientProfileDoctorViewScreen extends StatelessWidget {
         return Scaffold(
           floatingActionButton: InkWell(
             onTap: (){
-              
+
             },
             child: Container(
               decoration: BoxDecoration(

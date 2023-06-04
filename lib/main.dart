@@ -2,7 +2,6 @@ import 'package:bloc/bloc.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-// import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:mobi_care/layouts/doctor_layout/doctor_layout.dart';
 import 'package:mobi_care/layouts/patient_layout/cubit/cubit.dart';
 import 'package:mobi_care/layouts/patient_layout/cubit/states.dart';
@@ -26,26 +25,11 @@ import 'shared/network/local/cache_helper.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  // const AndroidInitializationSettings initializationSettingsAndroid = AndroidInitializationSettings('app_icon');
-  // final IOSInitializationSettings initializationSettingsIOS = IOSInitializationSettings(
-  //   // onDidReceiveLocalNotification: onDidReceiveLocalNotification,
-  // );
-  // final MacOSInitializationSettings initializationSettingsMacOS = MacOSInitializationSettings();
-  // final InitializationSettings initializationSettings = InitializationSettings(
-  //   android: initializationSettingsAndroid,
-  //   iOS: initializationSettingsIOS,
-  //   macOS: initializationSettingsMacOS,
-  // );
-  // await flutterLocalNotificationsPlugin.initialize(initializationSettings,
-  //     onSelectNotification: selectNotification);
   await Firebase.initializeApp();
   DioHelper.init();
   Bloc.observer = MyBlocObserver();
   await CacheHelper.init();
   bool? isDark = CacheHelper.getData(key: 'isDark');
-
-
-
   runApp(const MyApp());
 }
 
@@ -67,7 +51,7 @@ class MyApp extends StatelessWidget {
           create: (context) => PaymentCubit(),
         ),
         BlocProvider(
-            create: (context) => PatientProfileCubit(),
+            create: (context) => PatientProfileCubit()..getNewAccessToken(),
         ),
         BlocProvider(
           create: (context) => PatientEditProfileCubit(),
@@ -93,7 +77,7 @@ class MyApp extends StatelessWidget {
             themeMode: ThemeMode.light,
             theme: lightTheme,
             darkTheme: darkTheme,
-            home: PatientProfileDoctorViewScreen(),
+            home: LoginScreen(),
           );
         },
       ),
