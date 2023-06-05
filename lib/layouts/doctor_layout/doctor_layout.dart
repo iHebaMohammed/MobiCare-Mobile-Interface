@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobi_care/layouts/doctor_drawer/doctor_drawer_list.dart';
 import 'package:mobi_care/modules/doctor_modules/search_about_patient/search_about_patient_screen.dart';
+import 'package:mobi_care/shared/constants/constants.dart';
 import '../../shared/components/drawer_component.dart';
 import '../../shared/components/navigate_component.dart';
 import '../../shared/styles/colors.dart';
@@ -68,9 +69,9 @@ class DoctorLayout extends StatelessWidget {
                 child: Column(
                   children: [
                     DoctorDrawerLayoutHeader(
-                      image: 'https://img.freepik.com/free-photo/smiling-doctor-with-strethoscope-isolated-grey_651396-974.jpg?w=1060&t=st=1682593217~exp=1682593817~hmac=e0cc3f61d6942cdbba91d78d525a722cbac431d92f4facb3116299efa079353f',
-                      name: 'Mohammed Ahmed',
-                      email: 'mohammedahmed@hmail.com',
+                      image: 'https://img.freepik.com/premium-vector/graphic-element-printing-poster-banner-website-cartoon-flat-vector-illustration_755718-18.jpg?w=740',
+                      name: 'Dr. ${asDoctorModel!.data!.fName} ${asDoctorModel!.data!.lName}',
+                      email: '${asDoctorModel!.data!.email}',
                     ),
                     DoctorDrawerLayoutList(),
                   ],
