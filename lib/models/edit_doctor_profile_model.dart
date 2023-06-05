@@ -1,34 +1,25 @@
-class DoctorModel {
+class EditDoctorProfileModel {
   String? message;
-  String? accessToken;
-  String? refreshToken;
-  Data? data;
-  String? role;
+  List<List>? data;
 
-  DoctorModel(
-      {this.message,
-        this.accessToken,
-        this.refreshToken,
-        this.data,
-        this.role});
+  EditDoctorProfileModel({this.message, this.data});
 
-  DoctorModel.fromJson(Map<String, dynamic> json) {
+  EditDoctorProfileModel.fromJson(Map<String, dynamic> json) {
     message = json['message'];
-    accessToken = json['accessToken'];
-    refreshToken = json['refreshToken'];
-    data = json['data'] != null ? new Data.fromJson(json['data']) : null;
-    role = json['role'];
+    if (json['data'] != null) {
+      data = <List>[];
+      json['data'].forEach((v) {
+        // data!.add(new List.fromJson(v));
+      });
+    }
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['message'] = this.message;
-    data['accessToken'] = this.accessToken;
-    data['refreshToken'] = this.refreshToken;
     if (this.data != null) {
-      data['data'] = this.data!.toJson();
+      // data['data'] = this.data!.map((v) => v.toJson()).toList();
     }
-    data['role'] = this.role;
     return data;
   }
 }
@@ -36,19 +27,21 @@ class DoctorModel {
 class Data {
   int? iD;
   String? doctorStatus;
-  Null? fUID;
+  String? fUID;
   int? adminID;
   String? fName;
   String? lName;
   String? email;
+  String? pass;
   String? address;
   int? gender;
   String? dOB;
   String? specialization;
   String? phone;
+  String? refreshTokenValue;
   String? photo;
-  Null? bio;
-  Null? video;
+  String? bio;
+  String? video;
   int? rate;
   int? experince;
   int? patientsNo;
@@ -62,11 +55,13 @@ class Data {
         this.fName,
         this.lName,
         this.email,
+        this.pass,
         this.address,
         this.gender,
         this.dOB,
         this.specialization,
         this.phone,
+        this.refreshTokenValue,
         this.photo,
         this.bio,
         this.video,
@@ -83,11 +78,13 @@ class Data {
     fName = json['F_Name'];
     lName = json['L_Name'];
     email = json['Email'];
+    pass = json['Pass'];
     address = json['Address'];
     gender = json['Gender'];
     dOB = json['DOB'];
     specialization = json['Specialization'];
     phone = json['Phone'];
+    refreshTokenValue = json['Refresh_Token_Value'];
     photo = json['Photo'];
     bio = json['Bio'];
     video = json['Video'];
@@ -106,11 +103,13 @@ class Data {
     data['F_Name'] = this.fName;
     data['L_Name'] = this.lName;
     data['Email'] = this.email;
+    data['Pass'] = this.pass;
     data['Address'] = this.address;
     data['Gender'] = this.gender;
     data['DOB'] = this.dOB;
     data['Specialization'] = this.specialization;
     data['Phone'] = this.phone;
+    data['Refresh_Token_Value'] = this.refreshTokenValue;
     data['Photo'] = this.photo;
     data['Bio'] = this.bio;
     data['Video'] = this.video;
