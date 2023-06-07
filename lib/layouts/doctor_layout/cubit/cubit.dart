@@ -2,12 +2,16 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import '../../../models/doctor_patient_list_model.dart';
+import '../../../models/get_doctor_profile_model.dart';
 import '../../../models/user_model.dart';
 import '../../../modules/doctor_modules/doctor_chats/doctor_chats_screen.dart';
 import '../../../modules/doctor_modules/doctor_home/doctor_home_screen.dart';
 import '../../../modules/doctor_modules/doctor_patients_list/doctor_patients_list_screen.dart';
 import '../../../modules/doctor_modules/doctor_time_reminder/doctor_time_reminder_screen.dart';
 import '../../../shared/constants/constants.dart';
+import '../../../shared/network/remote/dio_helper.dart';
+import '../../../shared/network/remote/end_point.dart';
 import 'states.dart';
 
 class DoctorLayoutCubit extends Cubit<DoctorLayoutStates> {
@@ -49,6 +53,7 @@ class DoctorLayoutCubit extends Cubit<DoctorLayoutStates> {
         SvgPicture.asset('assets/bottom_nav_icons/chat_not_active.svg'),
         // SvgPicture.asset('assets/bottom_nav_icons/contact_not_active.svg'),
       ];
+      getDoctorPatients();
     } else if(index == 2){
       bottomNavIcons = [
         SvgPicture.asset('assets/bottom_nav_icons/clock_not_active.svg', width: 24,),
@@ -76,6 +81,24 @@ class DoctorLayoutCubit extends Cubit<DoctorLayoutStates> {
       ];
     }
     emit(DoctorLayoutChangeBottomNavigationBarState());
+  }
+
+  DoctorPatientListModel ? doctorPatientListModel;
+
+  void getDoctorPatients(){
+    emit(DoctorPatientListInitiateState());
+    DioHelper.getData(
+      token: accessToken,
+      path: '${GET_DOCTOR_PATIENTS}${asDoctorModel!.data!.iD}',
+    ).then((value) {
+      print(value.data);
+      doctorPatientListModel = DoctorPatientListModel.fromJson(value.data);
+      print(doctorPatientListModel!.data![0].fName);
+      emit(GetDoctorPatientListSuccessfullyState());
+    }).catchError((error) {
+      print(error.toString());
+      emit(GetDoctorPatientListErrorState());
+    });
   }
 
   UserModel ? userModel;
@@ -193,4 +216,5 @@ class DoctorLayoutCubit extends Cubit<DoctorLayoutStates> {
       });
     });
   }
+
 }

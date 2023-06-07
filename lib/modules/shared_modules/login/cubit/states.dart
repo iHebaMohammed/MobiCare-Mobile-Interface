@@ -126,3 +126,15 @@ class MainPatientLoginErrorState extends LoginStates {
     required this.error
   });
 }
+
+class AddPatientFUIDLoadingState extends LoginLoadingFirebaseState {}
+
+class AddPatientFUIDSuccessfullyState extends LoginLoadingFirebaseState {}
+
+class AddPatientFUIDErrorState extends LoginLoadingFirebaseState {}
+
+class AddDoctorFUIDLoadingState extends LoginLoadingFirebaseState {}
+
+class AddDoctorFUIDSuccessfullyState extends LoginLoadingFirebaseState {}
+
+class AddDoctorFUIDErrorState extends LoginLoadingFirebaseState {}

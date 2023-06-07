@@ -123,4 +123,5 @@ class DoctorDrawerLayoutCubit extends Cubit<DoctorDrawerLayoutStates>{
       emit(AssignPatientToDoctorErrorState());
     });
   }
+
 }

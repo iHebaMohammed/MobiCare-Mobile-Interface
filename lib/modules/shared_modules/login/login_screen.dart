@@ -6,6 +6,7 @@ import 'package:mobi_care/layouts/patient_layout/patient_layout.dart';
 import 'package:mobi_care/shared/components/components.dart';
 import 'package:mobi_care/shared/components/text_button_component.dart';
 import 'package:mobi_care/shared/components/text_form_field_component.dart';
+import 'package:mobi_care/shared/constants/constants.dart';
 import 'package:mobi_care/shared/network/local/cache_helper.dart';
 import 'package:mobi_care/shared/styles/colors.dart';
 import '../../../layouts/doctor_layout/doctor_layout.dart';
@@ -33,9 +34,9 @@ class LoginScreen extends StatelessWidget {
           }
           else if(state is MainDoctorLoginErrorState){
             showToast(text: state.error, toastStates: ToastStates.ERROR);
-          }else if(state is MainPatientLoginSuccessState){
+          }else if(state is MainPatientLoginSuccessState && asPatientModel != null){
             navigateAndFinish(context: context, widget: PatientLayout());
-          }else if(state is MainDoctorLoginSuccessState){
+          }else if(state is MainDoctorLoginSuccessState && asDoctorModel != null){
             navigateAndFinish(context: context, widget: DoctorLayout());
           }
           if(state is MainDoctorLoginSuccessState){

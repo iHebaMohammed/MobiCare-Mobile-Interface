@@ -27,3 +27,21 @@ class LayoutGetUsersInChatErrorState extends DoctorLayoutStates {}
 class DoctorLayoutGetUsersLoadingState extends DoctorLayoutStates {}
 
 class DoctorLayoutGetUsersSuccessfullyState extends DoctorLayoutStates {}
+
+class GetDoctorProfileLoadingState extends DoctorLayoutStates {}
+
+class GetDoctorProfileSuccessfullyState extends DoctorLayoutStates {}
+
+class GetDoctorProfileErrorState extends DoctorLayoutStates {}
+
+class GetNewAccessTokenLoadingState extends DoctorLayoutStates {}
+
+class GetNewAccessTokenSuccessfullyState extends DoctorLayoutStates {}
+
+class GetNewAccessTokenErrorState extends DoctorLayoutStates {}
+
+class DoctorPatientListInitiateState extends DoctorLayoutStates {}
+
+class GetDoctorPatientListSuccessfullyState extends DoctorLayoutStates {}
+
+class GetDoctorPatientListErrorState extends DoctorLayoutStates {}
