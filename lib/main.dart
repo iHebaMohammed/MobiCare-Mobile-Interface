@@ -5,11 +5,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'layouts/patient_layout/cubit/cubit.dart';
 import 'layouts/patient_layout/cubit/states.dart';
+
 import 'modules/patinet_modules/patient_edit_profile/cubit/cubit.dart';
 import 'modules/patinet_modules/patient_medication_reminder/cubit/cubit.dart';
 import 'modules/patinet_modules/patient_prescriptions/cubit/cubit.dart';
 import 'modules/patinet_modules/patient_profile/cubit/cubit.dart';
 
+import 'modules/doctor_modules/doctor_profile_doctor_view/cubit/cubit.dart';
 import 'modules/doctor_modules/patient_profile_doctor_view/cubit/cubit.dart';
 import 'modules/doctor_modules/doctor_time_reminder/cubit/cubit.dart';
 
