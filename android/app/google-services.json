@@ -37,6 +37,13 @@
             {
               "client_id": "155211948622-f01knrd1chh3cgoda2o7cpsd25idj49k.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "155211948622-2jo2mb4bqbptskt85gr46n9qg96385b1.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.mobiCare"
+              }
             }
           ]
         }
