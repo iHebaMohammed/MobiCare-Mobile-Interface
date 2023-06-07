@@ -2,6 +2,10 @@ import 'package:bloc/bloc.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import 'layouts/patient_layout/cubit/cubit.dart';
+import 'layouts/patient_layout/cubit/states.dart';
+
 import 'package:mobi_care/layouts/doctor_layout/doctor_layout.dart';
 import 'package:mobi_care/layouts/patient_layout/cubit/cubit.dart';
 import 'package:mobi_care/layouts/patient_layout/cubit/states.dart';
@@ -18,13 +22,19 @@ import 'modules/patinet_modules/patient_edit_profile/cubit/cubit.dart';
 import 'modules/patinet_modules/patient_medication_reminder/cubit/cubit.dart';
 import 'modules/patinet_modules/patient_prescriptions/cubit/cubit.dart';
 import 'modules/patinet_modules/patient_profile/cubit/cubit.dart';
-import 'modules/patinet_modules/patient_profile/patient_profile_screen.dart';
+
+import 'modules/doctor_modules/doctor_profile_doctor_view/cubit/cubit.dart';
+import 'modules/doctor_modules/patient_profile_doctor_view/cubit/cubit.dart';
+import 'modules/doctor_modules/doctor_time_reminder/cubit/cubit.dart';
+
 import 'modules/shared_modules/chat_details/cubit/cubit.dart';
 import 'modules/shared_modules/login/login_screen.dart';
 import 'modules/shared_modules/payment/cubit/cubit.dart';
+
+import 'shared/network/local/cache_helper.dart';
 import 'shared/network/remote/dio_helper.dart';
 import 'shared/styles/themes.dart';
-import 'shared/network/local/cache_helper.dart';
+import 'shared/bloc_observer.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -37,8 +47,7 @@ void main() async {
 }
 
 class MyApp extends StatelessWidget {
-
-   const MyApp({super.key});
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {

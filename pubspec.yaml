@@ -60,6 +60,8 @@ dependencies:
   web3dart: ^2.5.1
   url_launcher: ^6.1.10
   walletconnect_dart: ^0.0.11
+  audioplayers: ^4.1.0
+  youtube_player_flutter: ^8.1.2
 
 #  syncfusion_flutter_datepicker: ^21.1.35
 
@@ -73,6 +75,7 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^2.0.0
+  build_runner: ^2.3.3
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
