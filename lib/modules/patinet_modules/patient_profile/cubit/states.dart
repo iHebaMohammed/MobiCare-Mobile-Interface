@@ -40,3 +40,9 @@ class GetDoctorsListErrorState extends PatientProfileStates {
     required this.error,
   });
 }
+
+class GetPatientProfileLoadingState extends PatientProfileStates {}
+
+class GetPatientProfileSuccessfullyState extends PatientProfileStates {}
+
+class GetPatientProfileErrorState extends PatientProfileStates {}

@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mobi_care/models/doctor_model.dart';
 import 'package:mobi_care/models/edit_doctor_profile_model.dart';
 
 import '../../../../shared/constants/constants.dart';
@@ -49,7 +50,6 @@ class DoctorEditProfileCubit extends Cubit<DoctorEditProfileStates> {
     });
   }
 
-  EditDoctorProfileModel ? editDoctorProfileModel;
 
   void editDoctorProfile({
     required String fName,
@@ -63,6 +63,7 @@ class DoctorEditProfileCubit extends Cubit<DoctorEditProfileStates> {
     emit(DoctorEditProfileLoadingState());
     DioHelper.postData(
       url: Edit_Doctor_Profile,
+      token: token,
       data: {
         'STATUS' : 'Disabled',
         'DOCTOR_FIRST_NAME' : fName,
@@ -71,13 +72,17 @@ class DoctorEditProfileCubit extends Cubit<DoctorEditProfileStates> {
         'ADDRESS' : address,
         'GENDER' : asDoctorModel!.data!.gender,
         'DOB' : asDoctorModel!.data!.dOB,
+        'PHONE' : phone,
         'SPECIALIZATION' : asDoctorModel!.data!.specialization,
         'BIO' : bio,
+        'FUID': uId,
       },
     ).then((value) {
-      editDoctorProfileModel = EditDoctorProfileModel.fromJson(value.data);
+      asDoctorModel = DoctorModel.fromJson(value.data);
       print(value.data);
-      print(editDoctorProfileModel);
+      print('%%%%%%%%%%%%%%%EDIT DOCTOR%%%%%%%%%%%%%%%');
+      // print(asDoctorModel!.data!.email);
+      // print(asDoctorModel);
       emit(DoctorEditProfileSuccessfullyState());
     }).catchError((error) {
       print(error.toString());

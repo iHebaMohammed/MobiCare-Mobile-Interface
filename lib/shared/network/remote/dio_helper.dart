@@ -22,7 +22,7 @@ class DioHelper {
     dio!.options.headers = {
       'Authorization' : token,
     };
-    return await dio!.get(path , queryParameters: queryParameters );
+    return await dio!.get(path , queryParameters: queryParameters);
   }
 
   static Future<Response> postData ({
@@ -38,6 +38,18 @@ class DioHelper {
 
   static Future<Response> putData ({
     required String url,
+    Map <String , dynamic> ? data,
+    Map<String , dynamic> ? queryParameters,
+    String ? token,
+  }) async{
+    dio!.options.headers = {
+      'Authorization' : token,
+    };
+    return await dio!.put(url , data: data, queryParameters: queryParameters);
+  }
+
+  static Future<Response> patchData ({
+    required String url,
     Map<String , dynamic> ? query,
     required Map <String , dynamic> data,
     String ? token,
@@ -45,7 +57,7 @@ class DioHelper {
     dio!.options.headers = {
       'Authorization' : token,
     };
-    return await dio!.put(
+    return await dio!.patch(
         url,
         queryParameters: query,
         data: data

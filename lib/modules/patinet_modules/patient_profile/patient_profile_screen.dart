@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mobi_care/shared/components/components.dart';
-import 'package:mobi_care/shared/constants/constants.dart';
 import 'package:mobi_care/shared/styles/colors.dart';
 import '../../../shared/components/navigate_component.dart';
 import '../patient_edit_profile/patient_edit_profile_screen.dart';
@@ -17,24 +16,16 @@ class PatientProfileScreen extends StatelessWidget {
   bool isPrescriptionVisible = true;
   bool isFollowUpWithVisible = true;
   bool isSymptomsVisible = true;
-  bool isThereDoctorInList = false;
-  bool isThereSymptomsInList = false;
 
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<PatientProfileCubit , PatientProfileStates>(
       listener: (context, state) {
-        if(state is GetSymptomsSuccessfullyState){
-          isThereSymptomsInList = true;
-        }
-        if(state is GetDoctorsListSuccessfullyState){
-          isThereDoctorInList = true;
-        }
       },
       builder: (context, state) {
         PatientProfileCubit cubit = PatientProfileCubit.get(context);
         return ConditionalBuilder(
-          condition: asPatientModel!.data != null,
+          condition: cubit.patientProfileModel!.data!.fName != null && state is GetPatientProfileSuccessfullyState,
           builder: (context) => Scaffold(
             body: SafeArea(
               child: ListView(
@@ -64,7 +55,7 @@ class PatientProfileScreen extends StatelessWidget {
                           ),
                         ),
                         DefaultImageShape(
-                          isMale:  asPatientModel!.data!.gender! == 0 ? false : true,
+                          isMale:  cubit.patientProfileModel!.data!.gender! == 0 ? false : true,
                           height: 80,
                           image: 'https://cdn-icons-png.flaticon.com/512/727/727399.png?w=740&t=st=1685896888~exp=1685897488~hmac=d1e52ed88325af9d153a52cc517b162ed28c158ecf2c917d7faa12849488be12',
                         ),
@@ -74,7 +65,7 @@ class PatientProfileScreen extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 10.0),
                     child: Text(
-                      '${asPatientModel!.data!.fName!} ${asPatientModel!.data!.lName!}',
+                      '${cubit.patientProfileModel!.data!.fName!} ${cubit.patientProfileModel!.data!.lName!}',
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         fontSize: 18,
@@ -83,7 +74,7 @@ class PatientProfileScreen extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    asPatientModel!.data!.gender! == 0 ? 'Female' : 'Male',
+                    cubit.patientProfileModel!.data!.gender! == 0 ? 'Female' : 'Male',
                     textAlign: TextAlign.center,
                     overflow: TextOverflow.ellipsis,
                     maxLines: 2,
@@ -140,7 +131,7 @@ class PatientProfileScreen extends StatelessWidget {
                                 ),
                                 SizedBox(width: 20,),
                                 Text(
-                                  'Birth Date ${asPatientModel!.data!.dOB!}',
+                                  '${cubit.patientProfileModel!.data!.dOB!}',
                                   style: TextStyle(
                                     fontWeight: FontWeight.w400,
                                     fontSize: 16,
@@ -160,7 +151,7 @@ class PatientProfileScreen extends StatelessWidget {
                                 ),
                                 SizedBox(width: 20,),
                                 Text(
-                                  'Lives in ${asPatientModel!.data!.address!}',
+                                  '${cubit.patientProfileModel!.data!.address!}',
                                   style: TextStyle(
                                     fontWeight: FontWeight.w400,
                                     fontSize: 16,
@@ -180,7 +171,7 @@ class PatientProfileScreen extends StatelessWidget {
                                 ),
                                 SizedBox(width: 20,),
                                 Text(
-                                  'Height ${asPatientModel!.data!.height == null ? 140 : asPatientModel!.data!.height!}',
+                                  '${cubit.patientProfileModel!.data!.height == null ? 140 : cubit.patientProfileModel!.data!.height!}',
                                   style: TextStyle(
                                     fontWeight: FontWeight.w400,
                                     fontSize: 16,
@@ -200,7 +191,7 @@ class PatientProfileScreen extends StatelessWidget {
                                 ),
                                 SizedBox(width: 20,),
                                 Text(
-                                  'Weight ${asPatientModel!.data!.weight == null ? 40 : asPatientModel!.data!.weight!}',
+                                  '${cubit.patientProfileModel!.data!.weight == null ? 40 : cubit.patientProfileModel!.data!.weight!}',
                                   style: TextStyle(
                                     fontWeight: FontWeight.w400,
                                     fontSize: 16,
@@ -220,7 +211,7 @@ class PatientProfileScreen extends StatelessWidget {
                                 ),
                                 SizedBox(width: 20,),
                                 Text(
-                                  'Email ${asPatientModel!.data!.email!}',
+                                  '${cubit.patientProfileModel!.data!.email!}',
                                   style: TextStyle(
                                     fontWeight: FontWeight.w400,
                                     fontSize: 16,
@@ -234,13 +225,13 @@ class PatientProfileScreen extends StatelessWidget {
                             Row(
                               children: [
                                 Icon(
-                                  asPatientModel!.data!.gender! == 0 ? Icons.female :Icons.male,
+                                  cubit.patientProfileModel!.data!.gender! == 0 ? Icons.female :Icons.male,
                                   size: 28,
                                   color: primaryColor1BA,
                                 ),
                                 SizedBox(width: 20,),
                                 Text(
-                                  'Gender ${asPatientModel!.data!.gender! == 0 ? 'Female' : 'Male'}',
+                                  '${cubit.patientProfileModel!.data!.gender! == 0 ? 'Female' : 'Male'}',
                                   style: TextStyle(
                                     fontWeight: FontWeight.w400,
                                     fontSize: 16,
@@ -260,7 +251,7 @@ class PatientProfileScreen extends StatelessWidget {
                                 ),
                                 SizedBox(width: 20,),
                                 Text(
-                                  'Phone ${asPatientModel!.data!.phone!}',
+                                  '${cubit.patientProfileModel!.data!.phone!}',
                                   style: TextStyle(
                                     fontWeight: FontWeight.w400,
                                     fontSize: 16,
@@ -356,15 +347,15 @@ class PatientProfileScreen extends StatelessWidget {
                         ),
                         if(isFollowUpWithVisible)
                           ConditionalBuilder(
-                            condition: isThereDoctorInList && cubit.patientDoctorList!.data!.length > 0,
+                            condition: cubit.patientProfileModel!.data!.doctors!.isNotEmpty,
                             builder: (context) => Column(
                               children: [
-                                for(int i = 0 ; i < cubit.patientDoctorList!.data!.length ; i++)
+                                for(int i = 0 ; i < cubit.patientProfileModel!.data!.doctors!.length ; i++)
                                   DefaultFollowUpWithItem(
-                                    isMale: cubit.patientDoctorList!.data![i].gender == 0 ? false : true,
+                                    isMale: cubit.patientProfileModel!.data!.doctors![i].gender == 0 ? false : true,
                                     image: 'https://img.freepik.com/free-photo/smiling-doctor-with-strethoscope-isolated-grey_651396-974.jpg?w=1060&t=st=1677180364~exp=1677180964~hmac=322f62b372fd430840916df2f143ee731df2389d1888b370c1725cb50008f371',
-                                    name: '${cubit.patientDoctorList!.data![i].fName} ${cubit.patientDoctorList!.data![i].lName}',
-                                    specialization: cubit.patientDoctorList!.data![i].specialization!,
+                                    name: '${cubit.patientProfileModel!.data!.doctors![i].fName} ${cubit.patientProfileModel!.data!.doctors![i].lName}',
+                                    specialization: cubit.patientProfileModel!.data!.doctors![i].specialization!,
                                   ),
                               ],
                             ),
@@ -410,16 +401,16 @@ class PatientProfileScreen extends StatelessWidget {
                         ),
                         if(isSymptomsVisible)
                           ConditionalBuilder(
-                            condition: isThereSymptomsInList && cubit.symptoms!.data!.length > 0,
+                            condition: cubit.patientProfileModel!.data!.symptoms!.isNotEmpty,
                             builder: (context) => SizedBox(
                             width: double.infinity,
                             child: Padding(
                               padding: const EdgeInsets.symmetric(vertical: 8.0),
                               child: Wrap(
                                 children: [
-                                  for(int i = 0 ; i < cubit.symptoms!.data!.length ; i++)
+                                  for(int i = 0 ; i < cubit.patientProfileModel!.data!.symptoms!.length ; i++)
                                     DefaultSymptomItem(
-                                      nameOfSymptom: cubit.symptoms!.data![i].symptom!,
+                                      nameOfSymptom: cubit.patientProfileModel!.data!.symptoms![i].symptom!,
                                     ),
                                 ],
                               ),
@@ -447,7 +438,15 @@ class PatientProfileScreen extends StatelessWidget {
               ),
             ),
           ),
-          fallback: (context) => const Center(child: CircularProgressIndicator()),
+          fallback: (context) => const Scaffold(
+              body: SafeArea(
+                  child: Center(
+                      child: CircularProgressIndicator(
+
+                      ),
+                  ),
+              ),
+          ),
         );
       },
     );

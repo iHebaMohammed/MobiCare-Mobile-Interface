@@ -5,9 +5,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobi_care/layouts/doctor_layout/doctor_layout.dart';
 import 'package:mobi_care/layouts/patient_layout/cubit/cubit.dart';
 import 'package:mobi_care/layouts/patient_layout/cubit/states.dart';
+import 'package:mobi_care/modules/doctor_modules/doctor_patients_list/cubit/cubit.dart';
 import 'package:mobi_care/modules/doctor_modules/patient_profile_doctor_view/cubit/cubit.dart';
 import 'package:mobi_care/modules/patinet_modules/register/register_screen.dart';
 import 'package:mobi_care/shared/bloc_observer.dart';
+import 'layouts/doctor_layout/cubit/cubit.dart';
 import 'modules/doctor_modules/doctor_profile_doctor_view/cubit/cubit.dart';
 import 'modules/doctor_modules/doctor_time_reminder/cubit/cubit.dart';
 import 'modules/doctor_modules/patient_profile_doctor_view/patient_profile_doctor_view_screen.dart';
@@ -52,7 +54,7 @@ class MyApp extends StatelessWidget {
           create: (context) => PaymentCubit(),
         ),
         BlocProvider(
-            create: (context) => PatientProfileCubit()..getNewAccessToken(),
+            create: (context) => PatientProfileCubit()..getNewAccessToken()..getPatientProfile(),
         ),
         BlocProvider(
           create: (context) => PatientEditProfileCubit(),
@@ -71,6 +73,12 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => DoctorProfileCubit()..getNewAccessToken(),
+        ),
+        BlocProvider(
+          create: (context) => DoctorLayoutCubit(),
+        ),
+        BlocProvider(
+          create: (context) => DoctorPatientListCubit()..getNewAccessToken()..getDoctorPatients(),
         ),
       ],
       child: BlocConsumer<PatientLayoutCubit, PatientLayoutStates>(

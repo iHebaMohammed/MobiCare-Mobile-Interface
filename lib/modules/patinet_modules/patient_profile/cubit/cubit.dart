@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mobi_care/models/get_patient_profile_model.dart';
 import 'package:mobi_care/models/get_symptoms_model.dart';
 import 'package:mobi_care/shared/constants/constants.dart';
 import 'package:mobi_care/shared/network/remote/dio_helper.dart';
@@ -51,6 +52,22 @@ class PatientProfileCubit extends Cubit<PatientProfileStates> {
     }).catchError((error){
       print(error.toString());
       emit(GetNewAccessTokenErrorState(error: error));
+    });
+  }
+
+  GetPatientProfileModel ? patientProfileModel ;
+  void getPatientProfile(){
+    emit(GetPatientProfileLoadingState());
+    DioHelper.getData(path: '${Get_Patient_Profile}${asPatientModel!.data!.iD}' , token: asPatientModel!.accessToken).then((value) {
+      print(value.data);
+      patientProfileModel = GetPatientProfileModel.fromJson(value.data);
+      print('PatientProfileModel : ^^^^^^^^^^^^^^^^^^^^^^^');
+      print(patientProfileModel);
+      print(patientProfileModel!.data!.fName);
+      emit(GetPatientProfileSuccessfullyState());
+    }).catchError((error) {
+      print(error.toString());
+      emit(GetPatientProfileErrorState());
     });
   }
 

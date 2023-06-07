@@ -1,15 +1,15 @@
 class EditDoctorProfileModel {
   String? message;
-  List<List>? data;
+  List<Data>? data;
 
   EditDoctorProfileModel({this.message, this.data});
 
   EditDoctorProfileModel.fromJson(Map<String, dynamic> json) {
     message = json['message'];
     if (json['data'] != null) {
-      data = <List>[];
+      data = <Data>[];
       json['data'].forEach((v) {
-        // data!.add(new List.fromJson(v));
+        data!.add(new Data.fromJson(v));
       });
     }
   }
@@ -18,7 +18,7 @@ class EditDoctorProfileModel {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['message'] = this.message;
     if (this.data != null) {
-      // data['data'] = this.data!.map((v) => v.toJson()).toList();
+      data['data'] = this.data!.map((v) => v.toJson()).toList();
     }
     return data;
   }
