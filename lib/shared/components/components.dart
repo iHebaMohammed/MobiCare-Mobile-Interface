@@ -476,56 +476,43 @@ class DefaultSearchRowUserViewItem extends StatelessWidget {
   final bool isMale;
   final String image;
   final String name;
-  final bool isDoctor;
 
   const DefaultSearchRowUserViewItem({
     Key? key,
     required this.isMale,
     required this.image,
     required this.name,
-    required this.isDoctor,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(top: 14.0),
+    return SizedBox(
+      height: 60,
       child: Row(
         children: [
           DefaultImageShape(
             isMale: isMale,
             image: image,
-            height: 55,
+            height: 50,
           ),
           const SizedBox(
             width: 16,
           ),
-          Expanded(
-            child: Text(
-              name,
-              overflow: TextOverflow.ellipsis,
-              style: const TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.w500,
-              ),
+          Text(
+            name,
+            overflow: TextOverflow.ellipsis,
+            style: const TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.w500,
             ),
           ),
           const Spacer(),
-          if (isDoctor)
-            Text(
+          Text(
               'Doctor',
               style: TextStyle(
-                  fontSize: 18,
+                  fontSize: 14,
                   color: primaryGreyColor808,
-                  fontWeight: FontWeight.w500),
-            ),
-          if (!isDoctor)
-            Text(
-              'Clinic',
-              style: TextStyle(
-                  fontSize: 18,
-                  color: primaryGreyColor808,
-                  fontWeight: FontWeight.w500),
+                  fontWeight: FontWeight.w400),
             ),
         ],
       ),
@@ -929,3 +916,65 @@ class DefaultCommentShape extends StatelessWidget {
     );
   }
 }
+
+class CalculateBox extends StatelessWidget {
+  final double width;
+  final String header;
+  final Widget child;
+
+  const CalculateBox(
+      {Key? key,
+        required this.width,
+        required this.header,
+        required this.child})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final Size size = MediaQuery.of(context).size;
+
+    return Padding(
+      padding: EdgeInsets.symmetric(
+        horizontal: size.width * 0.05,
+        // vertical: size.height * 0.02,
+      ),
+      child: Column(
+        children: [
+          Container(
+            width: size.width * 0.32,
+            child: Text(
+              header,
+              style: TextStyle(
+                color: primaryColor1BA,
+                fontSize: 14,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+          ),
+          SizedBox(
+            height: 5,
+          ),
+          Container(
+            width: width,
+            padding: EdgeInsets.symmetric(
+              horizontal: 12.0,
+            ),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(
+                10.0,
+              ),
+              color: primaryGreyColorD9D_50.withOpacity(0.3),
+              border: Border.all(
+                color: primaryColor1BA,
+                style: BorderStyle.solid,
+                width: 1.0,
+              ),
+            ),
+            child: child,
+          ),
+        ],
+      ),
+    );
+  }
+}
+

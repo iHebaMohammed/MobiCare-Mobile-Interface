@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobi_care/shared/components/components.dart';
-
+import 'package:mobi_care/shared/constants/constants.dart';
 import '../../../shared/styles/colors.dart';
 import 'cubit/cubit.dart';
 import 'cubit/states.dart';
@@ -19,6 +19,7 @@ class PatientEditProfileScreen extends StatelessWidget {
   TextEditingController dateOfBirthController = TextEditingController();
   DateTime dateOfBirth = DateTime.now();
   bool isSymptomsVisible = true;
+  TextEditingController symptomController = TextEditingController();
 
   List<int> addItemsInWeightList() {
     List<int> widthList = [];
@@ -42,12 +43,82 @@ class PatientEditProfileScreen extends StatelessWidget {
       listener: (context, state) {},
       builder: (context, state) {
         PatientEditProfileCubit cubit = PatientEditProfileCubit.get(context);
-        dateOfBirthController.text = cubit.datePiker != null
-            ? '${cubit.datePiker!.day} / ${cubit.datePiker!.month} / ${cubit.datePiker!.year}'
-            : '${dateOfBirth.day} / ${dateOfBirth.month} / ${dateOfBirth.year}';
+        dateOfBirthController.text = asPatientModel!.data!.dOB.toString();
+        firstNameController.text = asPatientModel!.data!.fName!;
+        lastNameController.text = asPatientModel!.data!.lName!;
+        emailController.text = asPatientModel!.data!.email!;
+        addressController.text = asPatientModel!.data!.address!;
+        Size size = MediaQuery.of(context).size;
+
         return Scaffold(
           floatingActionButton: InkWell(
-            onTap: () {},
+            onTap: () {
+              showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                      content: SingleChildScrollView(
+                        child: Container(
+                          color: primaryWhiteColor,
+                          width: double.infinity,
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Text(
+                                'Add symptom' ,
+                                style: TextStyle(
+                                  color: primaryBlackColor,
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                              SizedBox(
+                                height: 30,
+                              ),
+                              TextFormField(
+                                controller: symptomController,
+                                decoration: InputDecoration(
+                                  hintText: 'Symptom',
+                                  hintStyle: TextStyle(
+                                    color: primaryWhiteColor.withOpacity(0.7),
+                                  ),
+                                  filled: true,
+                                  fillColor: primaryColor1BA,
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(5.0),
+                                    borderSide: BorderSide(
+                                      width: 0,
+                                      style: BorderStyle.none,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              SizedBox(
+                                height: 15,
+                              ),
+                              DefaultButton(
+                                function: (){
+                                  cubit.addSymptom(symptom: symptomController.text.toString());
+                                  Navigator.pop(context);
+                                  symptomController.text = "";
+                                },
+                                text: 'Done',
+                                redius: 25,
+                                backgroundColor: primaryBlueColor2C8,
+                                width: 150,
+                                height: 40,
+                              ),
+                              SizedBox(
+                                height: 5,
+                              )
+                            ],
+                          ),
+                        ),
+                      ),
+                    );
+                  }
+              );
+            },
             child: Container(
               decoration: BoxDecoration(
                 color: primaryColor1BA,
@@ -70,7 +141,7 @@ class PatientEditProfileScreen extends StatelessWidget {
             child: ListView(
               children: [
                 SizedBox(
-                  height: 200,
+                  height: 220,
                   child: Stack(
                     alignment: Alignment.bottomCenter,
                     children: [
@@ -80,10 +151,10 @@ class PatientEditProfileScreen extends StatelessWidget {
                           alignment: AlignmentDirectional.topEnd,
                           children: [
                             Container(
-                              height: 160,
+                              height: 180,
                               width: double.infinity,
                               decoration: BoxDecoration(
-                                  color: primaryColor1BA,
+                                  color: primaryColor4DC_20,
                                   borderRadius: BorderRadiusDirectional.only(
                                     bottomStart: Radius.circular(8),
                                     bottomEnd: Radius.circular(8),
@@ -98,10 +169,10 @@ class PatientEditProfileScreen extends StatelessWidget {
                           SizedBox(
                             width: 115,
                             child: DefaultImageShape(
-                                isMale: true,
+                                isMale: asPatientModel!.data!.gender == 0 ? false : true,
                                 height: 80,
-                                image:
-                                    'https://img.freepik.com/free-photo/smiley-little-boy-isolated-pink_23-2148984798.jpg?w=1060&t=st=1677173572~exp=1677174172~hmac=94a6e1073a52704d51512902c48c715b8754414e819a4a9c88ad63bcbbc756ca'),
+                                image: 'https://cdn-icons-png.flaticon.com/512/727/727399.png?w=740&t=st=1685896888~exp=1685897488~hmac=d1e52ed88325af9d153a52cc517b162ed28c158ecf2c917d7faa12849488be12',
+                            ),
                           ),
                           IconButton(
                             onPressed: () {},
@@ -123,7 +194,7 @@ class PatientEditProfileScreen extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 10.0),
                   child: Text(
-                    'Mohammed Ali',
+                    '${asPatientModel!.data!.fName} ${asPatientModel!.data!.lName}',
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontSize: 18,
@@ -132,7 +203,7 @@ class PatientEditProfileScreen extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  'Male',
+                  asPatientModel!.data!.gender == 0 ? 'Female' : 'Male',
                   textAlign: TextAlign.center,
                   overflow: TextOverflow.ellipsis,
                   maxLines: 2,
@@ -249,103 +320,42 @@ class PatientEditProfileScreen extends StatelessWidget {
                           },
                         ),
                       ),
-                      SizedBox(
-                        height: 12,
+                      const SizedBox(
+                        height: 15,
                       ),
                       Row(
                         children: [
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text('Weight'),
-                                Container(
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(5),
-                                      color: primaryWhiteColor),
-                                  child: Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 15.0),
-                                    child: Row(
-                                      children: [
-                                        DropdownButton<String>(
-                                          value:
-                                              '${addItemsInWeightList().first.toString()}',
-                                          underline: Container(
-                                            color: primaryColor1BA,
-                                            height: 1,
-                                          ),
-                                          icon: Container(),
-                                          elevation: 16,
-                                          onChanged: (String? value) {},
-                                          items: addItemsInWeightList()
-                                              .map<DropdownMenuItem<String>>(
-                                                  (value) {
-                                            return DropdownMenuItem<String>(
-                                              value: value.toString(),
-                                              child: Text(value.toString()),
-                                            );
-                                          }).toList(),
-                                        ),
-                                        Spacer(),
-                                        Icon(
-                                          Icons.keyboard_arrow_down_sharp,
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ],
+                          CalculateBox(
+                            width: size.width * 0.31,
+                            header: 'Height',
+                            child: DropdownButton(
+                              items: cubit.tallItems,
+                              value: cubit.tallValue,
+                              onChanged: (String? newValue) {
+                                if (newValue != null) {
+                                  cubit.changeTallValue(newValue);
+                                }
+                              },
                             ),
                           ),
-                          SizedBox(
-                            width: 30,
-                          ),
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text('Height'),
-                                Container(
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(5),
-                                      color: primaryWhiteColor),
-                                  child: Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 15.0),
-                                    child: Row(
-                                      children: [
-                                        DropdownButton<String>(
-                                          value:
-                                              '${addItemsInHeightList().first.toString()}',
-                                          underline: Container(
-                                            color: primaryColor1BA,
-                                            height: 1,
-                                          ),
-                                          icon: Container(),
-                                          elevation: 16,
-                                          onChanged: (value) {},
-                                          items: addItemsInHeightList()
-                                              .map<DropdownMenuItem<String>>(
-                                                  (value) {
-                                            return DropdownMenuItem<String>(
-                                              value: value.toString(),
-                                              child: Text(value.toString()),
-                                            );
-                                          }).toList(),
-                                        ),
-                                        Spacer(),
-                                        Icon(
-                                          Icons.keyboard_arrow_down_sharp,
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ],
+                          Spacer(),
+                          CalculateBox(
+                            width: size.width * 0.31,
+                            header: 'Weight',
+                            child: DropdownButton(
+                              items: cubit.weightItems,
+                              value: cubit.weightValue,
+                              onChanged: (String? newValue) {
+                                if (newValue != null) {
+                                  cubit.changeWeightValue(newValue);
+                                }
+                              },
                             ),
                           ),
                         ],
+                      ),
+                      const SizedBox(
+                        height: 15,
                       ),
                       Divider(),
                       InkWell(

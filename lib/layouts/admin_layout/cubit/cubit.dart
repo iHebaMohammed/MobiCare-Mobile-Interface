@@ -21,7 +21,7 @@ class AdminLayoutCubit extends Cubit<AdminLayoutStatus> {
         'token':refreshToken,
       },
     ).then((value) {
-      token = value.data['accesstoken'];
+      accessToken = value.data['accesstoken'];
       print(value.data['accesstoken']);
       emit(GetNewAccessTokenSuccessfullyState());
     }).catchError((error) {

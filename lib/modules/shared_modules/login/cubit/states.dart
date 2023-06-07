@@ -85,3 +85,44 @@ class AdminLoginErrorState extends LoginStates{
     required this.error,
   });
 }
+
+class UserLoginLoadingState extends LoginStates {}
+
+class UserLoginSuccessfullyState extends LoginStates {
+  final String token;
+
+  UserLoginSuccessfullyState({
+    required this.token,
+  });
+}
+
+class UserLoginErrorState extends LoginStates {
+  final String error;
+
+  UserLoginErrorState({
+    required this.error
+  });
+
+}
+
+class MainDoctorLoginSuccessState extends LoginStates {
+}
+
+class MainDoctorLoginErrorState extends LoginStates {
+  final String error;
+
+  MainDoctorLoginErrorState({
+    required this.error
+  });
+}
+
+class MainPatientLoginSuccessState extends LoginStates {
+}
+
+class MainPatientLoginErrorState extends LoginStates {
+  final String error;
+
+  MainPatientLoginErrorState({
+    required this.error
+  });
+}

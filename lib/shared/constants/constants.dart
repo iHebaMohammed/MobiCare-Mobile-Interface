@@ -1,7 +1,12 @@
+import '../../models/doctor_model.dart';
+import '../../models/patient_model.dart';
+
 String ? uId;
-String ? token;
+String ? accessToken;
 String ? refreshToken;
-String ? role = 'D';
+String ? role;
+PatientModel ? asPatientModel;
+DoctorModel ? asDoctorModel;
 
 const String bridge = "https://bridge.walletconnect.org";
 const String contractName = "EHR";

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../modules/patinet_modules/search/search_screen.dart';
+import 'package:mobi_care/shared/constants/constants.dart';
+import '../../modules/patinet_modules/search_about_doctor/search_about_doctor_screen.dart';
 import '../../shared/components/drawer_component.dart';
 import '../../shared/components/navigate_component.dart';
 import '../patient_drawer/patient_drawer_list.dart';
@@ -33,7 +34,7 @@ class PatientLayout extends StatelessWidget {
                   onPressed: (){
                     navigateTo(
                       context: context,
-                      widget: SearchScreen(),
+                      widget: SearchAboutDoctorScreen(),
                     );
                   },
                   icon: Icon(
@@ -69,9 +70,10 @@ class PatientLayout extends StatelessWidget {
                 child: Column(
                   children: [
                     DrawerLayoutHeader(
-                        image: 'https://img.freepik.com/free-psd/3d-illustration-person-with-sunglasses_23-2149436188.jpg?w=740&t=st=1677116117~exp=1677116717~hmac=0eaee5fcf6754432b852deadbe808bb6b5344e8ef73dc3e38fa9847446bcbcd0',
-                        name: 'Heba Adel',
-                        email: 'hebaadelahmedmohammed@hmail.com',
+                      image: 'https://cdn-icons-png.flaticon.com/512/727/727399.png?w=740&t=st=1685896888~exp=1685897488~hmac=d1e52ed88325af9d153a52cc517b162ed28c158ecf2c917d7faa12849488be12',
+                        name: '${asPatientModel!.data!.fName} ${asPatientModel!.data!.lName}',
+                        isMale: asPatientModel!.data!.gender == 0 ? false : true,
+                        email: '${asPatientModel!.data!.email}',
                     ),
                     PatientDrawerLayoutList(),
                   ],

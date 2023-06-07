@@ -8,7 +8,6 @@ class UserModel{
   late String uId;
   late String imageUrl;
   late String address;
-  late String phoneNumber;
   late bool isMale;
   late String role;
 
@@ -16,7 +15,6 @@ class UserModel{
     required this.firstName,
     required this.lastName,
     required this.email,
-    required this.phoneNumber,
     required this.address,
     required this.imageUrl,
     required this.uId,
@@ -29,7 +27,6 @@ class UserModel{
     lastName = json['lastName'];
     email = json['email'];
     address = json['address'];
-    phoneNumber = json['phoneNumber'];
     imageUrl = json['imageUrl'];
     uId = json['uId'];
     isMale = json['isMale'];
@@ -42,7 +39,6 @@ class UserModel{
       'lastName':lastName,
       'email':email,
       'address':address,
-      'phoneNumber':phoneNumber,
       'imageUrl':imageUrl,
       'uId':uId,
       'isMale':isMale,

@@ -23,6 +23,7 @@ class RegisterScreen extends StatelessWidget {
   TextEditingController passwordController = TextEditingController();
   TextEditingController addressController = TextEditingController();
   TextEditingController questionController = TextEditingController();
+  bool ? isMale;
 
   @override
   Widget build(BuildContext context) {
@@ -30,31 +31,14 @@ class RegisterScreen extends StatelessWidget {
       create: (BuildContext context) => RegisterCubit(),
       child: BlocConsumer<RegisterCubit , RegisterStates>(
         listener: (context, state){
-          if(state is RegisterErrorState){
+          if(state is RegisterationErrorState){
             showToast(text: state.error.toString(), toastStates: ToastStates.ERROR);
-          }else if(state is RegisterErrorFirebaseState){
-            showToast(text: state.error.toString(), toastStates: ToastStates.ERROR);
-          }
-          if(state is RegisterSuccessState){
-            navigateTo(context: context, widget: LoginScreen());
-          }
-          else if(state is CreateUserSuccessFirebaseState){
-            navigateTo(context: context, widget: LoginScreen());
-          }
-          if(state is RegisterPatientSuccessFirebaseState){
-            navigateTo(context: context, widget: LoginScreen());
-          }
-          else if(state is CreatePatientSuccessFirebaseState){
-            navigateTo(context: context, widget: LoginScreen());
-          }
-          if(state is RegisterDoctorSuccessFirebaseState){
-            navigateTo(context: context, widget: LoginScreen());
-          }
-          else if(state is CreateDoctorSuccessFirebaseState){
-            navigateTo(context: context, widget: LoginScreen());
+          }else if(state is RegisterationSuccessfullyState){
+            navigateAndFinish(context: context, widget: LoginScreen());
           }
         },
         builder: (context, state) {
+          Size size = MediaQuery.of(context).size;
           RegisterCubit cubit = RegisterCubit.get(context);
           return Scaffold(
             body: SingleChildScrollView(
@@ -108,7 +92,7 @@ class RegisterScreen extends StatelessWidget {
                               fieldName: 'First Name',
                               prefixIcon: Icons.person_outlined
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 15,
                           ),
                           DefaultTextFormField(
@@ -123,7 +107,7 @@ class RegisterScreen extends StatelessWidget {
                               fieldName: 'Last Name',
                               prefixIcon: Icons.person_outlined
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 15,
                           ),
                           DefaultTextFormField(
@@ -140,7 +124,7 @@ class RegisterScreen extends StatelessWidget {
                               fieldName: 'Email Address',
                               prefixIcon: Icons.email_outlined
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 15,
                           ),
                           DefaultTextFormField(
@@ -156,13 +140,16 @@ class RegisterScreen extends StatelessWidget {
                               prefixIcon: Icons.lock_outline,
                               onSubmit: (value){
                                 if(formKey.currentState!.validate()){
-                                  cubit.userRegister(
-                                    firstName: firstNameController.text,
-                                    lastName: lastNameController.text,
-                                    email: emailController.text,
-                                    phone: phoneController.text,
-                                    address: addressController.text,
-                                    password: passwordController.text,
+                                  cubit.register(
+                                    dateOfBirth: cubit.selectedDate!,
+                                    patientAddress: addressController.text,
+                                    patientEmail: emailController.text,
+                                    patientFirstName: firstNameController.text,
+                                    patientGender: cubit.gender!,
+                                    patientHeight: cubit.tallValue,
+                                    patientLastName: lastNameController.text,
+                                    patientPassword: passwordController.text,
+                                    patientWeight: cubit.weightValue,
                                   );
                                 }
                               },
@@ -172,7 +159,46 @@ class RegisterScreen extends StatelessWidget {
                                 cubit.changePasswordVisibility();
                               },
                           ),
-                          SizedBox(
+                          const SizedBox(
+                            height: 15,
+                          ),
+                          Row(
+                            children: [
+                              Text(
+                                'Birth Date',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 14,
+                                  color: primaryColor1BA,
+                                ),
+                              ),
+                              SizedBox(
+                                width: 10,
+                              ),
+                              Text(
+                                cubit.selectedDate == null ? '' : '${cubit.selectedDate!.year} / ${cubit.selectedDate!.month} / ${cubit.selectedDate!.day}',
+                              ),
+                              Spacer(),
+                              DefaultButton(
+                                function: ()async{
+                                  cubit.selectedDate = await showDatePicker(
+                                    context: context,
+                                    initialDate: DateTime(2000),
+                                    firstDate: DateTime(1950),
+                                    lastDate: DateTime.now(),
+                                  );
+                                  cubit.selectBirthDate(cubit.selectedDate!);
+                                },
+                                text: 'Select',
+                                width: 100,
+                                height: 40,
+                                backgroundColor: primaryColor1BA,
+                                fontSize: 14,
+                                redius: 10,
+                              ),
+                            ],
+                          ),
+                          const SizedBox(
                             height: 15,
                           ),
                           DefaultTextFormField(
@@ -187,8 +213,48 @@ class RegisterScreen extends StatelessWidget {
                               fieldName: 'Phone Number',
                               prefixIcon: Icons.phone_enabled_outlined,
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 15,
+                          ),
+                          Text(
+                            'Gender',
+                            style: TextStyle(
+                              color: primaryColor1BA,
+                              fontWeight: FontWeight.w600,
+                              fontSize: 14,
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 5,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                            child: Row(
+                              children: [
+                                Radio(
+                                    value: 0,
+                                    groupValue: cubit.gender,
+                                    onChanged: (value){
+                                      cubit.changeGenderValue(value as int);
+                                    },
+                                ),
+                                Text('Male'),
+                                Spacer(),
+                                Radio(
+                                  value: 1,
+                                  groupValue: cubit.gender,
+                                  onChanged: (value){
+                                    cubit.changeGenderValue(value as int);
+                                  },
+                                ),
+                                Text(
+                                    'Female',
+                                  style: TextStyle(
+
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                           DefaultTextFormField(
                               controller: addressController,
@@ -202,31 +268,38 @@ class RegisterScreen extends StatelessWidget {
                               fieldName: 'Address',
                               prefixIcon: Icons.home_outlined,
                           ),
-                          SizedBox(
-                            height: 15,
-                          ),
-                          Text(
-                            'Optional',
-                            style: TextStyle(
-                              color: primaryColor1BA,
-                              fontWeight: FontWeight.w500
-                            ),
-                          ),
                           const SizedBox(
                             height: 15,
                           ),
-                          DefaultTextFormField(
-                            controller: questionController,
-                            keyboardType: TextInputType.text,
-                            validation: (value){
-                              if(value!.isEmpty) {
-                                return null;
-                              }
-                              return null;
-                            },
-                            fieldName: 'Diseases that you suffer from ?',
-                            prefixIcon: Icons.info_outline,
-                            maxLines: 2,
+                          Row(
+                            children: [
+                              CalculateBox(
+                                width: size.width * 0.35,
+                                header: 'Height',
+                                child: DropdownButton(
+                                  items: cubit.tallItems,
+                                  value: cubit.tallValue,
+                                  onChanged: (String? newValue) {
+                                    if (newValue != null) {
+                                      cubit.changeTallValue(newValue);
+                                    }
+                                  },
+                                ),
+                              ),
+                              CalculateBox(
+                                width: size.width * 0.35,
+                                header: 'Weight',
+                                child: DropdownButton(
+                                  items: cubit.weightItems,
+                                  value: cubit.weightValue,
+                                  onChanged: (String? newValue) {
+                                    if (newValue != null) {
+                                      cubit.changeWeightValue(newValue);
+                                    }
+                                  },
+                                ),
+                              ),
+                            ],
                           ),
                           const SizedBox(
                             height: 15,
@@ -238,14 +311,16 @@ class RegisterScreen extends StatelessWidget {
                                 backgroundColor: primaryColor1BA,
                                 function: (){
                                   if(formKey.currentState!.validate()){
-                                    cubit.registerDoctorByFirebase(
-                                      email: emailController.text,
-                                      password: passwordController.text,
-                                      firstName: firstNameController.text,
-                                      phone: phoneController.text,
-                                      lastName: lastNameController.text,
-                                      address: addressController.text,
-                                      diseasesNote: questionController.text,
+                                    cubit.register(
+                                      dateOfBirth: cubit.selectedDate!,
+                                      patientAddress: addressController.text,
+                                      patientEmail: emailController.text,
+                                      patientFirstName: firstNameController.text,
+                                      patientGender: cubit.gender!,
+                                      patientHeight: cubit.tallValue,
+                                      patientLastName: lastNameController.text,
+                                      patientPassword: passwordController.text,
+                                      patientWeight: cubit.weightValue,
                                     );
                                   }
                                 }

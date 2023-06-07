@@ -25,25 +25,25 @@ class PatientChatScreen extends StatelessWidget {
         return Padding(
           padding: const EdgeInsets.all(16.0),
           child: ConditionalBuilder(
-            condition: cubit.doctors.length > 0,
+            condition: cubit.users.length > 0,
             builder: (context) => ListView.builder(
               itemBuilder: (context, index) => InkWell(
                 onTap: (){
                   navigateTo(
                     context: context,
-                    widget: ChatDetailsScreen(userModel: cubit.doctors[index]),
+                    widget: ChatDetailsScreen(userModel: cubit.users[index]),
                   );
-                  cubit.createChat(receiverUId: cubit.doctors[index].uId!);
+                  cubit.createChat(receiverUId: cubit.users[index].uId!);
                 },
                 child: DefaultChatRowUserViewItem(
                     context: context,
-                    model: cubit.doctors[index],
+                    model: cubit.users[index],
                     lastMessage: 'Hi',
                     dateOfLastMassage: '5/5/2005',
                     numberOfMessage: '0',
                 ),
               ),
-              itemCount: cubit.doctors.length,
+              itemCount: cubit.users.length,
             ),
             fallback: (context) => Center(
               child: CircularProgressIndicator(

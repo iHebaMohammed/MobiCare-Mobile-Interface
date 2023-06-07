@@ -2,38 +2,31 @@ import 'package:bloc/bloc.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-// import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:mobi_care/layouts/doctor_layout/doctor_layout.dart';
-import 'package:mobi_care/layouts/patient_layout/cubit/cubit.dart';
-import 'package:mobi_care/layouts/patient_layout/cubit/states.dart';
-import 'package:mobi_care/shared/bloc_observer.dart';
-import 'modules/doctor_modules/doctor_time_reminder/cubit/cubit.dart';
-import 'modules/patinet_modules/doctor_profile_patient_view/doctor_profile_patient_view_screen.dart';
+
+import 'layouts/patient_layout/cubit/cubit.dart';
+import 'layouts/patient_layout/cubit/states.dart';
+
 import 'modules/patinet_modules/patient_edit_profile/cubit/cubit.dart';
 import 'modules/patinet_modules/patient_medication_reminder/cubit/cubit.dart';
 import 'modules/patinet_modules/patient_prescriptions/cubit/cubit.dart';
 import 'modules/patinet_modules/patient_profile/cubit/cubit.dart';
+
+import 'modules/doctor_modules/doctor_profile_doctor_view/cubit/cubit.dart';
+import 'modules/doctor_modules/patient_profile_doctor_view/cubit/cubit.dart';
+import 'modules/doctor_modules/doctor_time_reminder/cubit/cubit.dart';
+
 import 'modules/shared_modules/chat_details/cubit/cubit.dart';
+import 'modules/shared_modules/login/login_screen.dart';
 import 'modules/shared_modules/payment/cubit/cubit.dart';
+
+import 'shared/network/local/cache_helper.dart';
 import 'shared/network/remote/dio_helper.dart';
 import 'shared/network/remote/web3_dio_helper.dart';
 import 'shared/styles/themes.dart';
-import 'shared/network/local/cache_helper.dart';
+import 'shared/bloc_observer.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  // const AndroidInitializationSettings initializationSettingsAndroid = AndroidInitializationSettings('app_icon');
-  // final IOSInitializationSettings initializationSettingsIOS = IOSInitializationSettings(
-  //   // onDidReceiveLocalNotification: onDidReceiveLocalNotification,
-  // );
-  // final MacOSInitializationSettings initializationSettingsMacOS = MacOSInitializationSettings();
-  // final InitializationSettings initializationSettings = InitializationSettings(
-  //   android: initializationSettingsAndroid,
-  //   iOS: initializationSettingsIOS,
-  //   macOS: initializationSettingsMacOS,
-  // );
-  // await flutterLocalNotificationsPlugin.initialize(initializationSettings,
-  //     onSelectNotification: selectNotification);
   await Firebase.initializeApp();
   DioHelper.init();
   Web3DioHelper.init();
@@ -45,8 +38,7 @@ void main() async {
 }
 
 class MyApp extends StatelessWidget {
-
-   const MyApp({super.key});
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -62,7 +54,7 @@ class MyApp extends StatelessWidget {
           create: (context) => PaymentCubit(),
         ),
         BlocProvider(
-            create: (context) => PatientProfileCubit(),
+            create: (context) => PatientProfileCubit()..getNewAccessToken(),
         ),
         BlocProvider(
           create: (context) => PatientEditProfileCubit(),
@@ -76,6 +68,12 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (context) => PrescriptionCubit()..blockchainSetup(),
         ),
+        BlocProvider(
+          create: (context) => PatientProfileDoctorViewCubit(),
+        ),
+        BlocProvider(
+          create: (context) => DoctorProfileCubit()..getNewAccessToken(),
+        ),
       ],
       child: BlocConsumer<PatientLayoutCubit, PatientLayoutStates>(
         listener: (context, state) {},
@@ -85,7 +83,7 @@ class MyApp extends StatelessWidget {
             themeMode: ThemeMode.light,
             theme: lightTheme,
             darkTheme: darkTheme,
-            home: DoctorLayout(),
+            home: LoginScreen(),
           );
         },
       ),

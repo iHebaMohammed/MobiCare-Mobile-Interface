@@ -1,0 +1,11 @@
+abstract class PatientProfileDoctorViewStates {}
+
+class PatientProfileDoctorViewInitiateState extends PatientProfileDoctorViewStates {}
+
+class PatientProfileDoctorViewChangePrescriptionContainerVisibility extends PatientProfileDoctorViewStates {}
+
+class PatientProfileDoctorViewChangeFollowUpWithContainerVisibility extends PatientProfileDoctorViewStates {}
+
+class PatientProfileDoctorViewChangeSymptomsContainerVisibility extends PatientProfileDoctorViewStates {}
+
+class PatientProfileDoctorViewChangeNotesContainerVisibility extends PatientProfileDoctorViewStates {}

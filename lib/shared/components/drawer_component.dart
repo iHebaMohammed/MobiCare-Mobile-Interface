@@ -78,9 +78,10 @@ class DrawerLayoutHeader extends StatelessWidget {
   final String image;
   final String name;
   final String email;
+  final bool isMale;
 
   const DrawerLayoutHeader(
-      {required this.image, required this.name, required this.email});
+      {required this.image, required this.name, required this.email , required this.isMale});
 
   @override
   Widget build(BuildContext context) {
@@ -92,7 +93,7 @@ class DrawerLayoutHeader extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          DefaultImageShape(isMale: false, image: image),
+          DefaultImageShape(isMale: isMale, image: image),
           const SizedBox(
             height: 15,
           ),

@@ -3,12 +3,14 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobi_care/models/admin_model.dart';
+import 'package:mobi_care/models/doctor_model.dart';
+import 'package:mobi_care/models/patient_login_model.dart';
 import 'package:mobi_care/shared/constants/constants.dart';
 import 'package:mobi_care/shared/network/remote/dio_helper.dart';
 import 'package:mobi_care/shared/network/remote/end_point.dart';
-
+import '../../../../models/patient_model.dart';
 import 'states.dart';
-import 'package:http/http.dart' as http;
+
 
 class LoginCubit extends Cubit<LoginStates>{
 
@@ -24,39 +26,45 @@ class LoginCubit extends Cubit<LoginStates>{
     suffix = isPassword ? Icons.visibility_outlined : Icons.visibility_off_outlined;
     emit(LoginChangePasswordVisibility());
   }
-
-  void userLogin({
+  
+  Future<void> userLogin({
     required String email ,
     required String password
   }){
-    // emit(LoginLoadingState());
-    // DioHelper.postData(
-    //     url: LOGIN ,
-    //     data:
-    //     {
-    //       'email' : email,
-    //       'password' : password,
-    //     }
-    // ).then((value) {
-    //   print(value.data);
-    //   shopLoginModel = ShopLoginModel.fromJson(value.data);
-    //   print(shopLoginModel?.message);
-    //   print(shopLoginModel?.status);
-    //   print(shopLoginModel?.data?.token);
-    //   emit(LoginSuccessState());
-    // }).catchError((error) {
-    //   print(error.toString());
-    //   emit(LoginErrorState());
-    // });
+    emit(LoginLoadingState());
+    return DioHelper.postData(
+        url: LOGIN ,
+        data:
+        {
+          'EMAIL' : email,
+          'PASSWORD' : password,
+        }
+    ).then((value) {
+      role = value.data['role'];
+      print(value.data);
+      if(value.data['role'] == 'DOCTOR'){
+        asDoctorModel = DoctorModel.fromJson(value.data);
+        print(asDoctorModel);
+      }else{
+        asPatientModel = PatientModel.fromJson(value.data);
+        print('MODEL:################################################');
+        print(asPatientModel);
+        print(asPatientModel!.data!.address);
+      }
+      emit(UserLoginSuccessfullyState(token: value.data['accessToken']));
+    }).catchError((error) {
+      print(error.toString());
+      emit(UserLoginErrorState(error: error.toString()));
+    });
   }
 
 
-  void userLoginByFirebase({
+  Future<void> userLoginByFirebase({
     required String email ,
     required String password,
   }){
     emit(LoginLoadingFirebaseState());
-    FirebaseAuth.instance.signInWithEmailAndPassword(
+    return FirebaseAuth.instance.signInWithEmailAndPassword(
         email: email,
         password: password
     ).then((value) {
@@ -70,12 +78,12 @@ class LoginCubit extends Cubit<LoginStates>{
     });
   }
 
-  void loginPatientByFirebase({
+  Future<void> loginPatientByFirebase({
     required String email ,
     required String password,
   }){
     emit(LoginPatientLoadingFirebaseState());
-    FirebaseAuth.instance.signInWithEmailAndPassword(
+    return FirebaseAuth.instance.signInWithEmailAndPassword(
         email: email,
         password: password
     ).then((value) {
@@ -89,22 +97,46 @@ class LoginCubit extends Cubit<LoginStates>{
     });
   }
 
-  void loginDoctorByFirebase({
+  Future<void> loginDoctorByFirebase({
     required String email ,
     required String password,
   }){
     emit(LoginDoctorLoadingFirebaseState());
-    FirebaseAuth.instance.signInWithEmailAndPassword(
+    return FirebaseAuth.instance.signInWithEmailAndPassword(
         email: email,
         password: password
     ).then((value) {
       print(value.user!.email);
       print(value.user!.uid);
+      print(value.user);
       uId = value.user!.uid;
       emit(LoginDoctorSuccessFirebaseState(uId: value.user!.uid));
     }).catchError((error) {
       print(error.toString());
       emit(LoginPatientErrorFirebaseState(error: error.toString()));
+    });
+  }
+
+  void login({
+    required String email ,
+    required String password,
+  }){
+    userLogin(email: email, password: password).then((value) {
+      if(role == 'DOCTOR'){
+        loginDoctorByFirebase(email: email, password: password).then((value) {
+          emit(MainDoctorLoginSuccessState());
+        }).catchError((error){
+          print(error.toString());
+          emit(MainDoctorLoginErrorState(error: error.toString()));
+        });
+      }else{
+        loginPatientByFirebase(email: email, password: password).then((value) {
+          emit(MainPatientLoginSuccessState());
+        }).catchError((error){
+          print(error.toString());
+          emit(MainDoctorLoginErrorState(error: error.toString()));
+        });
+      }
     });
   }
 
