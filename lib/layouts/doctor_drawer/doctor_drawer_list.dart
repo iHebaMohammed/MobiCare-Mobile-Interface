@@ -21,7 +21,7 @@ class DoctorDrawerLayoutList extends StatelessWidget {
           BuildClickableDrawerItemForDoctor(
               index: 1,
               svgIcon: 'assets/drawer_icons/prescriptions.svg',
-              title: 'Add My Patient',
+              title: 'Add patient to patient list',
               context: context
           ),
           BuildClickableDrawerItemForDoctor(

@@ -9,3 +9,6 @@ const String SEARCH_DOCTOR_BY_NAME = '/doctor/search';
 const String Get_Symptoms = '/patient/symptom/getAll';
 const String Get_Doctors = '/patient/getDoctors';
 const String Add_Symptom = '/patient/symptom/add';
+const String ASSIGN_PATIENT_TO_DOCTOR = '/doctor/assignPatient';
+const String Get_Doctor_Profile = '/doctor/get/';
+const String Edit_Doctor_Profile = '/doctor/editProfile';

@@ -1,3 +1,4 @@
+import 'package:bloc/bloc.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -42,20 +43,20 @@ class MyApp extends StatelessWidget {
           create: (context) => PatientLayoutCubit()..getChats(),
         ),
         BlocProvider(
-          create: (context) => ChatMessagesCubit(),
+            create: (context) => ChatMessagesCubit(),
         ),
         BlocProvider(
           create: (context) => PaymentCubit(),
         ),
         BlocProvider(
-          create: (context) => PatientProfileCubit()..getNewAccessToken(),
+            create: (context) => PatientProfileCubit()..getNewAccessToken(),
         ),
         BlocProvider(
           create: (context) => PatientEditProfileCubit(),
         ),
         BlocProvider(
-            create: (context) =>
-                PatientMedicationReminderCubit()..createDatabase()),
+          create: (context) => PatientMedicationReminderCubit()..createDatabase()
+        ),
         BlocProvider(
           create: (context) => DoctorTimeReminderCubit()..createDatabase(),
         ),
@@ -64,7 +65,10 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => PatientProfileDoctorViewCubit(),
-        )
+        ),
+        BlocProvider(
+          create: (context) => DoctorProfileCubit()..getNewAccessToken(),
+        ),
       ],
       child: BlocConsumer<PatientLayoutCubit, PatientLayoutStates>(
         listener: (context, state) {},

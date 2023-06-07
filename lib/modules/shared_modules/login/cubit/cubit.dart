@@ -108,6 +108,7 @@ class LoginCubit extends Cubit<LoginStates>{
     ).then((value) {
       print(value.user!.email);
       print(value.user!.uid);
+      print(value.user);
       uId = value.user!.uid;
       emit(LoginDoctorSuccessFirebaseState(uId: value.user!.uid));
     }).catchError((error) {
