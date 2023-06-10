@@ -29,17 +29,18 @@ class PrescriptionCubit extends Cubit<PrescriptionStates> {
     emit(GetSenderAddressState());
   }
 
-  Future<void> addRecord(String cid, EthereumAddress patientAddress) async {
+  Future<void> addRecord(String cid, /*String fileName,*/ EthereumAddress? patientAddress) async {
     try {
-      await BlockchainConnection.addRecord(cid, patientAddress);
+      await BlockchainConnection.addRecord(cid, /*fileName,*/ patientAddress);
     } catch (err) {
-      print("err: $err");
+      print("addRecord err: $err");
     }
   }
 
   Future<void> getRecords(EthereumAddress patientAddress) async {
     // Getting the current record declared in the smart contract.
     await BlockchainConnection.getRecords(patientAddress);
+    print(patientAddress);
 
     emit(GetRecordsState());
   }

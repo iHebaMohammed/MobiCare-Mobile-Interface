@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:dio/dio.dart';
 
 import '../../constants/constants.dart';
@@ -16,14 +18,13 @@ class Web3DioHelper {
 
   static Future<Response> postData({
     final String url = "api.web3.storage/upload",
-    required Map<String, dynamic> data,
+    required Uint8List data,
   }) async {
     dio!.options.headers = {
       'accept': 'application/json',
       'Authorization': "Bearer $web3StorageToken",
       'Content-Type': '*/*',
     };
-    print(data);
     return await dio!.post(url, data: data);
   }
 

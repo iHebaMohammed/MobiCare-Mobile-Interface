@@ -8,7 +8,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import 'package:mobi_care/shared/network/remote/dio_helper.dart';
+import 'package:mobi_care/shared/network/remote/web3.dart';
 import 'package:mobi_care/shared/network/remote/web3_dio_helper.dart';
+import 'package:path_provider/path_provider.dart';
 import '../../../shared/components/components.dart';
 import '../../../shared/components/navigate_component.dart';
 import '../../../shared/network/remote/ip_address.dart';
@@ -85,28 +87,29 @@ class PatientPrescriptionScreen extends StatelessWidget {
                 ),
                 !cubit.connector.connected
                     ? Column(
-                        children: [
-                          TextButton(
-                            onPressed: () {
-                              cubit.connectMetaMaskWallet(context);
-                            },
-                            child: const Text("Connect Wallet"),
-                          )
-                        ],
-                      )
+                  children: [
+                    TextButton(
+                      onPressed: () {
+                        cubit.connectMetaMaskWallet(context);
+                      },
+                      child: const Text("Connect Wallet"),
+                    )
+                  ],
+                )
                     : Padding(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 20.0,
-                          vertical: 20.0,
-                        ),
-                        child: Column(
-                          children: [
-                            const Text("You are connected"),
-                            Text(
-                                "senderAddress ${cubit.senderAddress ?? "not found!!"}"),
-                          ],
-                        ),
-                      ),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 20.0,
+                    vertical: 20.0,
+                  ),
+                  child: Column(
+                    children: [
+                      const Text("You are connected"),
+                      Text(
+                          "senderAddress ${cubit.senderAddress ??
+                              "not found!!"}"),
+                    ],
+                  ),
+                ),
                 const SizedBox(
                   height: 50,
                 ),
@@ -132,26 +135,26 @@ class PatientPrescriptionScreen extends StatelessWidget {
               if (result != null) {
                 File file = File(result.files.single.path!);
                 final bytes = file.readAsBytesSync();
-                final encodedFile = base64Encode(bytes);
 
-                print(encodedFile);
+                Directory appDocDirectory =
+                await getApplicationDocumentsDirectory();
 
-                final decodedBytes = base64Decode(encodedFile);
-                print(decodedBytes);
+                Directory(appDocDirectory.path + '/' + 'dir')
+                    .create(recursive: true)
+                    .then((Directory directory) {
+                  print('Path of New Dir: ${directory.path}');
+                  String appDocPath = directory.path;
 
-                File newFile = await File("newFile.jpeg").writeAsBytes(bytes);
-                print(newFile);
+                  // Create a file object with the desired save path
+                  File file = File('$appDocPath/${result.files.single.name}');
+                  file.writeAsBytes(bytes);
+                });
 
-//                 Directory appDocDirectory = await getApplicationDocumentsDirectory();
-//
-//                 new Directory(appDocDirectory.path+'/'+'dir').create(recursive: true)
-// // The created directory is returned as a Future.
-//                     .then((Directory directory) {
-//                   print('Path of New Dir: '+directory.path);
-//                 });
-
-                Web3DioHelper.postData(data: {"file": bytes})
-                    .then((value) => print(value))
+                Web3DioHelper.postData(data: bytes)
+                    .then((value) async {
+                    await cubit.addRecord(value.data["cid"], /*result.files.single.name, */cubit.senderAddress);
+                    await cubit.getRecords(cubit.senderAddress!);
+                })
                     .catchError((err) => print(err));
               } else {
                 print("Canceled");

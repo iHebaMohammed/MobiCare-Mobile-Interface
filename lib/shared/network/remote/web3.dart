@@ -36,6 +36,7 @@ class BlockchainConnection {
   static late EthereumAddress senderAddress;
   static late Credentials credentials;
   static late EtherAmount amount;
+  static late EthereumWalletConnectProvider provider;
 
   static List<dynamic> records = [];
 
@@ -110,14 +111,16 @@ class BlockchainConnection {
     amount = await client.getBalance(senderAddress);
     print("Amount: $amount");
 
-    EthereumWalletConnectProvider provider =
-        EthereumWalletConnectProvider(connector);
+    provider = EthereumWalletConnectProvider(connector);
   }
 
   static Future<void> addRecord(
-      String cid, EthereumAddress patientAddress) async {
+      String cid,/* String fileName,*/ EthereumAddress? patientAddress) async {
     try {
-      List params = [cid, patientAddress]; // function parameters
+      print(provider.chainId);
+
+      List<dynamic> params = [cid, /*fileName,*/ patientAddress];
+      print({"params": params});
 
       final gas = await client.estimateGas(
         sender: senderAddress,
@@ -134,13 +137,13 @@ class BlockchainConnection {
           parameters: params,
           gasPrice: EtherAmount.inWei(BigInt.from(200000000000000000)),
           from: senderAddress,
-          maxGas: 155525,
+          maxGas: 188800,
         ),
         chainId: 11155111,
       );
       print("tx hash: $txHash");
     } catch (err) {
-      print("err: $err");
+      print("addRecord error: $err");
     }
   }
 
@@ -152,7 +155,6 @@ class BlockchainConnection {
       params: [patientAddress],
     );
 
-    var deployedRecord = records.toString();
-    print("records: $deployedRecord");
+    print(records);
   }
 }

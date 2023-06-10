@@ -10,7 +10,8 @@ DoctorModel ? asDoctorModel;
 
 const String bridge = "https://bridge.walletconnect.org";
 const String contractName = "EHR";
-const String sepoliaContractAddress = "0x58B7523F83828d1C5118A54bC045A3A934Cfbdb4";
+const String sepoliaContractAddress = "0x232b5a81286C5a2ecC1bD3D11144E59b1e183fb4";
+// const String sepoliaContractAddress = "0x58B7523F83828d1C5118A54bC045A3A934Cfbdb4";
 const String projectId = "bbb670a50c47402b960dbe6c0ecf8230";
 const String rpcURL = "https://sepolia.infura.io/v3/bbb670a50c47402b960dbe6c0ecf8230";
 const String wsURL = "wss://sepolia.infura.io/ws/v3/bbb670a50c47402b960dbe6c0ecf8230";
