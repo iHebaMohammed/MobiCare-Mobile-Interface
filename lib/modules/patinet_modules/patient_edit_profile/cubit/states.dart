@@ -17,3 +17,9 @@ class AddSymptomLoadingState extends PatientEditProfileStates {}
 class AddSymptomSuccessfullyState extends PatientEditProfileStates {}
 
 class AddSymptomErrorState extends PatientEditProfileStates {}
+
+class EditPatientProfileLoadingState extends PatientEditProfileStates {}
+
+class EditPatientProfileSuccessfullyState extends PatientEditProfileStates {}
+
+class EditPatientProfileErrorState extends PatientEditProfileStates {}

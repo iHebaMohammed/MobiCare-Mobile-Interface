@@ -58,7 +58,10 @@ class PatientProfileCubit extends Cubit<PatientProfileStates> {
   GetPatientProfileModel ? patientProfileModel ;
   void getPatientProfile(){
     emit(GetPatientProfileLoadingState());
-    DioHelper.getData(path: '${Get_Patient_Profile}${asPatientModel!.data!.iD}' , token: asPatientModel!.accessToken).then((value) {
+    DioHelper.getData(
+        path: '${Get_Patient_Profile}${asPatientModel!.data!.iD}' ,
+        token: asPatientModel!.accessToken
+    ).then((value) {
       print(value.data);
       patientProfileModel = GetPatientProfileModel.fromJson(value.data);
       print('PatientProfileModel : ^^^^^^^^^^^^^^^^^^^^^^^');

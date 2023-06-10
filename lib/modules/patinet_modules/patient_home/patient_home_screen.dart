@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mobi_care/shared/components/components.dart';
+import 'package:mobi_care/shared/components/navigate_component.dart';
 import 'package:mobi_care/shared/styles/colors.dart';
+
+import '../basic_treatment/screen/screen.dart';
 
 class PatientHomeScreen extends StatelessWidget {
   const PatientHomeScreen({Key? key}) : super(key: key);
@@ -30,7 +33,7 @@ class PatientHomeScreen extends StatelessWidget {
                 description: 'Learn the principles of first aid, and ways to prevent diseases.',
                 buttonText: 'Browes videos',
                 function: (){
-
+                  navigateTo(context: context, widget: Screen());
                 },
                 svgPath: 'assets/svg/patient_home/patient_home_2.svg'
             ),

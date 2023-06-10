@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mobi_care/models/search_doctor_model.dart';
 import 'package:mobi_care/shared/components/components.dart';
 import 'package:mobi_care/shared/components/doctor_image_component.dart';
+import 'package:mobi_care/shared/components/navigate_component.dart';
 import 'package:mobi_care/shared/styles/colors.dart';
 import 'package:table_calendar/table_calendar.dart';
+
+import '../payment/payment_screen.dart';
 
 class DoctorProfilePatientViewScreen extends StatelessWidget {
 
@@ -74,11 +78,21 @@ class DoctorProfilePatientViewScreen extends StatelessWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                          SvgPicture.asset('assets/icons/chat.svg' , width: 60,),
+                          InkWell(
+                            onTap: (){
+
+                            },
+                            child: SvgPicture.asset('assets/icons/chat.svg' , width: 60,),
+                          ),
                           DoctorImageComponent(
                             image: 'https://img.freepik.com/premium-vector/graphic-element-printing-poster-banner-website-cartoon-flat-vector-illustration_755718-18.jpg?w=740',
                           ),
-                          SvgPicture.asset('assets/icons/telephone.svg' , width: 60,),
+                          InkWell(
+                            onTap: () async{
+                              await FlutterPhoneDirectCaller.callNumber(dataModel.phone.toString());
+                            },
+                            child: SvgPicture.asset('assets/icons/telephone.svg' , width: 60,),
+                          ),
                         ],
                       ),
                       SizedBox(
@@ -109,38 +123,171 @@ class DoctorProfilePatientViewScreen extends StatelessWidget {
                           SizedBox(
                             height: 10,
                           ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              SvgPicture.asset('assets/icons/active_star.svg'),
-                              SvgPicture.asset('assets/icons/active_star.svg'),
-                              SvgPicture.asset('assets/icons/active_star.svg'),
-                              SvgPicture.asset('assets/icons/active_star.svg'),
-                              SvgPicture.asset('assets/icons/not_active_star.svg'),
-                              SizedBox(
-                                width: 5,
-                              ),
-                              Text(
-                                '4*',
-                                style: TextStyle(
-                                  color: primaryColor1BA,
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w500,
+                          if(dataModel.rate!.round() == 1)
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                SvgPicture.asset('assets/icons/active_star.svg'),
+                                SvgPicture.asset('assets/icons/not_active_star.svg'),
+                                SvgPicture.asset('assets/icons/not_active_star.svg'),
+                                SvgPicture.asset('assets/icons/not_active_star.svg'),
+                                SvgPicture.asset('assets/icons/not_active_star.svg'),
+                                SizedBox(
+                                  width: 5,
                                 ),
-                              ),
-                              SizedBox(
-                                width: 10,
-                              ),
-                              Text(
-                                '128 Reviews',
-                                style: TextStyle(
-                                  color: primaryGreyColor808,
-                                  fontSize: 13,
-                                  fontWeight: FontWeight.w400,
+                                Text(
+                                  '${dataModel!.rate}*',
+                                  style: TextStyle(
+                                    color: primaryColor1BA,
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w500,
+                                  ),
                                 ),
-                              ),
-                            ],
-                          ),
+                                SizedBox(
+                                  width: 10,
+                                ),
+                                Text(
+                                  '${dataModel!.reviewsNo} Reviews',
+                                  style: TextStyle(
+                                    color: primaryGreyColor808,
+                                    fontSize: 13,
+                                    fontWeight: FontWeight.w400,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          if(dataModel!.rate!.round() == 2)
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                SvgPicture.asset('assets/icons/active_star.svg'),
+                                SvgPicture.asset('assets/icons/active_star.svg'),
+                                SvgPicture.asset('assets/icons/not_active_star.svg'),
+                                SvgPicture.asset('assets/icons/not_active_star.svg'),
+                                SvgPicture.asset('assets/icons/not_active_star.svg'),
+                                SizedBox(
+                                  width: 5,
+                                ),
+                                Text(
+                                  '${dataModel!.rate}*',
+                                  style: TextStyle(
+                                    color: primaryColor1BA,
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 10,
+                                ),
+                                Text(
+                                  '${dataModel!.reviewsNo} Reviews',
+                                  style: TextStyle(
+                                    color: primaryGreyColor808,
+                                    fontSize: 13,
+                                    fontWeight: FontWeight.w400,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          if(dataModel!.rate!.round() == 3)
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                SvgPicture.asset('assets/icons/active_star.svg'),
+                                SvgPicture.asset('assets/icons/active_star.svg'),
+                                SvgPicture.asset('assets/icons/active_star.svg'),
+                                SvgPicture.asset('assets/icons/not_active_star.svg'),
+                                SvgPicture.asset('assets/icons/not_active_star.svg'),
+                                SizedBox(
+                                  width: 5,
+                                ),
+                                Text(
+                                  '${dataModel!.rate}*',
+                                  style: TextStyle(
+                                    color: primaryColor1BA,
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 10,
+                                ),
+                                Text(
+                                  '${dataModel!.reviewsNo} Reviews',
+                                  style: TextStyle(
+                                    color: primaryGreyColor808,
+                                    fontSize: 13,
+                                    fontWeight: FontWeight.w400,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          if(dataModel.rate!.round() == 4)
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                SvgPicture.asset('assets/icons/active_star.svg'),
+                                SvgPicture.asset('assets/icons/active_star.svg'),
+                                SvgPicture.asset('assets/icons/active_star.svg'),
+                                SvgPicture.asset('assets/icons/active_star.svg'),
+                                SvgPicture.asset('assets/icons/not_active_star.svg'),
+                                SizedBox(
+                                  width: 5,
+                                ),
+                                Text(
+                                  '${dataModel.rate}*',
+                                  style: TextStyle(
+                                    color: primaryColor1BA,
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 10,
+                                ),
+                                Text(
+                                  '${dataModel.reviewsNo} Reviews',
+                                  style: TextStyle(
+                                    color: primaryGreyColor808,
+                                    fontSize: 13,
+                                    fontWeight: FontWeight.w400,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          if(dataModel.rate!.round() == 5)
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                SvgPicture.asset('assets/icons/active_star.svg'),
+                                SvgPicture.asset('assets/icons/active_star.svg'),
+                                SvgPicture.asset('assets/icons/active_star.svg'),
+                                SvgPicture.asset('assets/icons/active_star.svg'),
+                                SvgPicture.asset('assets/icons/active_star.svg'),
+                                SizedBox(
+                                  width: 5,
+                                ),
+                                Text(
+                                  '${dataModel!.rate}*',
+                                  style: TextStyle(
+                                    color: primaryColor1BA,
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 10,
+                                ),
+                                Text(
+                                  '${dataModel.reviewsNo} Reviews',
+                                  style: TextStyle(
+                                    color: primaryGreyColor808,
+                                    fontSize: 13,
+                                    fontWeight: FontWeight.w400,
+                                  ),
+                                ),
+                              ],
+                            ),
                           SizedBox(
                             height: 10,
                           ),
@@ -182,7 +329,7 @@ class DoctorProfilePatientViewScreen extends StatelessWidget {
                                             height: 5,
                                           ),
                                           Text(
-                                            '1267',
+                                            '${dataModel.patientsNo}',
                                             style: TextStyle(
                                                 fontSize: 28,
                                                 color: primaryBlackColor,
@@ -230,7 +377,7 @@ class DoctorProfilePatientViewScreen extends StatelessWidget {
                                             height: 5,
                                           ),
                                           Text(
-                                            '3yrs',
+                                            '${dataModel.experince}yrs',
                                             style: TextStyle(
                                                 fontSize: 30,
                                                 color: primaryBlackColor,
@@ -498,7 +645,9 @@ class DoctorProfilePatientViewScreen extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 4.0),
                       child: DefaultButton(
-                          function: (){},
+                          function: (){
+                            navigateTo(context: context, widget: PaymentScreen());
+                          },
                           text: 'Book a home visit',
                           redius: 30,
                           backgroundColor: primaryColor1BA,

@@ -115,6 +115,7 @@ class DoctorDrawerLayoutCubit extends Cubit<DoctorDrawerLayoutStates>{
       },
     ).then((value) {
       print(value.data['message']);
+      print('Assign Success');
       Navigator.pop(context);
       patientIdController.text = "";
       emit(AssignPatientToDoctorSuccessfullyState());

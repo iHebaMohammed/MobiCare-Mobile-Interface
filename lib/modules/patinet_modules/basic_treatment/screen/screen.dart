@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-
-import '../view/view.dart';
 import '../../../../models/Constants.dart';
+import '../view/view.dart' as view;
 
 class Screen extends StatelessWidget {
   const Screen({Key? key}) : super(key: key);
@@ -21,9 +20,9 @@ class Screen extends StatelessWidget {
                   onTap: () {
                     Navigator.of(context).push(
                       MaterialPageRoute(
-                        builder: (context) => View(
-                          model: e,
-                        ),
+                        builder: (context) => view.View(
+                            model: e,
+                        )
                       ),
                     );
                   },

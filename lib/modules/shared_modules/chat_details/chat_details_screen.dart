@@ -34,7 +34,7 @@ class ChatDetailsScreen extends StatelessWidget {
                   children: [
                     DefaultImageShape(
                         isMale: userModel.isMale!,
-                        image: userModel.imageUrl!,
+                        image: 'https://img.freepik.com/premium-vector/graphic-element-printing-poster-banner-website-cartoon-flat-vector-illustration_755718-18.jpg?w=740',
                         height: 40
                     ),
                     Expanded(

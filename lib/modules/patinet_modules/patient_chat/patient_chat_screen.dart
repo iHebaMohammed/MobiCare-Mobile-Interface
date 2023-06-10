@@ -39,7 +39,7 @@ class PatientChatScreen extends StatelessWidget {
                     context: context,
                     model: cubit.users[index],
                     lastMessage: 'Hi',
-                    dateOfLastMassage: '5/5/2005',
+                    dateOfLastMassage: '1/6/2023',
                     numberOfMessage: '0',
                 ),
               ),

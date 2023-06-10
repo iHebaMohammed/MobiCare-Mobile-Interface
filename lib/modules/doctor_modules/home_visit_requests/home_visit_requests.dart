@@ -41,12 +41,12 @@ class HomeVisitRequestsScreen extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.all(20.0),
             child: ListView.separated(
-              itemCount: 15,
+              itemCount: 1,
               separatorBuilder: (context, index) => SizedBox(height: 10,),
               itemBuilder: (context, index) =>  Row(
                 children: [
                   DefaultImageShape(
-                      isMale: false,
+                      isMale: true,
                       height: 40,
                       image: 'https://cdn-icons-png.flaticon.com/512/727/727393.png?w=740&t=st=1682584890~exp=1682585490~hmac=68efe00a2db500f0b011f8f06602ec77b5750ba3f1900745c1c4ec4485614b43',
                   ),

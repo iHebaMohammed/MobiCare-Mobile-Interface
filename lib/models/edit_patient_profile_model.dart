@@ -1,10 +1,10 @@
-class SearchDoctorModel {
+class EditPatientProfileModel {
   String? message;
   List<Data>? data;
 
-  SearchDoctorModel({this.message, this.data});
+  EditPatientProfileModel({this.message, this.data});
 
-  SearchDoctorModel.fromJson(Map<String, dynamic> json) {
+  EditPatientProfileModel.fromJson(Map<String, dynamic> json) {
     message = json['message'];
     if (json['data'] != null) {
       data = <Data>[];
@@ -26,9 +26,8 @@ class SearchDoctorModel {
 
 class Data {
   int? iD;
-  String? doctorStatus;
+  String? patientStatus;
   String? fUID;
-  int? adminID;
   String? fName;
   String? lName;
   String? email;
@@ -36,22 +35,16 @@ class Data {
   String? address;
   int? gender;
   String? dOB;
-  String? specialization;
-  String? phone;
+  int? weight;
+  int? height;
   String? refreshTokenValue;
   String? photo;
-  String? bio;
-  String? video;
-  int? rate;
-  int? experince;
-  int? patientsNo;
-  int? reviewsNo;
+  String? phone;
 
   Data(
       {this.iD,
-        this.doctorStatus,
+        this.patientStatus,
         this.fUID,
-        this.adminID,
         this.fName,
         this.lName,
         this.email,
@@ -59,22 +52,16 @@ class Data {
         this.address,
         this.gender,
         this.dOB,
-        this.specialization,
-        this.phone,
+        this.weight,
+        this.height,
         this.refreshTokenValue,
         this.photo,
-        this.bio,
-        this.video,
-        this.rate,
-        this.experince,
-        this.patientsNo,
-        this.reviewsNo});
+        this.phone});
 
   Data.fromJson(Map<String, dynamic> json) {
     iD = json['ID'];
-    doctorStatus = json['Doctor_Status'];
+    patientStatus = json['Patient_Status'];
     fUID = json['FUID'];
-    adminID = json['Admin_ID'];
     fName = json['F_Name'];
     lName = json['L_Name'];
     email = json['Email'];
@@ -82,24 +69,18 @@ class Data {
     address = json['Address'];
     gender = json['Gender'];
     dOB = json['DOB'];
-    specialization = json['Specialization'];
-    phone = json['Phone'];
+    weight = json['Weight'];
+    height = json['Height'];
     refreshTokenValue = json['Refresh_Token_Value'];
     photo = json['Photo'];
-    bio = json['Bio'];
-    video = json['Video'];
-    rate = json['Rate'];
-    experince = json['Experince'];
-    patientsNo = json['PatientsNo'];
-    reviewsNo = json['ReviewsNo'];
+    phone = json['Phone'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['ID'] = this.iD;
-    data['Doctor_Status'] = this.doctorStatus;
+    data['Patient_Status'] = this.patientStatus;
     data['FUID'] = this.fUID;
-    data['Admin_ID'] = this.adminID;
     data['F_Name'] = this.fName;
     data['L_Name'] = this.lName;
     data['Email'] = this.email;
@@ -107,16 +88,11 @@ class Data {
     data['Address'] = this.address;
     data['Gender'] = this.gender;
     data['DOB'] = this.dOB;
-    data['Specialization'] = this.specialization;
-    data['Phone'] = this.phone;
+    data['Weight'] = this.weight;
+    data['Height'] = this.height;
     data['Refresh_Token_Value'] = this.refreshTokenValue;
     data['Photo'] = this.photo;
-    data['Bio'] = this.bio;
-    data['Video'] = this.video;
-    data['Rate'] = this.rate;
-    data['Experince'] = this.experince;
-    data['PatientsNo'] = this.patientsNo;
-    data['ReviewsNo'] = this.reviewsNo;
+    data['Phone'] = this.phone;
     return data;
   }
 }
