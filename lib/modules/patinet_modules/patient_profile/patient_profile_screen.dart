@@ -16,19 +16,23 @@ class PatientProfileScreen extends StatelessWidget {
   bool isPrescriptionVisible = true;
   bool isFollowUpWithVisible = true;
   bool isSymptomsVisible = true;
+  bool dataLoaded = false;
 
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<PatientProfileCubit , PatientProfileStates>(
       listener: (context, state) {
+        if(state is GetPatientProfileSuccessfullyState){
+          dataLoaded = true;
+        }
       },
       builder: (context, state) {
         PatientProfileCubit cubit = PatientProfileCubit.get(context);
-        return ConditionalBuilder(
-          condition: cubit.patientProfileModel!.data!.fName != null && state is GetPatientProfileSuccessfullyState,
-          builder: (context) => Scaffold(
-            body: SafeArea(
-              child: ListView(
+        return Scaffold(
+          body: SafeArea(
+            child: ConditionalBuilder(
+              condition: state is GetPatientProfileSuccessfullyState || dataLoaded,
+              builder: (context) => ListView(
                 children: [
                   Container(
                     height: 220,
@@ -93,7 +97,7 @@ class PatientProfileScreen extends StatelessWidget {
                             Expanded(
                               child: OutlinedButton(
                                 onPressed: (){
-                                  navigateTo(context: context, widget: PatientEditProfileScreen());
+                                  navigateTo(context: context, widget: PatientEditProfileScreen(model: cubit.patientProfileModel!,));
                                 },
                                 child: Text(
                                   'Edit Profile',
@@ -107,7 +111,7 @@ class PatientProfileScreen extends StatelessWidget {
                               onPressed: (){
                                 navigateTo(
                                   context: context,
-                                  widget: PatientEditProfileScreen(),
+                                  widget: PatientEditProfileScreen(model: cubit.patientProfileModel!),
                                 );
                               },
                               child: Icon(
@@ -293,10 +297,9 @@ class PatientProfileScreen extends StatelessWidget {
                         if(isPrescriptionVisible)
                           Column(
                             children: [
-                              BuildPrescriptionItem(dateTime: '5 / 10 ? 2021', doctorName: 'Dr.Ali'),
-                              BuildPrescriptionItem(dateTime: '5 / 10 ? 2021', doctorName: 'Dr.Ali'),
-                              BuildPrescriptionItem(dateTime: '5 / 10 ? 2021', doctorName: 'Dr.Ali'),
-                              BuildPrescriptionItem(dateTime: '5 / 10 ? 2021', doctorName: 'Dr.Ali'),
+                              BuildPrescriptionItem(dateTime: '5 / 10 / 2021', doctorName: 'Dr.Ali'),
+                              BuildPrescriptionItem(dateTime: '5 / 10 / 2021', doctorName: 'Dr.Ali'),
+                              BuildPrescriptionItem(dateTime: '5 / 10 / 2021', doctorName: 'Dr.Ali'),
                             ],
                           ),
                         if(isPrescriptionVisible)
@@ -403,19 +406,19 @@ class PatientProfileScreen extends StatelessWidget {
                           ConditionalBuilder(
                             condition: cubit.patientProfileModel!.data!.symptoms!.isNotEmpty,
                             builder: (context) => SizedBox(
-                            width: double.infinity,
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 8.0),
-                              child: Wrap(
-                                children: [
-                                  for(int i = 0 ; i < cubit.patientProfileModel!.data!.symptoms!.length ; i++)
-                                    DefaultSymptomItem(
-                                      nameOfSymptom: cubit.patientProfileModel!.data!.symptoms![i].symptom!,
-                                    ),
-                                ],
+                              width: double.infinity,
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(vertical: 8.0),
+                                child: Wrap(
+                                  children: [
+                                    for(int i = 0 ; i < cubit.patientProfileModel!.data!.symptoms!.length ; i++)
+                                      DefaultSymptomItem(
+                                        nameOfSymptom: cubit.patientProfileModel!.data!.symptoms![i].symptom!,
+                                      ),
+                                  ],
+                                ),
                               ),
                             ),
-                          ),
                             fallback: (context) => Column(
                               children: [
                                 SvgPicture.asset(
@@ -430,22 +433,13 @@ class PatientProfileScreen extends StatelessWidget {
                               ],
                             ),
                           ),
-
                       ],
                     ),
                   )
                 ],
               ),
+              fallback: (context) => const Center(child: CircularProgressIndicator(),),
             ),
-          ),
-          fallback: (context) => const Scaffold(
-              body: SafeArea(
-                  child: Center(
-                      child: CircularProgressIndicator(
-
-                      ),
-                  ),
-              ),
           ),
         );
       },

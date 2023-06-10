@@ -47,7 +47,7 @@ class LoginCubit extends Cubit<LoginStates>{
   void addDoctorFUID({required int id , required String fuid , required String token}){
     emit(AddDoctorFUIDLoadingState());
     DioHelper.putData(
-      url: Add_Patient_FUID,
+      url: Add_Doctor_FUID,
       token: token,
       queryParameters: {
         'id' : id,

@@ -48,7 +48,7 @@ class DoctorModel {
 class Data {
   int? iD;
   String? doctorStatus;
-  Null? fUID;
+  String ? fUID;
   int? adminID;
   String? fName;
   String? lName;
@@ -59,8 +59,8 @@ class Data {
   String? specialization;
   String? phone;
   String? photo;
-  Null? bio;
-  Null? video;
+  String ? bio;
+  String? video;
   int? rate;
   int? experince;
   int? patientsNo;

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobi_care/models/add_symptoms_model.dart';
+import 'package:mobi_care/models/edit_patient_profile_model.dart';
 import 'package:mobi_care/shared/constants/constants.dart';
 import 'package:mobi_care/shared/network/remote/dio_helper.dart';
 import 'package:mobi_care/shared/network/remote/end_point.dart';
@@ -76,5 +77,49 @@ class PatientEditProfileCubit extends Cubit<PatientEditProfileStates> {
       emit(AddSymptomErrorState());
     });
   }
-
+  EditPatientProfileModel ? editPatientProfileModel;
+  void editPatientProfile({
+    required String firstName,
+    required String lastName,
+    required String email,
+    required String password,
+    required String address,
+    required int weight,
+    required int height,
+  }){
+    emit(EditPatientProfileLoadingState());
+    DioHelper.patchData(
+      token: asPatientModel!.accessToken,
+      url: Edit_Patient_profile,
+      data: {
+        'STATUS': 'Active',
+        'PATIENT_FIRST_NAME' : firstName,
+        'PATIENT_LAST_NAME' : lastName,
+        'PATIENT_EMAIL' : email,
+        'PATIENT_PASSWORD' : password,
+        'PATIENT_ADDRESS' : address,
+        'DOB' : asPatientModel!.data!.dOB,
+        'PATIENT_GENDER' : asPatientModel!.data!.gender,
+        'PATIENT_WEIGHT' : weight,
+        'PATIENT_HEIGHT' : height,
+        'FUID' : uId,
+      },
+    ).then((value) {
+      print(value.data);
+      print('################ Edit Patient #################');
+      editPatientProfileModel = EditPatientProfileModel.fromJson(value.data);
+      print(editPatientProfileModel);
+      print(editPatientProfileModel!.data![0].height);
+      asPatientModel!.data!.height = editPatientProfileModel!.data![0].height;
+      asPatientModel!.data!.weight = editPatientProfileModel!.data![0].weight;
+      asPatientModel!.data!.fName = editPatientProfileModel!.data![0].fName;
+      asPatientModel!.data!.lName = editPatientProfileModel!.data![0].lName;
+      asPatientModel!.data!.email = editPatientProfileModel!.data![0].email;
+      asPatientModel!.data!.address = editPatientProfileModel!.data![0].address;
+      emit(EditPatientProfileSuccessfullyState());
+    }).catchError((error) {
+      print(error.toString());
+      emit(EditPatientProfileErrorState());
+    });
+  }
 }

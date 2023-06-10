@@ -409,7 +409,7 @@ class DefaultChatRowUserViewItem extends StatelessWidget {
         children: [
           DefaultImageShape(
             isMale: model.isMale!,
-            image: model.imageUrl!,
+            image: 'https://img.freepik.com/premium-vector/graphic-element-printing-poster-banner-website-cartoon-flat-vector-illustration_755718-18.jpg?w=740',
             height: 60,
           ),
           Expanded(
@@ -830,9 +830,9 @@ class DefaultSymptomWithRemoveItem extends StatelessWidget {
           padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16),
           child: Row(
             mainAxisSize: MainAxisSize.min,
-            children: const [
+            children: [
               Text(
-                'Stomach pain',
+                nameOfSymptom,
                 style: TextStyle(
                   // fontWeight: FontWeight.w300,
                   fontSize: 13,

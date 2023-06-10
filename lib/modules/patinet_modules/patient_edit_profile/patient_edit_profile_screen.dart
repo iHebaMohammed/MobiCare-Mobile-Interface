@@ -1,5 +1,9 @@
+import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_svg/parser.dart';
+import 'package:mobi_care/models/get_patient_profile_model.dart';
 import 'package:mobi_care/shared/components/components.dart';
 import 'package:mobi_care/shared/constants/constants.dart';
 import '../../../shared/styles/colors.dart';
@@ -8,8 +12,8 @@ import 'cubit/states.dart';
 
 
 class PatientEditProfileScreen extends StatelessWidget {
-  PatientEditProfileScreen({Key? key}) : super(key: key);
 
+  final GetPatientProfileModel model;
   TextEditingController firstNameController = TextEditingController();
   TextEditingController lastNameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
@@ -20,6 +24,8 @@ class PatientEditProfileScreen extends StatelessWidget {
   DateTime dateOfBirth = DateTime.now();
   bool isSymptomsVisible = true;
   TextEditingController symptomController = TextEditingController();
+
+  PatientEditProfileScreen({super.key, required this.model});
 
   List<int> addItemsInWeightList() {
     List<int> widthList = [];
@@ -40,17 +46,42 @@ class PatientEditProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<PatientEditProfileCubit, PatientEditProfileStates>(
-      listener: (context, state) {},
+      listener: (context, state) {
+
+      },
       builder: (context, state) {
         PatientEditProfileCubit cubit = PatientEditProfileCubit.get(context);
-        dateOfBirthController.text = asPatientModel!.data!.dOB.toString();
-        firstNameController.text = asPatientModel!.data!.fName!;
-        lastNameController.text = asPatientModel!.data!.lName!;
-        emailController.text = asPatientModel!.data!.email!;
-        addressController.text = asPatientModel!.data!.address!;
+        dateOfBirthController.text = model.data!.dOB.toString();
+        firstNameController.text = model.data!.fName!;
+        lastNameController.text = model.data!.lName!;
+        emailController.text = model.data!.email!;
+        addressController.text = model.data!.address!;
         Size size = MediaQuery.of(context).size;
 
         return Scaffold(
+          appBar: AppBar(
+            backgroundColor: primaryColor4DC_20,
+            actions: [
+              TextButton(
+                onPressed: (){
+                cubit.editPatientProfile(firstName: firstNameController.text,
+                    lastName: lastNameController.text,
+                    email: emailController.text,
+                    password: passwordController.text,
+                    address: addressController.text,
+                    weight: int.parse(cubit.weightValue),
+                    height: int.parse(cubit.tallValue),
+                  );
+                },
+                child: Text(
+                  'EDIT',
+                  style: TextStyle(
+                    color: primaryColor1BA,
+                  ),
+                ),
+              ),
+            ],
+          ),
           floatingActionButton: InkWell(
             onTap: () {
               showDialog(
@@ -141,7 +172,7 @@ class PatientEditProfileScreen extends StatelessWidget {
             child: ListView(
               children: [
                 SizedBox(
-                  height: 220,
+                  height: 180,
                   child: Stack(
                     alignment: Alignment.bottomCenter,
                     children: [
@@ -151,7 +182,7 @@ class PatientEditProfileScreen extends StatelessWidget {
                           alignment: AlignmentDirectional.topEnd,
                           children: [
                             Container(
-                              height: 180,
+                              height: 140,
                               width: double.infinity,
                               decoration: BoxDecoration(
                                   color: primaryColor4DC_20,
@@ -169,7 +200,7 @@ class PatientEditProfileScreen extends StatelessWidget {
                           SizedBox(
                             width: 115,
                             child: DefaultImageShape(
-                                isMale: asPatientModel!.data!.gender == 0 ? false : true,
+                                isMale: model.data!.gender == 0 ? false : true,
                                 height: 80,
                                 image: 'https://cdn-icons-png.flaticon.com/512/727/727399.png?w=740&t=st=1685896888~exp=1685897488~hmac=d1e52ed88325af9d153a52cc517b162ed28c158ecf2c917d7faa12849488be12',
                             ),
@@ -194,7 +225,7 @@ class PatientEditProfileScreen extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 10.0),
                   child: Text(
-                    '${asPatientModel!.data!.fName} ${asPatientModel!.data!.lName}',
+                    '${model.data!.fName} ${model.data!.lName}',
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontSize: 18,
@@ -203,7 +234,7 @@ class PatientEditProfileScreen extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  asPatientModel!.data!.gender == 0 ? 'Female' : 'Male',
+                  model.data!.gender == 0 ? 'Female' : 'Male',
                   textAlign: TextAlign.center,
                   overflow: TextOverflow.ellipsis,
                   maxLines: 2,
@@ -285,41 +316,6 @@ class PatientEditProfileScreen extends StatelessWidget {
                             }
                             return "null";
                           }),
-                      SizedBox(
-                        height: 12,
-                      ),
-                      Text(
-                        'Date of birth',
-                      ),
-                      SizedBox(
-                        height: 5,
-                      ),
-                      InkWell(
-                        onTap: () async {
-                          DateTime? newDate = await showDatePicker(
-                            context: context,
-                            firstDate: DateTime(1950),
-                            initialDate: DateTime(2001, 1, 15),
-                            lastDate: DateTime.now(),
-                          );
-                          if (newDate != null) cubit.selectDatePiker(newDate);
-                        },
-                        child: TextFormField(
-                          enabled: false,
-                          controller: dateOfBirthController,
-                          decoration: InputDecoration(
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(5.0),
-                            ),
-                          ),
-                          validator: (value) {
-                            if (value!.isEmpty) {
-                              return 'Address can\'t be empty';
-                            }
-                            return "null";
-                          },
-                        ),
-                      ),
                       const SizedBox(
                         height: 15,
                       ),
@@ -386,26 +382,23 @@ class PatientEditProfileScreen extends StatelessWidget {
                           width: double.infinity,
                           child: Padding(
                             padding: const EdgeInsets.symmetric(vertical: 8.0),
-                            child: Wrap(
-                              children: [
-                                DefaultSymptomWithRemoveItem(
-                                    nameOfSymptom: 'Headache'),
-                                DefaultSymptomWithRemoveItem(
-                                  nameOfSymptom: 'Stomach pain',
-                                ),
-                                DefaultSymptomWithRemoveItem(
-                                  nameOfSymptom: 'shortness of breath',
-                                ),
-                                DefaultSymptomWithRemoveItem(
-                                  nameOfSymptom: 'Headache',
-                                ),
-                                DefaultSymptomWithRemoveItem(
-                                  nameOfSymptom: 'Stomach pain',
-                                ),
-                                DefaultSymptomWithRemoveItem(
-                                  nameOfSymptom: 'shortness of breath',
-                                ),
-                              ],
+                            child: ConditionalBuilder(
+                              condition: model.data!.symptoms!.isNotEmpty,
+                              builder: (context) => Wrap(
+                                children: [
+                                  for(int i = 0 ; i < model.data!.symptoms!.length ; i++)
+                                    DefaultSymptomWithRemoveItem(
+                                        nameOfSymptom: '${model.data!.symptoms![i].symptom}'
+                                    ),
+                                ],
+                              ),
+                              fallback: (context) => Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  SvgPicture.asset('assets/svg/symptoms_not_found.svg', width: 150, height: 150,),
+                                  Text('There is no symptoms'),
+                                ],
+                              ),
                             ),
                           ),
                         ),

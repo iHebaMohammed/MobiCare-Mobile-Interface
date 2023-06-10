@@ -232,7 +232,7 @@ class RegisterScreen extends StatelessWidget {
                             child: Row(
                               children: [
                                 Radio(
-                                    value: 0,
+                                    value: 1,
                                     groupValue: cubit.gender,
                                     onChanged: (value){
                                       cubit.changeGenderValue(value as int);
@@ -241,7 +241,7 @@ class RegisterScreen extends StatelessWidget {
                                 Text('Male'),
                                 Spacer(),
                                 Radio(
-                                  value: 1,
+                                  value: 0,
                                   groupValue: cubit.gender,
                                   onChanged: (value){
                                     cubit.changeGenderValue(value as int);

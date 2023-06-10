@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:mobi_care/modules/doctor_modules/add_post/add_post_screen.dart';
 import 'package:mobi_care/modules/doctor_modules/home_visit_requests/home_visit_requests.dart';
 import 'package:mobi_care/shared/components/navigate_component.dart';
 
@@ -33,7 +34,7 @@ class DoctorHomeScreen extends StatelessWidget {
                 DefaultPostView(
                   publisherName: 'Heba Adel',
                   publisherImage:
-                      'https://img.freepik.com/free-psd/3d-illustration-person-with-sunglasses_23-2149436188.jpg?w=740&t=st=1677116117~exp=1677116717~hmac=0eaee5fcf6754432b852deadbe808bb6b5344e8ef73dc3e38fa9847446bcbcd0',
+                   'https://img.freepik.com/premium-vector/graphic-element-printing-poster-banner-website-cartoon-flat-vector-illustration_755718-18.jpg?w=740',
                   postText:
                       'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printe',
                   isImage: true,
@@ -50,7 +51,9 @@ class DoctorHomeScreen extends StatelessWidget {
           Align(
             alignment: AlignmentDirectional.bottomEnd,
             child: InkWell(
-              onTap: () {},
+              onTap: () {
+                navigateTo(context: context, widget: NewPostScreen());
+              },
               child: Container(
                 decoration: BoxDecoration(
                   color: primaryColor1BA,

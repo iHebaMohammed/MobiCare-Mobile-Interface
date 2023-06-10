@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:mobi_care/layouts/patient_layout/patient_layout.dart';
 import 'package:mobi_care/shared/components/components.dart';
+import 'package:mobi_care/shared/components/navigate_component.dart';
 
 class PaymentDoneScreen extends StatelessWidget {
   const PaymentDoneScreen({Key? key}) : super(key: key);
@@ -42,7 +44,9 @@ class PaymentDoneScreen extends StatelessWidget {
                     ),
                   ],
                 ),
-                DefaultButton(function: (){}, text: 'Ok' , redius: 6)
+                DefaultButton(function: (){
+                  navigateTo(context: context, widget: PatientLayout());
+                }, text: 'Ok' , redius: 6)
               ],
             ),
           ),

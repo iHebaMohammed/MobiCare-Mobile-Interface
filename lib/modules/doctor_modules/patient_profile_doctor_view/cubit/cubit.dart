@@ -56,7 +56,7 @@ class PatientProfileDoctorViewCubit extends Cubit<PatientProfileDoctorViewStates
       token: asDoctorModel!.accessToken
     ).then((value) {
       noteModel = NoteModel.fromJson(value.data);
-      print('NOTES: ********************');
+      print('ADDED NOTE: ********************');
       print(noteModel!.data);
       print(noteModel!.message);
       emit(AddNoteSuccessfullyState());
@@ -89,7 +89,7 @@ class PatientProfileDoctorViewCubit extends Cubit<PatientProfileDoctorViewStates
     });
   }
 
-  GetSymptomsModel ? symptoms ;
+  late GetSymptomsModel ? symptoms ;
 
   Future<void> getSymptoms({
     required int patientId

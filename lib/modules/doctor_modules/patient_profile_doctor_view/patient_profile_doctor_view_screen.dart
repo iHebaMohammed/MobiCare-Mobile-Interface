@@ -1,6 +1,7 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../../../models/doctor_patient_list_model.dart' as model;
 import '../../../shared/components/components.dart';
@@ -10,12 +11,19 @@ import '../../patinet_modules/patient_prescriptions/patient_prescriptions_screen
 import 'cubit/cubit.dart';
 import 'cubit/states.dart';
 
+enum _MenuValues {
+  AddNote,
+  AddMedicalRecord,
+}
+
 class PatientProfileDoctorViewScreen extends StatelessWidget {
   model.Data data;
   bool isPrescriptionVisible = true;
   bool isSymptomsVisible = true;
   bool isNotesVisible = true;
   TextEditingController noteController = TextEditingController();
+  bool isSymptomsLoad = false;
+  bool isNotesLoad = false;
 
   PatientProfileDoctorViewScreen({
     required this.data,
@@ -27,102 +35,112 @@ class PatientProfileDoctorViewScreen extends StatelessWidget {
       create: (context) =>
           PatientProfileDoctorViewCubit()..getNotes(patientId: data.patientID!)..getSymptoms(patientId: data.patientID!),
       child: BlocConsumer<PatientProfileDoctorViewCubit, PatientProfileDoctorViewStates>(
-        listener: (context, state) {},
+        listener: (context, state) {
+          if(state is GetSymptomsSuccessfullyState){
+            isSymptomsLoad = true;
+          }
+          if(state is GetNoteSuccessfullyState) {
+            isNotesLoad = true;
+          }
+        },
         builder: (context, state) {
           PatientProfileDoctorViewCubit cubit = PatientProfileDoctorViewCubit.get(context);
           return Scaffold(
-            floatingActionButton: InkWell(
-              onTap: () {
-                showDialog(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return AlertDialog(
-                        content: SingleChildScrollView(
-                          child: Container(
-                            color: primaryWhiteColor,
-                            width: double.infinity,
-                            child: Column(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Text(
-                                  'Add Note',
-                                  style: TextStyle(
-                                    color: primaryBlackColor,
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w600,
+            appBar: AppBar(
+              backgroundColor: primaryColor4DC_20,
+              elevation: 0.0,
+              actions: [
+                PopupMenuButton<_MenuValues>(
+                  itemBuilder: (context) => [
+                    PopupMenuItem(child: Text('Add note') , value: _MenuValues.AddNote,),
+                    PopupMenuItem(child: Text('Add medical record') , value: _MenuValues.AddMedicalRecord),
+                  ],
+                  onSelected: (value){
+                    switch(value){
+                      case _MenuValues.AddNote:
+                        showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return AlertDialog(
+                                content: SingleChildScrollView(
+                                  child: Container(
+                                    color: primaryWhiteColor,
+                                    width: double.infinity,
+                                    child: Column(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        Text(
+                                          'Add Note',
+                                          style: TextStyle(
+                                            color: primaryBlackColor,
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.w600,
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          height: 30,
+                                        ),
+                                        TextFormField(
+                                          controller: noteController,
+                                          decoration: InputDecoration(
+                                            hintText: 'Note',
+                                            hintStyle: TextStyle(
+                                              color: primaryWhiteColor.withOpacity(0.7),
+                                            ),
+                                            filled: true,
+                                            fillColor: primaryColor1BA,
+                                            border: OutlineInputBorder(
+                                              borderRadius: BorderRadius.circular(5.0),
+                                              borderSide: BorderSide(
+                                                width: 0,
+                                                style: BorderStyle.none,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          height: 15,
+                                        ),
+                                        DefaultButton(
+                                          function: () {
+                                            cubit.addNote(
+                                                note: noteController.text,
+                                                patientId: data.patientID!);
+                                            Navigator.pop(context);
+                                            noteController.text = "";
+                                          },
+                                          text: 'Done',
+                                          redius: 25,
+                                          backgroundColor: primaryBlueColor2C8,
+                                          width: 150,
+                                          height: 40,
+                                        ),
+                                        SizedBox(
+                                          height: 5,
+                                        )
+                                      ],
+                                    ),
                                   ),
                                 ),
-                                SizedBox(
-                                  height: 30,
-                                ),
-                                TextFormField(
-                                  controller: noteController,
-                                  decoration: InputDecoration(
-                                    hintText: 'Note',
-                                    hintStyle: TextStyle(
-                                      color: primaryWhiteColor.withOpacity(0.7),
-                                    ),
-                                    filled: true,
-                                    fillColor: primaryColor1BA,
-                                    border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(5.0),
-                                      borderSide: BorderSide(
-                                        width: 0,
-                                        style: BorderStyle.none,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                SizedBox(
-                                  height: 15,
-                                ),
-                                DefaultButton(
-                                  function: () {
-                                    cubit.addNote(
-                                        note: noteController.text,
-                                        patientId: data.patientID!);
-                                    Navigator.pop(context);
-                                    noteController.text = "";
-                                  },
-                                  text: 'Done',
-                                  redius: 25,
-                                  backgroundColor: primaryBlueColor2C8,
-                                  width: 150,
-                                  height: 40,
-                                ),
-                                SizedBox(
-                                  height: 5,
-                                )
-                              ],
-                            ),
-                          ),
-                        ),
-                      );
-                    });
-              },
-              child: Container(
-                decoration: BoxDecoration(
-                  color: primaryColor1BA,
-                  borderRadius: BorderRadius.circular(20),
+                              );
+                            });
+                        break;
+                      case _MenuValues.AddMedicalRecord:
+                        // navigateTo(context: context, widget: PatientPrescriptionScreen());
+                        //
+                        //
+                        //
+                        break;
+                    }
+                  },
                 ),
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 20.0, vertical: 10),
-                  child: Text(
-                    'Add Note',
-                    style: TextStyle(
-                      color: primaryWhiteColor,
-                      fontSize: 16,
-                    ),
-                  ),
-                ),
-              ),
+              ],
             ),
             body: SafeArea(
               child: ListView(
                 children: [
                   Container(
-                    height: 220,
+                    height: 200,
                     child: Stack(
                       alignment: AlignmentDirectional.bottomCenter,
                       children: [
@@ -132,7 +150,7 @@ class PatientProfileDoctorViewScreen extends StatelessWidget {
                             alignment: AlignmentDirectional.topEnd,
                             children: [
                               Container(
-                                height: 180,
+                                height: 160,
                                 width: double.infinity,
                                 decoration: BoxDecoration(
                                     color: primaryColor4DC_20,
@@ -154,7 +172,9 @@ class PatientProfileDoctorViewScreen extends StatelessWidget {
                                       InkWell(
                                         child: SvgPicture.asset(
                                             'assets/icons/telephone.svg'),
-                                        onTap: () {},
+                                        onTap: () {
+                                          FlutterPhoneDirectCaller.callNumber(data.phone.toString());
+                                        },
                                       ),
                                     ],
                                   ),
@@ -384,27 +404,37 @@ class PatientProfileDoctorViewScreen extends StatelessWidget {
                               padding:
                                   EdgeInsets.symmetric(vertical: 8.0),
                               child: ConditionalBuilder(
-                                condition: state is GetNoteSuccessfullyState || state is AddNoteSuccessfullyState || state is GetSymptomsSuccessfullyState,
-                                builder: (context) => Wrap(
-                                  children: [
-                                    for(int i = 0 ; i < cubit.symptoms!.data!.length ; i++)
-                                      DefaultSymptomItem(
-                                        nameOfSymptom: '${cubit.symptoms!.data![i].symptom}',
-                                      ),
-                                  ],
-                                ),
-                                fallback: (context) =>  Column(
-                                  children: [
-                                    SvgPicture.asset(
-                                      'assets/svg/symptoms_not_found.svg',
-                                      height: 150,
-                                      width: 150,
-                                    ),
-                                    SizedBox(
-                                      height: 10,
-                                    ),
-                                    Text('There is no symptoms.'),
-                                  ],
+                                condition: state is GetSymptomsSuccessfullyState || isSymptomsLoad,
+                                builder: (context) {
+                                  if(cubit.symptoms!.data!.isNotEmpty) {
+                                    return  Wrap(
+                                    children: [
+                                      for(int i = 0 ; i < cubit.symptoms!.data!.length ; i++)
+                                        DefaultSymptomItem(
+                                          nameOfSymptom: '${cubit.symptoms!.data![i].symptom}',
+                                        ),
+                                    ],
+                                  );
+                                  } else {
+                                    return  Column(
+                                      children: [
+                                        SvgPicture.asset(
+                                          'assets/svg/symptoms_not_found.svg',
+                                          height: 150,
+                                          width: 150,
+                                        ),
+                                        SizedBox(
+                                          height: 10,
+                                        ),
+                                        Text('There is no symptoms.'),
+                                      ],
+                                    );
+                                  }
+                                },
+                                fallback: (context) => SvgPicture.asset(
+                                  'assets/svg/error.svg',
+                                  height: 150,
+                                  width: 150,
                                 ),
                               ),
                             ),
@@ -509,13 +539,15 @@ class PatientProfileDoctorViewScreen extends StatelessWidget {
                           SizedBox(
                             height: 200,
                             child: ConditionalBuilder(
-                              condition: state is GetNoteSuccessfullyState || state is AddNoteSuccessfullyState || state is GetSymptomsSuccessfullyState,
-                              builder: (context) => ListView.builder(
-                                itemBuilder: (context, index) => Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 16.0),
+                              condition: state is AddNoteSuccessfullyState || state is GetNoteSuccessfullyState || isNotesLoad,
+                              builder: (context) {
+                                if(cubit.noteModel!.data!.isNotEmpty){
+                                  return  ListView.builder(
+                                    itemBuilder: (context, index) => Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 16.0),
                                       child: SizedBox(
-                                         child: Column(
+                                        child: Column(
                                           children: [
                                             Row(
                                               children: [
@@ -558,24 +590,33 @@ class PatientProfileDoctorViewScreen extends StatelessWidget {
                                             SizedBox(
                                               height: 20,
                                             ),
-                                      ],
+                                          ],
+                                        ),
+                                      ),
                                     ),
-                                  ),
-                                ),
-                                itemCount: cubit.noteModel!.data!.length,
-                              ),
-                              fallback: (context) => Column(
-                                children: [
-                                  SvgPicture.asset(
-                                    'assets/svg/note.svg',
-                                    height: 150,
-                                    width: 150,
-                                  ),
-                                  SizedBox(
-                                    height: 10,
-                                  ),
-                                  Text('There is no notes.'),
-                                ],
+                                    itemCount: cubit.noteModel!.data!.length,
+                                  );
+                                }
+                                else{
+                                  return Column(
+                                    children: [
+                                      SvgPicture.asset(
+                                        'assets/svg/note.svg',
+                                        height: 150,
+                                        width: 150,
+                                      ),
+                                      SizedBox(
+                                        height: 10,
+                                      ),
+                                      Text('There is no notes.'),
+                                    ],
+                                  );
+                                }
+                              },
+                              fallback: (context) => SvgPicture.asset(
+                                'assets/svg/error.svg',
+                                height: 150,
+                                width: 150,
                               ),
                             ),
                           ),

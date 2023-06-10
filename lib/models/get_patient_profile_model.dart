@@ -22,7 +22,7 @@ class GetPatientProfileModel {
 class Data {
   int? iD;
   String? patientStatus;
-  Null? fUID;
+  String? fUID;
   String? fName;
   String? lName;
   String? email;
@@ -30,10 +30,10 @@ class Data {
   String? address;
   int? gender;
   String? dOB;
-  Null? weight;
-  Null? height;
+  int? weight;
+  int? height;
   String? refreshTokenValue;
-  Null? photo;
+  String? photo;
   String? phone;
   List<Symptoms>? symptoms;
   List<Doctors>? doctors;

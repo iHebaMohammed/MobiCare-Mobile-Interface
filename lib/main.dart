@@ -19,13 +19,12 @@ import 'modules/patinet_modules/patient_profile/cubit/cubit.dart';
 
 import 'modules/shared_modules/chat_details/cubit/cubit.dart';
 import 'modules/shared_modules/login/login_screen.dart';
-import 'modules/shared_modules/payment/cubit/cubit.dart';
 
 import 'shared/network/local/cache_helper.dart';
 import 'shared/network/remote/dio_helper.dart';
-import 'shared/network/remote/web3_dio_helper.dart';
 
 import 'shared/styles/themes.dart';
+import 'shared/bloc_observer.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -53,10 +52,7 @@ class MyApp extends StatelessWidget {
             create: (context) => ChatMessagesCubit(),
         ),
         BlocProvider(
-          create: (context) => PaymentCubit(),
-        ),
-        BlocProvider(
-            create: (context) => PatientProfileCubit()..getNewAccessToken()..getPatientProfile(),
+            create: (context) => PatientProfileCubit()..getPatientProfile(),
         ),
         BlocProvider(
           create: (context) => PatientEditProfileCubit(),

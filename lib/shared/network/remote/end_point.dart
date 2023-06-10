@@ -1,13 +1,14 @@
 // Auth APIs
 const String GET_NEW_ACCESS_TOKEN = '/token';
+const String REGISTRATION = '/patient/register/';
 const String LOGIN = '/login';
-const String REGISTRATION = '/patient/register';
 
 // Patient APIs
 const String Add_Patient_FUID ='/patient/fuid/add';
 const String Get_Patient_Profile = '/patient/get/';
 const String Get_Doctors = '/patient/getDoctors';
 const String Add_Symptom = '/patient/symptom/add';
+const String Edit_Patient_profile = '/patient/edit';
 const String Get_Symptoms = '/patient/symptom/getAll';
 const String DELETE_SYMPTOM = '/patient/symptom/delete';
 const String SEARCH_DOCTOR_BY_NAME = '/doctor/search';
