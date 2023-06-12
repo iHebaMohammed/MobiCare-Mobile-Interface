@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:mobi_care/models/user_model.dart';
 import 'package:mobi_care/shared/styles/colors.dart';
+import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 import 'navigate_component.dart';
 
@@ -54,7 +55,6 @@ class DefaultButtonWithCircleAvatar extends StatelessWidget {
   final String text;
   late double height;
   late double fontSize;
-  late String numberOfRequistes;
 
   DefaultButtonWithCircleAvatar({
     Key? key,
@@ -65,7 +65,6 @@ class DefaultButtonWithCircleAvatar extends StatelessWidget {
     required this.text,
     this.height = 52,
     this.fontSize = 15,
-    this.numberOfRequistes = '0',
   }) : super(key: key);
 
   @override
@@ -79,27 +78,9 @@ class DefaultButtonWithCircleAvatar extends StatelessWidget {
       width: width,
       child: MaterialButton(
         onPressed: function,
-        child: Row(
-          children: [
-            Text(
-              text.toUpperCase(),
-              style: TextStyle(color: Colors.white, fontSize: fontSize),
-            ),
-            SizedBox(
-              width: 3,
-            ),
-            CircleAvatar(
-              backgroundColor: Colors.red,
-              radius: 10,
-              child: Text(
-                '$numberOfRequistes',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 12
-                ),
-              ),
-            ),
-          ],
+        child: Text(
+          text.toUpperCase(),
+          style: TextStyle(color: Colors.white, fontSize: fontSize),
         ),
       ),
     );
@@ -264,32 +245,20 @@ class DefaultImageShape extends StatelessWidget {
   }
 }
 
-class DefaultPostView extends StatelessWidget {
+class DefaultArticleView extends StatelessWidget {
   final String publisherName;
   final String publisherImage;
   final String postText;
-  final bool isImage;
-  String? image;
-  final bool isVideo;
-  String? video;
-  final bool isLiked;
-  final String numberOfLikes;
-  final String numberOfComments;
   final String dateOfPublish;
+  final bool isMale;
 
-  DefaultPostView({
+  DefaultArticleView({
     Key? key,
     required this.publisherName,
     required this.publisherImage,
     required this.postText,
-    required this.isImage,
-    this.image,
-    required this.isVideo,
-    this.video,
-    required this.isLiked,
-    required this.numberOfLikes,
-    required this.numberOfComments,
     required this.dateOfPublish,
+    required this.isMale,
   }) : super(key: key);
 
   @override
@@ -304,7 +273,7 @@ class DefaultPostView extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 DefaultImageShape(
-                    isMale: false, image: publisherImage, height: 40),
+                    isMale: isMale, image: publisherImage, height: 40),
                 Padding(
                   padding: const EdgeInsets.all(10.0),
                   child: Text(
@@ -325,51 +294,107 @@ class DefaultPostView extends StatelessWidget {
                 ),
               ),
             ),
-            if (isImage)
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 8.0),
-                child: Image(
-                  image: AssetImage('assets/image.png'),
-                ),
-              ),
+            const SizedBox(
+              height: 10,
+            ),
             const Divider(),
+            const SizedBox(
+              height: 10,
+            ),
             Row(
               children: [
-                if (isLiked)
-                  IconButton(
-                    onPressed: () {},
-                    icon: Icon(
-                      Icons.favorite,
-                      color: primaryLikeColor,
-                    ),
-                  ),
-                if (!isLiked)
-                  IconButton(
-                    onPressed: () {},
-                    icon: Icon(
-                      Icons.favorite_border,
-                      color: primaryLikeColor,
-                    ),
-                  ),
+                const Spacer(),
                 Text(
-                  '$numberOfLikes Likes',
+                  dateOfPublish,
                   style: const TextStyle(
                       fontSize: 10, fontWeight: FontWeight.w300),
                 ),
-                const SizedBox(
-                  width: 10,
-                ),
-                IconButton(
-                  onPressed: () {},
-                  icon: const Icon(
-                    Icons.comment_outlined,
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class DefaultPostView extends StatelessWidget {
+  final String publisherName;
+  final String publisherImage;
+  final String postText;
+  final String videoUrl;
+  final String dateOfPublish;
+  final bool isMale;
+  final YoutubePlayerController controller;
+
+  DefaultPostView({
+    Key? key,
+    required this.publisherName,
+    required this.publisherImage,
+    required this.postText,
+    required this.dateOfPublish,
+    required this.videoUrl,
+    required this.isMale,
+    required this.controller,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      child: Padding(
+        padding: const EdgeInsets.all(10.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                DefaultImageShape(
+                    isMale: isMale, image: publisherImage, height: 40),
+                Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Text(
+                    publisherName,
+                    style: const TextStyle(
+                        fontSize: 16, fontWeight: FontWeight.w500),
                   ),
                 ),
-                Text(
-                  '$numberOfComments comments',
-                  style: const TextStyle(
-                      fontSize: 10, fontWeight: FontWeight.w300),
+              ],
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 16.0),
+              child: Text(
+                postText,
+                style: const TextStyle(
+                  fontSize: 13,
+                  fontWeight: FontWeight.w300,
                 ),
+              ),
+            ),
+            YoutubePlayer(
+              controller: controller,
+              showVideoProgressIndicator: true,
+              bottomActions: [
+                CurrentPosition(),
+                ProgressBar(
+                  isExpanded: true,
+                  colors: const ProgressBarColors(
+                    playedColor: Colors.teal,
+                    handleColor: Colors.tealAccent,
+                  ),
+                ),
+                const PlaybackSpeedButton(),
+              ],
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            const Divider(),
+            const SizedBox(
+              height: 10,
+            ),
+            Row(
+              children: [
                 const Spacer(),
                 Text(
                   dateOfPublish,

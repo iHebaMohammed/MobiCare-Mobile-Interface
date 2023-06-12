@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobi_care/models/note_model.dart';
@@ -46,47 +45,51 @@ class PatientProfileDoctorViewCubit extends Cubit<PatientProfileDoctorViewStates
     required String note,
   }){
     emit(AddNoteLoadingState());
-    DioHelper.postData(
-      url: ADD_NOTE_TO_PATIENT,
-      data: {
-        'DOCTOR_ID' : asDoctorModel!.data!.iD,
-        'PATIENT_ID' : patientId,
-        'NOTE' : note
-      },
-      token: asDoctorModel!.accessToken
-    ).then((value) {
-      noteModel = NoteModel.fromJson(value.data);
-      print('ADDED NOTE: ********************');
-      print(noteModel!.data);
-      print(noteModel!.message);
-      emit(AddNoteSuccessfullyState());
-    }).catchError((error){
+    try{
+      DioHelper.postData(
+          url: ADD_NOTE_TO_PATIENT,
+          data: {
+            'DOCTOR_ID' : asDoctorModel!.data!.iD,
+            'PATIENT_ID' : patientId,
+            'NOTE' : note.trim()
+          },
+          token: asDoctorModel!.accessToken
+      ).then((value) {
+        noteModel = NoteModel.fromJson(value.data);
+        print('ADDED NOTE: ********************');
+        print(noteModel!.data);
+        print(noteModel!.message);
+        emit(GetNoteSuccessfullyState());
+      });
+    }catch(error){
       print(error.toString());
       emit(AddNoteErrorState());
-    });
+    }
   }
 
   void getNotes({
     required int patientId,
 }){
     emit(GetNoteLoadingState());
-    DioHelper.getData(
-      path: GET_PATIENT_NOTES,
-      queryParameters: {
-        'DOCTOR_ID' : asDoctorModel!.data!.iD,
-        'PATIENT_ID' : patientId,
-      },
-      token: asDoctorModel!.accessToken
-    ).then((value) {
-      noteModel = NoteModel.fromJson(value.data);
-      print('NOTES: ********************');
-      print(noteModel!.data);
-      print(noteModel!.message);
-      emit(GetNoteSuccessfullyState());
-    }).catchError((error){
+    try{
+      DioHelper.getData(
+          path: GET_PATIENT_NOTES,
+          queryParameters: {
+            'DOCTOR_ID' : asDoctorModel!.data!.iD,
+            'PATIENT_ID' : patientId,
+          },
+          token: asDoctorModel!.accessToken
+      ).then((value) {
+        noteModel = NoteModel.fromJson(value.data);
+        print('NOTES: ********************');
+        print(noteModel!.data);
+        print(noteModel!.message);
+        emit(GetNoteSuccessfullyState());
+      });
+    }catch(error){
       print(error.toString());
       emit(GetNoteErrorState());
-    });
+    }
   }
 
   late GetSymptomsModel ? symptoms ;
@@ -95,21 +98,23 @@ class PatientProfileDoctorViewCubit extends Cubit<PatientProfileDoctorViewStates
     required int patientId
   }){
     emit(GetSymptomsLoadingState());
-    return DioHelper.getData(
+    try{
+      return DioHelper.getData(
         path: Get_Symptoms,
         queryParameters: {
           'id': patientId,
         },
-    ).then((value) {
-      symptoms = GetSymptomsModel.fromJson(value.data);
-      print(symptoms!.data!.length);
-      print(symptoms);
-      print(symptoms!.data![0].symptom);
-      print('##############');
-      emit(GetSymptomsSuccessfullyState());
-    }).catchError((error){
-      print(error.toString());
+      ).then((value) {
+        symptoms = GetSymptomsModel.fromJson(value.data);
+        print(symptoms!.data!.length);
+        print(symptoms);
+        print(symptoms!.data![0].symptom);
+        print('##############');
+        emit(GetSymptomsSuccessfullyState());
+      });
+    }catch(error){
       emit(GetSymptomsErrorState());
-    });
+      return Future(() => print(error.toString()));
+    }
   }
 }

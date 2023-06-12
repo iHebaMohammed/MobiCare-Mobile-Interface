@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mobi_care/layouts/doctor_layout/doctor_layout.dart';
 import 'package:mobi_care/modules/doctor_modules/add_post/cubit/states.dart';
+import 'package:mobi_care/shared/components/navigate_component.dart';
 import 'package:mobi_care/shared/constants/constants.dart';
 import '../../../shared/styles/colors.dart';
 import 'cubit/cubit.dart';
@@ -26,17 +28,11 @@ class NewPostScreen extends StatelessWidget {
               backgroundColor: primaryColor1BA,
               actions: [
                 TextButton(onPressed: (){
-                  if(AddPostCubit.get(context).postImage == null){
                     AddPostCubit.get(context).createPost(
                       datetime: now.toString(),
                       text: postController.text,
                     );
-                  }else{
-                    AddPostCubit.get(context).uploadPostImage(
-                      datetime: now.toString(),
-                      text: postController.text,
-                    );
-                  }
+                    navigateTo(context: context, widget: DoctorLayout());
                 }, child: Text('POST' , style: TextStyle(color: primaryWhiteColor),))
               ],
               title: Text('New post' , style: TextStyle(color: primaryWhiteColor),),
@@ -96,63 +92,6 @@ class NewPostScreen extends StatelessWidget {
                   ),
                   SizedBox(
                     height: 20,
-                  ),
-                  if(AddPostCubit.get(context).postImage != null)
-                    Expanded(
-                      child: Stack(
-                        alignment: AlignmentDirectional.topEnd,
-                        children: [
-                          Container(
-                            height: 200,
-                            width: double.infinity,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(5),
-                              image: DecorationImage(
-                                image: FileImage(
-                                    AddPostCubit.get(context).postImage!
-                                ),
-                                fit: BoxFit.cover,
-                              ),
-                            ),
-                          ),
-                          IconButton(
-                            onPressed: (){
-                              AddPostCubit.get(context).removePostImage();
-                            },
-                            icon: CircleAvatar(
-                              radius: 20,
-                              child: Icon(
-                                  Icons.close
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  if(AddPostCubit.get(context).postImage != null)
-                    SizedBox(
-                      height: 20,
-                    ),
-                  Row(
-                    children: [
-                      TextButton(onPressed: (){
-                        AddPostCubit.get(context).getPostImage();
-                      }, child: Row(
-                        children: [
-                          Icon(Icons.image),
-                          SizedBox(
-                            width: 5,
-                          ),
-                          Text('Add Photo')
-                        ],
-                      ),
-                      ),
-                      Spacer(),
-                      Expanded(
-                        child: TextButton(onPressed: (){}, child: Text('# Tags'),
-                        ),
-                      ),
-                    ],
                   ),
                 ],
               ),

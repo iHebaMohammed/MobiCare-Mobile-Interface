@@ -51,6 +51,7 @@ class PatientProfileDoctorViewScreen extends StatelessWidget {
               elevation: 0.0,
               actions: [
                 PopupMenuButton<_MenuValues>(
+                  color: primaryColor1BA,
                   itemBuilder: (context) => [
                     PopupMenuItem(child: Text('Add note') , value: _MenuValues.AddNote,),
                     PopupMenuItem(child: Text('Add medical record') , value: _MenuValues.AddMedicalRecord),
@@ -104,7 +105,7 @@ class PatientProfileDoctorViewScreen extends StatelessWidget {
                                         DefaultButton(
                                           function: () {
                                             cubit.addNote(
-                                                note: noteController.text,
+                                                note: noteController.text.trim(),
                                                 patientId: data.patientID!);
                                             Navigator.pop(context);
                                             noteController.text = "";

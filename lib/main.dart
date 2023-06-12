@@ -2,6 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mobi_care/modules/patinet_modules/payment/cubit/cubit.dart';
 import 'layouts/patient_layout/cubit/cubit.dart';
 import 'layouts/patient_layout/cubit/states.dart';
 import 'package:mobi_care/modules/doctor_modules/doctor_patients_list/cubit/cubit.dart';
@@ -41,7 +42,7 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (context) => PatientLayoutCubit()..getChats(),
+          create: (context) => PatientLayoutCubit()..getChats()..getVideos()..getPosts(),
         ),
         BlocProvider(
             create: (context) => ChatMessagesCubit(),
@@ -68,11 +69,12 @@ class MyApp extends StatelessWidget {
           create: (context) => DoctorProfileCubit()..getNewAccessToken(),
         ),
         BlocProvider(
-          create: (context) => DoctorLayoutCubit(),
+          create: (context) => DoctorLayoutCubit()..getChats()..getVideos()..getDoctorPatients()..getPosts(),
         ),
         BlocProvider(
-          create: (context) => DoctorPatientListCubit()..getNewAccessToken()..getDoctorPatients(),
+          create: (context) => DoctorPatientListCubit(),
         ),
+        BlocProvider(create: (context) => PaymentCubit(),),
       ],
       child: BlocConsumer<PatientLayoutCubit, PatientLayoutStates>(
         listener: (context, state) {},

@@ -39,3 +39,21 @@ class LayoutGetUIdsOfChatsSenderLoadingState extends PatientLayoutStates {}
 class LayoutGetUIdsOfChatsSenderSuccessfullyState extends PatientLayoutStates {}
 
 class LayoutGetUIdsOfChatsSenderErrorState extends PatientLayoutStates {}
+
+class GetVideoLoadingState extends PatientLayoutStates {}
+
+class GetVideoSuccessfullyState extends PatientLayoutStates {}
+
+class GetVideoErrorState extends PatientLayoutStates {}
+
+class InitialVideoControllerSuccessfullyState extends PatientLayoutStates {}
+
+class GetPostsSuccessState extends PatientLayoutStates {}
+
+class GetPostsLoadingState extends PatientLayoutStates {}
+
+class GetPostsErrorState extends PatientLayoutStates {
+  final String error;
+
+  GetPostsErrorState(this.error);
+}

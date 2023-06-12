@@ -45,3 +45,32 @@ class DoctorPatientListInitiateState extends DoctorLayoutStates {}
 class GetDoctorPatientListSuccessfullyState extends DoctorLayoutStates {}
 
 class GetDoctorPatientListErrorState extends DoctorLayoutStates {}
+
+class AddVideoLoadingState extends DoctorLayoutStates {}
+
+class AddVideoSuccessfullyState extends DoctorLayoutStates {}
+
+class AddVideoErrorState extends DoctorLayoutStates {
+  final String e;
+
+  AddVideoErrorState(this.e);
+
+}
+
+class GetVideoLoadingState extends DoctorLayoutStates {}
+
+class GetVideoSuccessfullyState extends DoctorLayoutStates {}
+
+class GetVideoErrorState extends DoctorLayoutStates {}
+
+class InitialVideoControllerSuccessfullyState extends DoctorLayoutStates {}
+
+class GetPostsSuccessState extends DoctorLayoutStates {}
+
+class GetPostsLoadingState extends DoctorLayoutStates {}
+
+class GetPostsErrorState extends DoctorLayoutStates {
+  final String error;
+
+  GetPostsErrorState(this.error);
+}

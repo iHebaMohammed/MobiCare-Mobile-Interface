@@ -25,7 +25,13 @@ class DoctorDrawerLayoutList extends StatelessWidget {
               context: context
           ),
           BuildClickableDrawerItemForDoctor(
+              svgIcon: 'assets/bottom_nav_icons/video_not_active.svg',
+              title: 'Article',
+              context: context,
               index: 2,
+          ),
+          BuildClickableDrawerItemForDoctor(
+              index: 3,
               svgIcon: 'assets/drawer_icons/setting.svg',
               title: 'Settings',
               context: context
@@ -35,7 +41,7 @@ class DoctorDrawerLayoutList extends StatelessWidget {
             color: primaryGreyColor808,
           ),
           BuildClickableDrawerItemForDoctor(
-              index: 3,
+              index: 4,
               svgIcon: 'assets/drawer_icons/log_out.svg',
               title: 'Log out',
               context: context

@@ -2,11 +2,12 @@ import 'package:conditional_builder_null_safety/conditional_builder_null_safety.
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:mobi_care/layouts/doctor_layout/cubit/states.dart';
 import 'package:mobi_care/shared/components/navigate_component.dart';
 import 'package:mobi_care/shared/components/patient_component_in_patients_list.dart';
+import '../../../layouts/doctor_layout/cubit/cubit.dart';
 import '../patient_profile_doctor_view/patient_profile_doctor_view_screen.dart';
 import 'cubit/cubit.dart';
-import 'cubit/states.dart' as bloc;
 
 
 
@@ -15,13 +16,13 @@ class DoctorPatientsListScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<DoctorPatientListCubit , bloc.DoctorPatientListStates>(
+    return BlocConsumer<DoctorLayoutCubit , DoctorLayoutStates>(
       listener: (context, state) {
       },
       builder: (context, state) {
-        DoctorPatientListCubit cubit = DoctorPatientListCubit.get(context);
+        DoctorLayoutCubit cubit = DoctorLayoutCubit.get(context);
         return ConditionalBuilder(
-          condition: state is bloc.GetDoctorPatientListSuccessfullyState,
+          condition: state is GetDoctorPatientListSuccessfullyState,
           builder: (context) {
             if(cubit.doctorPatientListModel!.data!.isNotEmpty){
               return Padding(

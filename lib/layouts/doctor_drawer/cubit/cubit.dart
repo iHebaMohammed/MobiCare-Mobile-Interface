@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mobi_care/modules/doctor_modules/add_post/add_post_screen.dart';
+import 'package:mobi_care/modules/shared_modules/articles/articles_screen.dart';
 import 'package:mobi_care/shared/constants/constants.dart';
 import 'package:mobi_care/shared/network/remote/dio_helper.dart';
 import 'package:mobi_care/shared/network/remote/end_point.dart';
@@ -95,8 +97,10 @@ class DoctorDrawerLayoutCubit extends Cubit<DoctorDrawerLayoutStates>{
           }
       );
     }else if(currentIndex == 2){
-      navigateTo(context: context, widget: SettingScreen());
+      navigateTo(context: context, widget: ArticleScreen());
     }else if(currentIndex == 3){
+      navigateTo(context: context, widget: SettingScreen());
+    }else if(currentIndex == 4){
       navigateTo(context: context, widget: LoginScreen());
     }
     emit(DoctorDrawerLayoutChangeScreen());
@@ -107,22 +111,23 @@ class DoctorDrawerLayoutCubit extends Cubit<DoctorDrawerLayoutStates>{
     required BuildContext context,
   }){
     emit(AssignPatientToDoctorLoadingState());
-    DioHelper.postData(
-      url: ASSIGN_PATIENT_TO_DOCTOR,
-      data: {
-        'PATIENT_ID' : patientId,
-        'DOCTOR_ID' : asDoctorModel!.data!.iD.toString(),
-      },
-    ).then((value) {
-      print(value.data['message']);
-      print('Assign Success');
-      Navigator.pop(context);
-      patientIdController.text = "";
-      emit(AssignPatientToDoctorSuccessfullyState());
-    }).catchError((error){
-      print(error.toString());
+    try{
+      DioHelper.postData(
+        url: ASSIGN_PATIENT_TO_DOCTOR,
+        data: {
+          'PATIENT_ID' : patientId,
+          'DOCTOR_ID' : asDoctorModel!.data!.iD.toString(),
+        },
+      ).then((value) {
+        print(value.data['message']);
+        print('Assign Success');
+        Navigator.pop(context);
+        patientIdController.text = "";
+        emit(AssignPatientToDoctorSuccessfullyState());
+      });
+    }catch(e){
+      print(e.toString());
       emit(AssignPatientToDoctorErrorState());
-    });
+    }
   }
-
 }

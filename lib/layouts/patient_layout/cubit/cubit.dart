@@ -4,12 +4,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mobi_care/models/message_model.dart';
+import 'package:youtube_player_flutter/youtube_player_flutter.dart';
+import '../../../models/post_model.dart';
 import '../../../models/user_model.dart';
+import '../../../models/video_model.dart';
 import '../../../modules/patinet_modules/patient_chat/patient_chat_screen.dart';
 import '../../../modules/patinet_modules/patient_home/patient_home_screen.dart';
 import '../../../modules/patinet_modules/patient_medication_reminder/patient_medication_reminder_screen.dart';
 import '../../../modules/patinet_modules/patient_posts_view/patient_posts_view_screen.dart';
 import '../../../shared/constants/constants.dart';
+import '../../../shared/network/remote/dio_helper.dart';
+import '../../../shared/network/remote/end_point.dart';
 import 'states.dart';
 
 class PatientLayoutCubit extends Cubit<PatientLayoutStates> {
@@ -17,7 +22,7 @@ class PatientLayoutCubit extends Cubit<PatientLayoutStates> {
 
   static PatientLayoutCubit get(BuildContext context) => BlocProvider.of(context);
 
-  int currentIndex = 2;
+  int currentIndex = 1;
   List<Widget> bottomScreens =  [
     PatientMedicationReminderScreen(),
     PatientPostsViewScreen(),
@@ -59,6 +64,7 @@ class PatientLayoutCubit extends Cubit<PatientLayoutStates> {
         SvgPicture.asset('assets/bottom_nav_icons/chat_not_active.svg'),
         // SvgPicture.asset('assets/bottom_nav_icons/contact_not_active.svg'),
       ];
+      getVideos();
     }else if(index == 3){
       bottomNavIcons = [
         SvgPicture.asset('assets/bottom_nav_icons/medication_reminder_not_active.svg'),
@@ -194,78 +200,55 @@ class PatientLayoutCubit extends Cubit<PatientLayoutStates> {
     });
   }
 
+  VideoModel ? videoModel ;
+  void getVideos(){
+    emit(GetVideoLoadingState());
+    try{
+      DioHelper.getData(
+        path: GET_ALL_VIDEOS,
+      ).then((value) {
+        print('%%%%%%%%%%%%%%%%%%%  Get Videos %%%%%%%%%%%%%%%%%%%%%%%%');
+        print(value.data);
+        videoModel = VideoModel.fromJson(value.data);
+        print(videoModel);
+        print(videoModel!.data!.length);
+        emit(GetVideoSuccessfullyState());
+      });
+    }catch(e){
+      print(e.toString());
+      emit(GetVideoErrorState());
+    }
+  }
 
+  YoutubePlayerController ? controller;
+  void initialController({required String videoUrl}){
+    final videoId = YoutubePlayer.convertUrlToId(videoUrl);
+    controller = YoutubePlayerController(
+      initialVideoId: videoId!,
+      flags: const YoutubePlayerFlags(
+        autoPlay: false,
+      ),
+    );
+    emit(InitialVideoControllerSuccessfullyState());
+  }
 
-  // void getAllUsers(){
-  //   emit(LayoutGetAllUsersLoadingState());
-  //   if(allUsers.isEmpty){
-  //     FirebaseFirestore.instance
-  //         .collection('users')
-  //         .get()
-  //         .then((value) {
-  //       value.docs.forEach((element) {
-  //         if(element.data()['uId'] != uId) {
-  //           allUsers.add(UserModel.fromJson(element.data()));
-  //         }
-  //       });
-  //       emit(LayoutGetAllUsersSuccessfullyState());
-  //     }).catchError((error) {
-  //       print(error.toString());
-  //       emit(LayoutGetAllUsersErrorState());
-  //     });
-  //   }
-  //
-  // }
-  //
-  // void getUIdsOfChatsSender() {
-  //   emit(LayoutGetUIdsOfChatsSenderLoadingState());
-  //   print('==========#####==========');
-  //   print(uId);
-  //   FirebaseFirestore.instance
-  //       .collection('users')
-  //       .doc(uId)
-  //       .collection('chats')
-  //       .get()
-  //       .then((value) {
-  //         print('value.docs:   ${value.docs}');
-  //         value.docs.forEach((element) {
-  //           print('************************************');
-  //           uIdsOfChatsSender.add(element.id);
-  //           print('====================');
-  //           print(uIdsOfChatsSender[0]);
-  //         });
-  //         print('====================');
-  //         emit(LayoutGetUIdsOfChatsSenderSuccessfullyState());
-  //         print('UId Sender: ');
-  //         print(uIdsOfChatsSender);
-  //   }).catchError((error){
-  //     emit(LayoutGetUIdsOfChatsSenderErrorState());
-  //     print(error.toString());
-  //   });
-  // }
-  //
-  // void getChats()   {
-  //   usersInAnotherTypeOfMe = [];
-  //   emit(LayoutGetUsersInChatLoadingState());
-  //   if(allUsers.isEmpty){
-  //     FirebaseFirestore.instance
-  //         .collection('users')
-  //         .get()
-  //         .then((value) {
-  //       value.docs.forEach((element) {
-  //         if(element.data()['uId'] != uId && element.data()['role'] != role){
-  //           usersInAnotherTypeOfMe.add(UserModel.fromJson(element.data()));
-  //         }
-  //       });
-  //       emit(LayoutGetUsersInChatSuccessState());
-  //       getUIdsOfChatsSender();
-  //       print('uId: ======= $uId');
-  //     }).catchError((error) {
-  //       print(error.toString());
-  //       emit(LayoutGetUsersInChatErrorState());
-  //     });
-  //   }
-  //
-  // }
+  List<PostModel> posts =[];
+  List<String> postId = [];
+  void getPosts(){
+    emit(GetPostsLoadingState());
+    FirebaseFirestore.instance
+        .collection('posts')
+        .get()
+        .then((value) {
+      value.docs.forEach((element) {
+        posts.add(PostModel.fromJson(element.data()));
+        postId.add(element.id);
+        emit(GetPostsSuccessState());
+      });
+    }).catchError((error){
+      print(error.toString());
+      emit(GetPostsErrorState( error));
+    });
+  }
 
 }

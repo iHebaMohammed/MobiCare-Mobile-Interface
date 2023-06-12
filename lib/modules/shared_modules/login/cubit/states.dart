@@ -137,4 +137,8 @@ class AddDoctorFUIDLoadingState extends LoginLoadingFirebaseState {}
 
 class AddDoctorFUIDSuccessfullyState extends LoginLoadingFirebaseState {}
 
-class AddDoctorFUIDErrorState extends LoginLoadingFirebaseState {}
+class AddDoctorFUIDErrorState extends LoginLoadingFirebaseState {
+  final String error;
+
+  AddDoctorFUIDErrorState(this.error);
+}

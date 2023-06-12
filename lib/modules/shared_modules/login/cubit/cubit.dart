@@ -27,40 +27,45 @@ class LoginCubit extends Cubit<LoginStates>{
 
   void addPatientFUID({required int id , required String fuid , required String token}){
     emit(AddPatientFUIDLoadingState());
-    DioHelper.putData(
-      url: Add_Patient_FUID,
-      token: token,
-      data: {
-        'id' : id,
-        'fuid' : fuid,
-      },
-    ).then((value) {
-      print('ADDPATIENTFUID: #################################');
-      print(value.data['message']);
-      emit(AddPatientFUIDSuccessfullyState());
-    }).catchError((error) {
-      print(error.toString());
+    try{
+      DioHelper.putData(
+        url: Add_Patient_FUID,
+        token: token,
+        data: {
+          'id' : id,
+          'fuid' : fuid,
+        },
+      ).then((value) {
+        print('ADDPATIENTFUID: #################################');
+        print(value.data['message']);
+        emit(AddPatientFUIDSuccessfullyState());
+      });
+    }catch(e){
+      print(e.toString());
       emit(AddPatientFUIDErrorState());
-    });
+    }
   }
 
   void addDoctorFUID({required int id , required String fuid , required String token}){
     emit(AddDoctorFUIDLoadingState());
-    DioHelper.putData(
-      url: Add_Doctor_FUID,
-      token: token,
-      queryParameters: {
-        'id' : id,
-        'fuid' : fuid,
-      },
-    ).then((value) {
-      print('ADDDOCTORFUID: #################################');
-      print(value.data['message']);
-      emit(AddDoctorFUIDSuccessfullyState());
-    }).catchError((error) {
-      print(error.toString());
-      emit(AddDoctorFUIDErrorState());
-    });
+    try{
+      DioHelper.putData(
+        url: Add_Doctor_FUID,
+        token: token,
+        data: {
+          'id' : id,
+          'fuid' : fuid,
+        },
+      ).then((value) {
+        print('ADDDOCTORFUID: #################################');
+        print(value.data);
+        print(value.data['message']);
+        emit(AddDoctorFUIDSuccessfullyState());
+      });
+    }catch(e){
+      print(e.toString());
+      emit(AddDoctorFUIDErrorState(e.toString()));
+    }
   }
 
 
@@ -69,39 +74,42 @@ class LoginCubit extends Cubit<LoginStates>{
     required String password
   }){
     emit(LoginLoadingState());
-    return DioHelper.postData(
-        url: LOGIN ,
-        data:
-        {
-          'EMAIL' : email,
-          'PASSWORD' : password,
+    try{
+      print('${email} ${password}');
+      return DioHelper.postData(
+          url: LOGIN ,
+          data:
+          {
+            'EMAIL' : email,
+            'PASSWORD' : password,
+          }
+      ).then((value) {
+        role = value.data['role'];
+        print(value.data);
+        print('##############################################');
+        print('role $role');
+        if(role.toString().compareTo('DOCTOR') == 0){
+          asDoctorModel = DoctorModel.fromJson(value.data);
+          print('**************************************************');
+          print('MODEL:*********************************************');
+          print(asDoctorModel);
+          print(asDoctorModel!.data!.address.toString());
+          print(asDoctorModel!.accessToken);
+          print('asDoctorModel');
+          print(asDoctorModel);
+        }else{
+          asPatientModel = PatientModel.fromJson(value.data);
+          print('MODEL:################################################');
+          print(asPatientModel);
+          print(asPatientModel!.data!.address.toString());
+          print(asPatientModel!.accessToken);
         }
-    ).then((value) {
-      role = value.data['role'];
-      print(value.data);
-      print('##############################################');
-      print('role $role');
-      if(role.toString().compareTo('DOCTOR') == 0){
-        asDoctorModel = DoctorModel.fromJson(value.data);
-        print('**************************************************');
-        print('MODEL:*********************************************');
-        print(asDoctorModel);
-        print(asDoctorModel!.data!.address.toString());
-        print(asDoctorModel!.accessToken);
-        print('asDoctorModel');
-        print(asDoctorModel);
-      }else{
-        asPatientModel = PatientModel.fromJson(value.data);
-        print('MODEL:################################################');
-        print(asPatientModel);
-        print(asPatientModel!.data!.address.toString());
-        print(asPatientModel!.accessToken);
-      }
-      emit(UserLoginSuccessfullyState(token: value.data['accessToken']));
-    }).catchError((error) {
-      print(error.toString());
-      emit(UserLoginErrorState(error: error.toString()));
-    });
+        emit(UserLoginSuccessfullyState(token: value.data['accessToken']));
+      });
+    }catch(e){
+      emit(UserLoginErrorState(error: e.toString()));
+      return Future(() => print("error: $e"));
+    }
   }
 
 
@@ -110,18 +118,20 @@ class LoginCubit extends Cubit<LoginStates>{
     required String password,
   }){
     emit(LoginLoadingFirebaseState());
-    return FirebaseAuth.instance.signInWithEmailAndPassword(
-        email: email,
-        password: password
-    ).then((value) {
-      print(value.user!.email);
-      print(value.user!.uid);
-      uId = value.user!.uid;
-      emit(LoginSuccessFirebaseState(uId: value.user!.uid));
-    }).catchError((error) {
-      print(error.toString());
-      emit(LoginErrorFirebaseState(error: error.toString()));
-    });
+    try{
+      return FirebaseAuth.instance.signInWithEmailAndPassword(
+          email: email,
+          password: password
+      ).then((value) {
+        print(value.user!.email);
+        print(value.user!.uid);
+        uId = value.user!.uid;
+        emit(LoginSuccessFirebaseState(uId: value.user!.uid));
+      });
+    }catch(e){
+      emit(LoginErrorFirebaseState(error: e.toString()));
+      return Future(() => print(e.toString()));
+    }
   }
 
   Future<void> loginPatientByFirebase({
@@ -129,18 +139,20 @@ class LoginCubit extends Cubit<LoginStates>{
     required String password,
   }){
     emit(LoginPatientLoadingFirebaseState());
-    return FirebaseAuth.instance.signInWithEmailAndPassword(
-        email: email,
-        password: password
-    ).then((value) {
-      print(value.user!.email);
-      print(value.user!.uid);
-      uId = value.user!.uid;
-      emit(LoginPatientSuccessFirebaseState(uId: value.user!.uid));
-    }).catchError((error) {
-      print(error.toString());
-      emit(LoginPatientErrorFirebaseState(error: error.toString()));
-    });
+    try{
+      return FirebaseAuth.instance.signInWithEmailAndPassword(
+          email: email,
+          password: password
+      ).then((value) {
+        print(value.user!.email);
+        print(value.user!.uid);
+        uId = value.user!.uid;
+        emit(LoginPatientSuccessFirebaseState(uId: value.user!.uid));
+      });
+    }catch(e){
+      emit(LoginPatientErrorFirebaseState(error: e.toString()));
+      return Future(() => print(e.toString()));
+    }
   }
 
   Future<void> loginDoctorByFirebase({
@@ -148,19 +160,21 @@ class LoginCubit extends Cubit<LoginStates>{
     required String password,
   }){
     emit(LoginDoctorLoadingFirebaseState());
-    return FirebaseAuth.instance.signInWithEmailAndPassword(
-        email: email,
-        password: password
-    ).then((value) {
-      print(value.user!.email);
-      print(value.user!.uid);
-      print(value.user);
-      uId = value.user!.uid;
-      emit(LoginDoctorSuccessFirebaseState(uId: value.user!.uid));
-    }).catchError((error) {
-      print(error.toString());
-      emit(LoginPatientErrorFirebaseState(error: error.toString()));
-    });
+    try{
+      return FirebaseAuth.instance.signInWithEmailAndPassword(
+          email: email,
+          password: password
+      ).then((value) {
+        print(value.user!.email);
+        print(value.user!.uid);
+        print(value.user);
+        uId = value.user!.uid;
+        emit(LoginDoctorSuccessFirebaseState(uId: value.user!.uid));
+      });
+    }catch(e){
+      emit(LoginPatientErrorFirebaseState(error: e.toString()));
+      return Future(() => print(e.toString()));
+    }
   }
 
   void login({
@@ -169,22 +183,26 @@ class LoginCubit extends Cubit<LoginStates>{
   }){
     userLogin(email: email, password: password).then((value) {
       if(role == 'DOCTOR'){
-        loginDoctorByFirebase(email: email, password: password).then((value) {
-          addDoctorFUID(id: asDoctorModel!.data!.iD!, fuid: uId.toString() , token: asDoctorModel!.accessToken!);
-          emit(MainDoctorLoginSuccessState());
-        }).catchError((error){
-          print(error.toString());
-          emit(MainDoctorLoginErrorState(error: error.toString()));
-        });
-      }else{
-        loginPatientByFirebase(email: email, password: password).then((value) {
-          emit(MainPatientLoginSuccessState());
-          addPatientFUID(id: asPatientModel!.data!.iD!, fuid: uId.toString() , token: asPatientModel!.accessToken!);
-          emit(MainPatientLoginSuccessState());
-        }).catchError((error){
-          print(error.toString());
-          emit(MainDoctorLoginErrorState(error: error.toString()));
-        });
+        try{
+          loginDoctorByFirebase(email: email, password: password).then((value) {
+            addDoctorFUID(id: asDoctorModel!.data!.iD!, fuid: uId.toString() , token: asDoctorModel!.accessToken!);
+            emit(MainDoctorLoginSuccessState());
+          });
+        }catch(e){
+          print(e.toString());
+          emit(MainDoctorLoginErrorState(error: e.toString()));
+        }
+      }else if(role == 'PATIENT'){
+        try{
+          loginPatientByFirebase(email: email, password: password).then((value) {
+            emit(MainPatientLoginSuccessState());
+            addPatientFUID(id: asPatientModel!.data!.iD!, fuid: uId.toString() , token: asPatientModel!.accessToken!);
+            emit(MainPatientLoginSuccessState());
+          });
+        }catch(e){
+          emit(MainDoctorLoginErrorState(error: e.toString()));
+          return Future(() => print(e.toString()));
+        }
       }
     });
   }
