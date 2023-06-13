@@ -104,10 +104,11 @@ class PatientLayoutCubit extends Cubit<PatientLayoutStates> {
       'users': users,
       'chatId' : getChatId(receiverUId: receiverUId),
     };
+    String chatId = getChatId(receiverUId: receiverUId);
     emit(CreateChatLoadingState());
     FirebaseFirestore.instance
         .collection('chats')
-        .doc('${uId!}_$receiverUId')
+        .doc(chatId)
         .set(chatMap)
         .then((value) {
       emit(CreateChatSuccessState());

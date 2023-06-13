@@ -129,11 +129,12 @@ class DoctorLayoutCubit extends Cubit<DoctorLayoutStates> {
       'users': users,
       'chatId' : getChatId(receiverUId: receiverUId),
     };
+    String chatId = getChatId(receiverUId: receiverUId);
     emit(DoctorLayoutCreateChatLoadingState());
     try{
       FirebaseFirestore.instance
           .collection('chats')
-          .doc('${uId!}_$receiverUId')
+          .doc(chatId)
           .set(chatMap)
           .then((value) {
         emit(DoctorLayoutCreateChatSuccessState());
