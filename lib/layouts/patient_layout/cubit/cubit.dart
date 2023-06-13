@@ -22,7 +22,7 @@ class PatientLayoutCubit extends Cubit<PatientLayoutStates> {
 
   static PatientLayoutCubit get(BuildContext context) => BlocProvider.of(context);
 
-  int currentIndex = 1;
+  int currentIndex = 2;
   List<Widget> bottomScreens =  [
     PatientMedicationReminderScreen(),
     PatientPostsViewScreen(),
@@ -57,6 +57,7 @@ class PatientLayoutCubit extends Cubit<PatientLayoutStates> {
         SvgPicture.asset('assets/bottom_nav_icons/chat_not_active.svg'),
         // SvgPicture.asset('assets/bottom_nav_icons/contact_not_active.svg'),
       ];
+      getVideos();
     } else if(index == 2){
       bottomNavIcons = [ SvgPicture.asset('assets/bottom_nav_icons/medication_reminder_not_active.svg'),
         SvgPicture.asset('assets/bottom_nav_icons/video_not_active.svg'),
@@ -64,7 +65,6 @@ class PatientLayoutCubit extends Cubit<PatientLayoutStates> {
         SvgPicture.asset('assets/bottom_nav_icons/chat_not_active.svg'),
         // SvgPicture.asset('assets/bottom_nav_icons/contact_not_active.svg'),
       ];
-      getVideos();
     }else if(index == 3){
       bottomNavIcons = [
         SvgPicture.asset('assets/bottom_nav_icons/medication_reminder_not_active.svg'),
@@ -142,25 +142,30 @@ class PatientLayoutCubit extends Cubit<PatientLayoutStates> {
   List<String> chatsUsersId = [];
   Future<void> getChatsUsersId() async{
     List<String> chatsUsersId = [];
-    await FirebaseFirestore.instance
-        .collection('chats')
-        .where('users' , arrayContains: uId)
-        .get()
-        .then((value) {
-          value.docs.forEach((element) {
-            for(int i = 0 ; i < doctors.length ; i++){
-              // print(doctors[i]);
-              if(doctors[i].uId == element.data().values.first.replaceAll(uId!, '').replaceAll('_', '').trim()){
-                users.add(doctors[i]);
-              }
-
+    try{
+      await FirebaseFirestore.instance
+          .collection('chats')
+          .where('users' , arrayContains: uId)
+          .get()
+          .then((value) {
+        value.docs.forEach((element) {
+          users = [];
+          for(int i = 0 ; i < doctors.length ; i++){
+            // print(doctors[i]);
+            if(doctors[i].uId == element.data().values.first.replaceAll(uId!, '').replaceAll('_', '').trim()){
+              users.add(doctors[i]);
             }
-            chatsUsersId.add(element.data().values.first.replaceAll(uId!, '').replaceAll('_', '').trim());
-          });
-      print(users);
-    }).catchError((error) {
+
+          }
+          chatsUsersId.add(element.data().values.first.replaceAll(uId!, '').replaceAll('_', '').trim());
+        });
+        print(users);
+      });
+    }catch(e){
+      print(e.toString());
       emit(LayoutGetUsersInChatErrorState());
-    });
+    }
+
   }
 
   void getChatsITalkWith(){
@@ -168,7 +173,7 @@ class PatientLayoutCubit extends Cubit<PatientLayoutStates> {
     if(chatsUsersId.isNotEmpty){
       for(int i = 0 ; i < chatsUsersId.length ; i++){
         for(int j = 0 ; j < doctors.length ; j++){
-          if(chatsUsersId[i] == doctors[j].uId!){
+          if(chatsUsersId[i] == doctors[j].uId){
             users.add(UserModel(
               uId: doctors[j].uId,
               imageUrl: doctors[j].imageUrl,

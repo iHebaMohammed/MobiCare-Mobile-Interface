@@ -40,12 +40,19 @@ class DoctorProfileCubit extends Cubit<DoctorProfileStates> {
     emit(GetDoctorProfileLoadingState());
     try{
       DioHelper.getData(
-        token: token,
+        token: asDoctorModel!.accessToken,
         path: '${Get_Doctor_Profile}${asDoctorModel!.data!.iD}',
       ).then((value) {
         print(value.data);
-        doctorProfileModel = GetDoctorProfileModel.fromJson(value.data);
-        print(doctorProfileModel!.data!.email);
+        // doctorProfileModel = GetDoctorProfileModel.fromJson(value.data);
+        asDoctorModel!.data!.bio = value.data['data'][0][0]['Bio'];
+        asDoctorModel!.data!.fName = value.data['data'][0][0]['F_Name'];
+        asDoctorModel!.data!.lName = value.data['data'][0][0]['L_Name'];
+        asDoctorModel!.data!.email = value.data['data'][0][0]['Email'];
+        asDoctorModel!.data!.address = value.data['data'][0][0]['Address'];
+
+        // print(doctorProfileModel!.data![0].email);
+
         emit(GetDoctorProfileSuccessfullyState());
       });
     }catch(error){

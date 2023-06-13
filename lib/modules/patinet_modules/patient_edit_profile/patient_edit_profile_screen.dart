@@ -7,6 +7,7 @@ import 'package:mobi_care/models/get_patient_profile_model.dart';
 import 'package:mobi_care/shared/components/components.dart';
 import 'package:mobi_care/shared/constants/constants.dart';
 import '../../../shared/styles/colors.dart';
+import '../patient_profile/cubit/cubit.dart';
 import 'cubit/cubit.dart';
 import 'cubit/states.dart';
 
@@ -51,11 +52,11 @@ class PatientEditProfileScreen extends StatelessWidget {
       },
       builder: (context, state) {
         PatientEditProfileCubit cubit = PatientEditProfileCubit.get(context);
-        dateOfBirthController.text = model.data!.dOB.toString();
-        firstNameController.text = model.data!.fName!;
-        lastNameController.text = model.data!.lName!;
-        emailController.text = model.data!.email!;
-        addressController.text = model.data!.address!;
+        dateOfBirthController.text = PatientProfileCubit.get(context).patientProfileModel!.data!.dOB.toString();
+        firstNameController.text = PatientProfileCubit.get(context).patientProfileModel!.data!.fName!;
+        lastNameController.text = PatientProfileCubit.get(context).patientProfileModel!.data!.lName!;
+        emailController.text = PatientProfileCubit.get(context).patientProfileModel!.data!.email!;
+        addressController.text = PatientProfileCubit.get(context).patientProfileModel!.data!.address!;
         Size size = MediaQuery.of(context).size;
 
         return Scaffold(
@@ -71,6 +72,7 @@ class PatientEditProfileScreen extends StatelessWidget {
                     address: addressController.text,
                     weight: int.parse(cubit.weightValue),
                     height: int.parse(cubit.tallValue),
+                    context: context,
                   );
                 },
                 child: Text(
@@ -203,18 +205,6 @@ class PatientEditProfileScreen extends StatelessWidget {
                                 isMale: model.data!.gender == 0 ? false : true,
                                 height: 80,
                                 image: 'https://cdn-icons-png.flaticon.com/512/727/727399.png?w=740&t=st=1685896888~exp=1685897488~hmac=d1e52ed88325af9d153a52cc517b162ed28c158ecf2c917d7faa12849488be12',
-                            ),
-                          ),
-                          IconButton(
-                            onPressed: () {},
-                            icon: CircleAvatar(
-                              backgroundColor: primaryColor1BA,
-                              radius: 15,
-                              child: Icon(
-                                Icons.camera_alt,
-                                size: 20,
-                                color: Colors.white,
-                              ),
                             ),
                           ),
                         ],
@@ -353,55 +343,6 @@ class PatientEditProfileScreen extends StatelessWidget {
                       const SizedBox(
                         height: 15,
                       ),
-                      Divider(),
-                      InkWell(
-                        onTap: () {
-                          isSymptomsVisible = !isSymptomsVisible;
-                          cubit.changeSymptomsVisibility(isSymptomsVisible);
-                        },
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 16.0),
-                          child: Row(
-                            children: [
-                              Text(
-                                'Symptoms',
-                                textAlign: TextAlign.start,
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w600,
-                                ),
-                              ),
-                              Spacer(),
-                              Icon(Icons.keyboard_arrow_down),
-                            ],
-                          ),
-                        ),
-                      ),
-                      if (isSymptomsVisible)
-                        SizedBox(
-                          width: double.infinity,
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 8.0),
-                            child: ConditionalBuilder(
-                              condition: model.data!.symptoms!.isNotEmpty,
-                              builder: (context) => Wrap(
-                                children: [
-                                  for(int i = 0 ; i < model.data!.symptoms!.length ; i++)
-                                    DefaultSymptomWithRemoveItem(
-                                        nameOfSymptom: '${model.data!.symptoms![i].symptom}'
-                                    ),
-                                ],
-                              ),
-                              fallback: (context) => Column(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  SvgPicture.asset('assets/svg/symptoms_not_found.svg', width: 150, height: 150,),
-                                  Text('There is no symptoms'),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
                     ],
                   ),
                 ),

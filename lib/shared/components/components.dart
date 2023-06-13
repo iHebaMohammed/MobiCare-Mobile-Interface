@@ -433,63 +433,20 @@ class DefaultChatRowUserViewItem extends StatelessWidget {
       child: Row(
         children: [
           DefaultImageShape(
-            isMale: model.isMale!,
+            isMale: model.isMale,
             image: 'https://img.freepik.com/premium-vector/graphic-element-printing-poster-banner-website-cartoon-flat-vector-illustration_755718-18.jpg?w=740',
             height: 60,
           ),
           Expanded(
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    '${model.firstName} ${model.lastName}',
-                    style: const TextStyle(
-                        fontSize: 15, fontWeight: FontWeight.w500),
-                  ),
-                  const SizedBox(
-                    height: 5,
-                  ),
-                  Text(
-                    lastMessage,
-                    overflow: TextOverflow.ellipsis,
-                    style: const TextStyle(
-                        fontSize: 14, fontWeight: FontWeight.w300),
-                  ),
-                ],
+              child: Text(
+                '${model.firstName} ${model.lastName}',
+                style: const TextStyle(
+                    fontSize: 15, fontWeight: FontWeight.w500
+                ),
               ),
             ),
-          ),
-          // Spacer(),
-          Column(
-            children: [
-              Text(
-                dateOfLastMassage,
-                style: TextStyle(
-                  fontSize: 11,
-                  fontWeight: FontWeight.w300,
-                  color: primaryColor1BA,
-                ),
-              ),
-              Container(
-                decoration: BoxDecoration(
-                  color: primaryColor1BA,
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 10.0, vertical: 4.0),
-                  child: Text(
-                    numberOfMessage,
-                    style: TextStyle(
-                        color: primaryWhiteColor,
-                        fontSize: 11,
-                        fontWeight: FontWeight.w300),
-                  ),
-                ),
-              ),
-            ],
           ),
         ],
       ),
@@ -701,6 +658,7 @@ class DefaultFollowUpWithItem extends StatelessWidget {
   final String image;
   final String name;
   final String specialization;
+  final Function() function;
 
   const DefaultFollowUpWithItem({
     Key? key,
@@ -708,6 +666,7 @@ class DefaultFollowUpWithItem extends StatelessWidget {
     required this.image,
     required this.name,
     required this.specialization,
+    required this.function,
   }) : super(key: key);
 
   @override
@@ -753,7 +712,7 @@ class DefaultFollowUpWithItem extends StatelessWidget {
             ),
             const Spacer(),
             IconButton(
-              onPressed: () {},
+              onPressed: function,
               icon: SvgPicture.asset(
                   'assets/bottom_nav_icons/chat_not_active.svg'),
             ),

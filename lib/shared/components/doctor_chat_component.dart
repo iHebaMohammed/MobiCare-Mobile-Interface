@@ -37,21 +37,9 @@ class DoctorChatComponent extends StatelessWidget {
           ),
         ),
         Spacer(),
-        if(numberOfMassages != 0)
-          CircleAvatar(
-          backgroundColor: Colors.red,
-          radius: 15,
-          child: Text('$numberOfMassages'),
-        ),
-        SizedBox(
-          width: 5,
-        ),
-        InkWell(
-          onTap: function,
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Icon(Icons.menu),
-          ),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Icon(Icons.menu),
         ),
       ],
     );

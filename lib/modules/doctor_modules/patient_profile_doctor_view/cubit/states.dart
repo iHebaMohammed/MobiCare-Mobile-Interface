@@ -35,3 +35,9 @@ class GetSymptomsLoadingState extends PatientProfileDoctorViewStates {}
 class GetSymptomsSuccessfullyState extends PatientProfileDoctorViewStates {}
 
 class GetSymptomsErrorState extends PatientProfileDoctorViewStates {}
+
+class DoctorLayoutCreateChatSuccessState extends PatientProfileDoctorViewStates {}
+
+class DoctorLayoutCreateChatErrorState extends PatientProfileDoctorViewStates {}
+
+class DoctorLayoutCreateChatLoadingState extends PatientProfileDoctorViewStates {}

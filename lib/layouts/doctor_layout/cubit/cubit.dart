@@ -38,7 +38,7 @@ class DoctorLayoutCubit extends Cubit<DoctorLayoutStates> {
     // SvgPicture.asset('assets/bottom_nav_icons/contact_not_active.svg'),
   ];
 
-  void changeBottomIndex(int index){
+  void changeBottomIndex(int index) async{
     currentIndex = index;
     if(index == 0){
       bottomNavIcons = [
@@ -74,7 +74,7 @@ class DoctorLayoutCubit extends Cubit<DoctorLayoutStates> {
         SvgPicture.asset('assets/bottom_nav_icons/chat_active.svg'),
         // SvgPicture.asset('assets/bottom_nav_icons/contact_not_active.svg'),
       ];
-      getChats();
+      await getChats();
     }else if(index == 4){
       bottomNavIcons = [
         SvgPicture.asset('assets/bottom_nav_icons/clock_not_active.svg', width: 24,),
@@ -145,7 +145,7 @@ class DoctorLayoutCubit extends Cubit<DoctorLayoutStates> {
   }
 
   List<UserModel> patients = [];
-  Future<void> getAllDoctors() async{
+  Future<void> getAllPatient() async{
     emit(DoctorLayoutGetAllPatientsLoadingState());
     if(patients.isEmpty){
       await FirebaseFirestore.instance
@@ -174,6 +174,7 @@ class DoctorLayoutCubit extends Cubit<DoctorLayoutStates> {
           .get()
           .then((value) {
         value.docs.forEach((element) {
+          users = [];
           for(int i = 0 ; i < patients.length ; i++){
             // print(doctors[i]);
             if(patients[i].uId == element.data().values.first.replaceAll(uId!, '').replaceAll('_', '').trim()){
@@ -192,37 +193,35 @@ class DoctorLayoutCubit extends Cubit<DoctorLayoutStates> {
 
   void getChatsITalkWith(){
     emit(DoctorLayoutGetUsersLoadingState());
-    if(users.isEmpty){
-      if(chatsUsersId.isNotEmpty){
-        for(int i = 0 ; i < chatsUsersId.length ; i++){
-          for(int j = 0 ; j < patients.length ; j++){
-            if(chatsUsersId[i] == patients[j].uId!){
-              users.add(UserModel(
-                uId: patients[j].uId,
-                imageUrl: patients[j].imageUrl,
-                lastName: patients[j].lastName,
-                firstName: patients[j].firstName,
-                role: patients[j].role,
-                isMale: patients[j].isMale,
-                address: patients[j].address,
-                email: patients[j].email,
-              ));
-              // users.add(patients[i]);
-              print('users :   $users');
-              print(users.length);
-            }
-            break;
+    if(chatsUsersId.isNotEmpty){
+      for(int i = 0 ; i < chatsUsersId.length ; i++){
+        for(int j = 0 ; j < patients.length ; j++){
+          if(chatsUsersId[i] == patients[j].uId){
+            users.add(UserModel(
+              uId: patients[j].uId,
+              imageUrl: patients[j].imageUrl,
+              lastName: patients[j].lastName,
+              firstName: patients[j].firstName,
+              role: patients[j].role,
+              isMale: patients[j].isMale,
+              address: patients[j].address,
+              email: patients[j].email,
+            ));
+            // users.add(patients[i]);
+            print('users :   $users');
+            print(users.length);
           }
+          break;
         }
-        print('users ########: $users');
-        print('Length: ${users.length}');
-        emit(DoctorLayoutGetUsersSuccessfullyState());
       }
+      print('users ########: $users');
+      print('Length: ${users.length}');
+      emit(DoctorLayoutGetUsersSuccessfullyState());
     }
   }
 
   Future<void> getChats() async{
-    await getAllDoctors().then((value) {
+    await getAllPatient().then((value) {
       getChatsUsersId().then((value) {
         getChatsITalkWith();
       });
@@ -288,12 +287,14 @@ class DoctorLayoutCubit extends Cubit<DoctorLayoutStates> {
 
   List<PostModel> posts =[];
   List<String> postId = [];
-  void getPosts(){
+  void getPosts() async{
     emit(GetPostsLoadingState());
     FirebaseFirestore.instance
         .collection('posts')
         .get()
         .then((value) {
+          posts = [];
+          postId = [];
             value.docs.forEach((element) {
               posts.add(PostModel.fromJson(element.data()));
               postId.add(element.id);

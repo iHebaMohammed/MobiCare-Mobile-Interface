@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mobi_care/layouts/doctor_layout/cubit/cubit.dart';
 import 'package:mobi_care/modules/doctor_modules/add_post/add_post_screen.dart';
 import 'package:mobi_care/modules/shared_modules/articles/articles_screen.dart';
 import 'package:mobi_care/shared/constants/constants.dart';
@@ -97,11 +98,12 @@ class DoctorDrawerLayoutCubit extends Cubit<DoctorDrawerLayoutStates>{
           }
       );
     }else if(currentIndex == 2){
+      DoctorLayoutCubit.get(context).getPosts();
       navigateTo(context: context, widget: ArticleScreen());
     }else if(currentIndex == 3){
       navigateTo(context: context, widget: SettingScreen());
     }else if(currentIndex == 4){
-      navigateTo(context: context, widget: LoginScreen());
+      navigateAndFinish(context: context, widget: LoginScreen());
     }
     emit(DoctorDrawerLayoutChangeScreen());
   }

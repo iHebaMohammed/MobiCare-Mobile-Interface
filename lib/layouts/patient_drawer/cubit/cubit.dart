@@ -30,7 +30,7 @@ class PatientDrawerLayoutCubit extends Cubit<PatientDrawerLayoutStates>{
     else if(currentIndex == 4){
       navigateTo(context: context, widget: SettingScreen());
     }else if(currentIndex == 5){
-      navigateTo(context: context, widget: LoginScreen());
+      navigateAndFinish(context: context, widget: LoginScreen());
     }
     emit(DrawerLayoutChangeScreen());
   }

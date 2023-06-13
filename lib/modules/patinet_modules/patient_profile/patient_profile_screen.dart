@@ -2,6 +2,8 @@ import 'package:conditional_builder_null_safety/conditional_builder_null_safety.
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:mobi_care/layouts/patient_layout/cubit/cubit.dart';
+import 'package:mobi_care/modules/shared_modules/chat_details/chat_details_screen.dart';
 import 'package:mobi_care/shared/components/components.dart';
 import 'package:mobi_care/shared/styles/colors.dart';
 import '../../../shared/components/navigate_component.dart';
@@ -299,7 +301,6 @@ class PatientProfileScreen extends StatelessWidget {
                             children: [
                               BuildPrescriptionItem(dateTime: '5 / 10 / 2021', doctorName: 'Dr.Ali'),
                               BuildPrescriptionItem(dateTime: '5 / 10 / 2021', doctorName: 'Dr.Ali'),
-                              BuildPrescriptionItem(dateTime: '5 / 10 / 2021', doctorName: 'Dr.Ali'),
                             ],
                           ),
                         if(isPrescriptionVisible)
@@ -355,6 +356,19 @@ class PatientProfileScreen extends StatelessWidget {
                               children: [
                                 for(int i = 0 ; i < cubit.patientProfileModel!.data!.doctors!.length ; i++)
                                   DefaultFollowUpWithItem(
+                                    function: (){
+                                      PatientLayoutCubit.get(context).createChat(receiverUId: cubit.patientProfileModel!.data!.doctors![i].fUID!);
+                                      navigateTo(
+                                          context: context,
+                                          widget: ChatDetailsScreen(
+                                            phone: cubit.patientProfileModel!.data!.doctors![i].phone!,
+                                            name: 'Dr. ${cubit.patientProfileModel!.data!.doctors![i].fName} ${cubit.patientProfileModel!.data!.doctors![i].lName}',
+                                            isMale: cubit.patientProfileModel!.data!.doctors![i].gender == 0 ? false : true,
+                                            fuid: cubit.patientProfileModel!.data!.doctors![i].fUID!,
+                                            isDoctor: true,
+                                          )
+                                      );
+                                    },
                                     isMale: cubit.patientProfileModel!.data!.doctors![i].gender == 0 ? false : true,
                                     image: 'https://img.freepik.com/free-photo/smiling-doctor-with-strethoscope-isolated-grey_651396-974.jpg?w=1060&t=st=1677180364~exp=1677180964~hmac=322f62b372fd430840916df2f143ee731df2389d1888b370c1725cb50008f371',
                                     name: '${cubit.patientProfileModel!.data!.doctors![i].fName} ${cubit.patientProfileModel!.data!.doctors![i].lName}',

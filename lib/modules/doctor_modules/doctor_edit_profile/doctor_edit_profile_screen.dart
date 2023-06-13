@@ -49,7 +49,8 @@ class DoctorEditProfileScreen extends StatelessWidget {
                       email: emailController.text.trim(),
                       address: clinicLocationController.text.trim(),
                       bio: aboutDoctorController.text.trim(),
-                      password: passwordController.text.trim()
+                      password: passwordController.text.trim(),
+                      context: context,
                     );
                   },
                   child: Text('EDIT',),

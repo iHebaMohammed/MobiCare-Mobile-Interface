@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobi_care/models/doctor_patient_list_model.dart';
 import 'package:mobi_care/models/search_doctor_model.dart';
+import 'package:mobi_care/shared/constants/constants.dart';
 import 'package:mobi_care/shared/network/remote/dio_helper.dart';
 import 'package:mobi_care/shared/network/remote/end_point.dart';
 import 'states.dart';
@@ -19,6 +20,7 @@ class SearchAboutPatientCubit extends Cubit<SearchAboutPatientStates> {
   }){
     emit(SearchAboutPatientLoadingState());
     DioHelper.getData(
+      token: asDoctorModel!.accessToken,
       path: SEARCH_DOCTOR_PATIENT,
       queryParameters: {
         'FN' : fName,

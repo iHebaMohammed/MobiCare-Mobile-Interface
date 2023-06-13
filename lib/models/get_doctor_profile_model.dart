@@ -1,19 +1,22 @@
 class GetDoctorProfileModel {
   String? message;
-  Data? data;
+  List<Data>? data;
 
   GetDoctorProfileModel({this.message, this.data});
 
   GetDoctorProfileModel.fromJson(Map<String, dynamic> json) {
     message = json['message'];
-    data = json['data'] != null ? new Data.fromJson(json['data']) : null;
+    data = <Data>[];
+    json['data'].forEach((v) {
+      data!.add(Data.fromJson(v));
+    });
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['message'] = this.message;
     if (this.data != null) {
-      data['data'] = this.data!.toJson();
+      data['data'] = this.data!.map((v) => v.toJson()).toList();
     }
     return data;
   }
