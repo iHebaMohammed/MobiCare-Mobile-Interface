@@ -36,6 +36,6 @@ class Web3DioHelper {
       'accept': 'application/json',
       'Authorization': "Bearer $web3StorageToken",
     };
-    return await dio!.get("{$param}.{$path}");
+    return await dio!.get("w3s.link/ipfs/$param/");
   }
 }

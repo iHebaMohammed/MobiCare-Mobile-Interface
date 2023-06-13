@@ -115,11 +115,11 @@ class BlockchainConnection {
   }
 
   static Future<void> addRecord(
-      String cid,/* String fileName,*/ EthereumAddress? patientAddress) async {
+      String cid, String fileName, EthereumAddress? patientAddress) async {
     try {
       print(provider.chainId);
 
-      List<dynamic> params = [cid, /*fileName,*/ patientAddress];
+      List<dynamic> params = [cid, fileName, patientAddress];
       print({"params": params});
 
       final gas = await client.estimateGas(
@@ -129,15 +129,18 @@ class BlockchainConnection {
       );
       print("gas: $gas");
 
+      final gasPrice = EtherAmount.inWei(BigInt.from(1330691571697097836));
+      const maxGas = 265627;
+
       String txHash = await client.sendTransaction(
         credentials,
         Transaction.callContract(
           contract: deployedContract,
           function: _addRecord,
           parameters: params,
-          gasPrice: EtherAmount.inWei(BigInt.from(200000000000000000)),
           from: senderAddress,
-          maxGas: 188800,
+          gasPrice: gasPrice,
+          maxGas: maxGas,
         ),
         chainId: 11155111,
       );
@@ -147,7 +150,7 @@ class BlockchainConnection {
     }
   }
 
-  static Future<void> getRecords(EthereumAddress patientAddress) async {
+  static Future<List> getRecords(EthereumAddress patientAddress) async {
     // Getting the current record declared in the smart contract.
     records = await client.call(
       contract: deployedContract,
@@ -155,6 +158,7 @@ class BlockchainConnection {
       params: [patientAddress],
     );
 
-    print(records);
+    records = records[0];
+    return records;
   }
 }

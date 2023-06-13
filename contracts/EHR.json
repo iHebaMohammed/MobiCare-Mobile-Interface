@@ -2,29 +2,6 @@
   "contractName": "EHR",
   "abi": [
     {
-      "inputs": [
-        {
-          "internalType": "string",
-          "name": "cid",
-          "type": "string"
-        },
-        {
-          "internalType": "string",
-          "name": "fileName",
-          "type": "string"
-        },
-        {
-          "internalType": "address",
-          "name": "patientAddress",
-          "type": "address"
-        }
-      ],
-      "name": "addRecord",
-      "outputs": [],
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
       "anonymous": false,
       "inputs": [
         {
@@ -54,6 +31,29 @@
       ],
       "name": "RecordAdded",
       "type": "event"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "string",
+          "name": "cid",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "fileName",
+          "type": "string"
+        },
+        {
+          "internalType": "address",
+          "name": "patientAddress",
+          "type": "address"
+        }
+      ],
+      "name": "addRecord",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
     },
     {
       "inputs": [

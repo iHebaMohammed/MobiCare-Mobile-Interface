@@ -1,19 +1,12 @@
-import 'dart:convert';
 import 'dart:io';
 
-import 'package:dio/dio.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import 'package:mobi_care/shared/network/remote/dio_helper.dart';
-import 'package:mobi_care/shared/network/remote/web3.dart';
 import 'package:mobi_care/shared/network/remote/web3_dio_helper.dart';
-import 'package:path_provider/path_provider.dart';
-import '../../../shared/components/components.dart';
 import '../../../shared/components/navigate_component.dart';
-import '../../../shared/network/remote/ip_address.dart';
 import '../../../shared/styles/colors.dart';
 import '../patient_search_prescription/patient_search_prescription_screen.dart';
 import 'cubit/cubit.dart';
@@ -81,46 +74,62 @@ class PatientPrescriptionScreen extends StatelessWidget {
                   padding: EdgeInsets.all(10.0),
                   child: Divider(),
                 ),
-                const BuildPrescriptionItem(
-                  dateTime: '13 / 2 / 2001',
-                  doctorName: 'Mohammed Moataz',
-                ),
+                // const BuildPrescriptionItem(
+                //   dateTime: '13 / 2 / 2001',
+                //   doctorName: 'Mohammed Moataz',
+                // ),
                 !cubit.connector.connected
                     ? Column(
-                  children: [
-                    TextButton(
-                      onPressed: () {
-                        cubit.connectMetaMaskWallet(context);
-                      },
-                      child: const Text("Connect Wallet"),
-                    )
-                  ],
-                )
+                        children: [
+                          TextButton(
+                            onPressed: () async {
+                              await cubit.connectMetaMaskWallet(context);
+
+                              await cubit
+                                  .getRecords(
+                                      "0x9839548Ac44A81D26cB944c3f5a164B16C4Ef359")
+                                  .then((records) =>
+                                      cubit.getMedicalRecords(records));
+                            },
+                            child: const Text("Connect Wallet"),
+                          )
+                        ],
+                      )
                     : Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 20.0,
-                    vertical: 20.0,
-                  ),
-                  child: Column(
-                    children: [
-                      const Text("You are connected"),
-                      Text(
-                          "senderAddress ${cubit.senderAddress ??
-                              "not found!!"}"),
-                    ],
-                  ),
-                ),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 20.0,
+                          vertical: 20.0,
+                        ),
+                        child: Column(
+                          children: [
+                            const Text("You are connected"),
+                            Text(
+                              "senderAddress ${cubit.senderAddress ?? "not found!!"}",
+                            ),
+                            const SizedBox(
+                              height: 50,
+                            ),
+                            if (cubit.files.isNotEmpty)
+                              for (var file in cubit.files) Image.file(file),
+                            const SizedBox(
+                              height: 50,
+                            ),
+                          ],
+                        ),
+                      ),
                 const SizedBox(
-                  height: 50,
+                  height: 30,
                 ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
-                  child: Column(
-                    children: [
-                      Text(cubit.records.toString()),
-                    ],
-                  ),
-                ),
+                // Padding(
+                //   padding: const EdgeInsets.symmetric(horizontal: 20),
+                //   child: ListView.separated(
+                //     itemBuilder: (context, index) => Text(cubit.records[index]),
+                //     separatorBuilder: (context, index) => const SizedBox(
+                //       height: 10,
+                //     ),
+                //     itemCount: cubit.records.length,
+                //   ),
+                // ),
               ],
             ),
           ),
@@ -136,26 +145,14 @@ class PatientPrescriptionScreen extends StatelessWidget {
                 File file = File(result.files.single.path!);
                 final bytes = file.readAsBytesSync();
 
-                Directory appDocDirectory =
-                await getApplicationDocumentsDirectory();
-
-                Directory(appDocDirectory.path + '/' + 'dir')
-                    .create(recursive: true)
-                    .then((Directory directory) {
-                  print('Path of New Dir: ${directory.path}');
-                  String appDocPath = directory.path;
-
-                  // Create a file object with the desired save path
-                  File file = File('$appDocPath/${result.files.single.name}');
-                  file.writeAsBytes(bytes);
-                });
-
-                Web3DioHelper.postData(data: bytes)
-                    .then((value) async {
-                    await cubit.addRecord(value.data["cid"], /*result.files.single.name, */cubit.senderAddress);
-                    await cubit.getRecords(cubit.senderAddress!);
-                })
-                    .catchError((err) => print(err));
+                Web3DioHelper.postData(data: bytes).then((value) async {
+                  await cubit.addRecord(
+                      value.data["cid"],
+                      result.files.single.name,
+                      "0x9839548Ac44A81D26cB944c3f5a164B16C4Ef359");
+                  await cubit
+                      .getRecords("0x9839548Ac44A81D26cB944c3f5a164B16C4Ef359");
+                }).catchError((err) => print(err));
               } else {
                 print("Canceled");
               }
