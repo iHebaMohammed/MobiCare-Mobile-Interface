@@ -16,6 +16,7 @@ import 'modules/patinet_modules/patient_edit_profile/cubit/cubit.dart';
 import 'modules/patinet_modules/patient_medication_reminder/cubit/cubit.dart';
 import 'modules/patinet_modules/patient_prescriptions/cubit/cubit.dart';
 import 'modules/patinet_modules/patient_profile/cubit/cubit.dart';
+import 'modules/patinet_modules/payment/cubit/cubit.dart';
 
 import 'modules/shared_modules/chat_details/cubit/cubit.dart';
 import 'modules/shared_modules/login/login_screen.dart';
@@ -47,20 +48,23 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (context) => PatientLayoutCubit()..getChats()..getVideos()..getPosts(),
+          create: (context) => PatientLayoutCubit()
+            ..getChats()
+            ..getVideos()
+            ..getPosts(),
         ),
         BlocProvider(
-            create: (context) => ChatMessagesCubit(),
+          create: (context) => ChatMessagesCubit(),
         ),
         BlocProvider(
-            create: (context) => PatientProfileCubit()..getPatientProfile(),
+          create: (context) => PatientProfileCubit()..getPatientProfile(),
         ),
         BlocProvider(
           create: (context) => PatientEditProfileCubit(),
         ),
         BlocProvider(
-          create: (context) => PatientMedicationReminderCubit()..createDatabase()
-        ),
+            create: (context) =>
+                PatientMedicationReminderCubit()..createDatabase()),
         BlocProvider(
           create: (context) => DoctorTimeReminderCubit()..createDatabase(),
         ),
@@ -74,12 +78,18 @@ class MyApp extends StatelessWidget {
           create: (context) => DoctorProfileCubit()..getNewAccessToken(),
         ),
         BlocProvider(
-          create: (context) => DoctorLayoutCubit()..getChats()..getVideos()..getDoctorPatients()..getPosts(),
+          create: (context) => DoctorLayoutCubit()
+            ..getChats()
+            ..getVideos()
+            ..getDoctorPatients()
+            ..getPosts(),
         ),
         BlocProvider(
           create: (context) => DoctorPatientListCubit(),
         ),
-        BlocProvider(create: (context) => PaymentCubit(),),
+        BlocProvider(
+          create: (context) => PaymentCubit(),
+        ),
       ],
       child: BlocConsumer<PatientLayoutCubit, PatientLayoutStates>(
         listener: (context, state) {},

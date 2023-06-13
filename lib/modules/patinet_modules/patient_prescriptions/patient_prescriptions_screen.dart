@@ -120,16 +120,6 @@ class PatientPrescriptionScreen extends StatelessWidget {
                 const SizedBox(
                   height: 30,
                 ),
-                // Padding(
-                //   padding: const EdgeInsets.symmetric(horizontal: 20),
-                //   child: ListView.separated(
-                //     itemBuilder: (context, index) => Text(cubit.records[index]),
-                //     separatorBuilder: (context, index) => const SizedBox(
-                //       height: 10,
-                //     ),
-                //     itemCount: cubit.records.length,
-                //   ),
-                // ),
               ],
             ),
           ),
