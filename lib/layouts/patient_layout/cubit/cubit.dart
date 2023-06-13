@@ -1,9 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:mobi_care/models/message_model.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 import '../../../models/post_model.dart';
 import '../../../models/user_model.dart';
@@ -127,10 +125,10 @@ class PatientLayoutCubit extends Cubit<PatientLayoutStates> {
           .collection('doctors')
           .get()
           .then((value) {
-            value.docs.forEach((element) {
-              doctors.add(UserModel.fromJson(element.data()));
-            });
-            emit(LayoutGetAllDoctorsSuccessfullyState());
+        value.docs.forEach((element) {
+          doctors.add(UserModel.fromJson(element.data()));
+        });
+        emit(LayoutGetAllDoctorsSuccessfullyState());
       }).catchError((error) {
         emit(LayoutGetAllDoctorsErrorState());
         print(error.toString());
@@ -155,18 +153,16 @@ class PatientLayoutCubit extends Cubit<PatientLayoutStates> {
             if(doctors[i].uId == element.data().values.first.replaceAll(uId!, '').replaceAll('_', '').trim()){
               users.add(doctors[i]);
             }
-
           }
           chatsUsersId.add(element.data().values.first.replaceAll(uId!, '').replaceAll('_', '').trim());
         });
         print(users);
       });
     }catch(e){
-      print(e.toString());
       emit(LayoutGetUsersInChatErrorState());
     }
-
   }
+
 
   void getChatsITalkWith(){
     emit(LayoutGetUsersLoadingState());
@@ -204,6 +200,7 @@ class PatientLayoutCubit extends Cubit<PatientLayoutStates> {
       });
     });
   }
+
 
   VideoModel ? videoModel ;
   void getVideos(){
