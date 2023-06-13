@@ -1,5 +1,7 @@
 import 'dart:io';
+import 'dart:typed_data';
 
+import 'package:file_picker/src/file_picker_result.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:web3dart/web3dart.dart';
@@ -56,8 +58,7 @@ class PrescriptionCubit extends Cubit<PrescriptionStates> {
   getMedicalRecords(List<dynamic> records) async {
     if (records.isNotEmpty) {
       for (var record in records) {
-        Web3DioHelper.getData(param: record[0])
-            .then((value) async {
+        Web3DioHelper.getData(param: record[0]).then((value) async {
           var fileBytes = value.data
               .replaceAll('[', '')
               .replaceAll(']', '')
@@ -65,19 +66,16 @@ class PrescriptionCubit extends Cubit<PrescriptionStates> {
               .map<int>((e) => int.parse(e))
               .toList();
 
-          Directory appDocDirectory =
-          await getApplicationDocumentsDirectory();
+          Directory appDocDirectory = await getApplicationDocumentsDirectory();
 
           Directory('${appDocDirectory.path}/dir')
               .create(recursive: true)
               .then((Directory directory) {
-            print(
-                'Path of New Dir: ${directory.path}');
+            print('Path of New Dir: ${directory.path}');
             String appDocPath = directory.path;
 
             // Create a file object with the desired save path
-            File file =
-            File('$appDocPath/${record[1]}');
+            File file = File('$appDocPath/${record[1]}');
 
             file.writeAsBytes(fileBytes);
             files.add(file);
@@ -87,5 +85,16 @@ class PrescriptionCubit extends Cubit<PrescriptionStates> {
         }).catchError((err) => print(err));
       }
     }
+  }
+
+  Future<void> uploadMedicalRecord(
+    Uint8List bytes,
+    FilePickerResult result,
+  ) async {
+    await Web3DioHelper.postData(data: bytes).then((value) async {
+      await addRecord(value.data["cid"], result.files.single.name,
+          "0x9839548Ac44A81D26cB944c3f5a164B16C4Ef359");
+      await getRecords("0x9839548Ac44A81D26cB944c3f5a164B16C4Ef359");
+    }).catchError((err) => print(err));
   }
 }

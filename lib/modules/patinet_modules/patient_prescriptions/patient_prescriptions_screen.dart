@@ -134,15 +134,7 @@ class PatientPrescriptionScreen extends StatelessWidget {
               if (result != null) {
                 File file = File(result.files.single.path!);
                 final bytes = file.readAsBytesSync();
-
-                Web3DioHelper.postData(data: bytes).then((value) async {
-                  await cubit.addRecord(
-                      value.data["cid"],
-                      result.files.single.name,
-                      "0x9839548Ac44A81D26cB944c3f5a164B16C4Ef359");
-                  await cubit
-                      .getRecords("0x9839548Ac44A81D26cB944c3f5a164B16C4Ef359");
-                }).catchError((err) => print(err));
+                await cubit.uploadMedicalRecord(bytes, result);
               } else {
                 print("Canceled");
               }
