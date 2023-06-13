@@ -14,62 +14,62 @@ class DoctorPatientListCubit extends Cubit<DoctorPatientListStates> {
 
   static DoctorPatientListCubit get(BuildContext context) => BlocProvider.of(context);
 
-  String ? token;
-
-  void getNewAccessToken() {
-    emit(GetNewAccessTokenLoadingState());
-    DioHelper.postData(
-      url: GET_NEW_ACCESS_TOKEN,
-      data: {
-        'token': asDoctorModel?.refreshToken,
-      },
-    ).then((value) {
-      accessToken = value.data['accesstoken'];
-      token = value.data['accesstoken'];
-      print(accessToken);
-      print('TOKEN : $token');
-      emit(GetNewAccessTokenSuccessfullyState());
-      getDoctorPatients();
-    }).catchError((error) {
-      print(error.toString());
-      emit(GetNewAccessTokenErrorState());
-    });
-  }
-
-  // GetDoctorProfileModel ? doctorProfileModel;
+  // String ? token;
   //
-  // void getDoctorProfile() {
+  // void getNewAccessToken() {
+  //   emit(GetNewAccessTokenLoadingState());
+  //   DioHelper.postData(
+  //     url: GET_NEW_ACCESS_TOKEN,
+  //     data: {
+  //       'token': asDoctorModel?.refreshToken,
+  //     },
+  //   ).then((value) {
+  //     accessToken = value.data['accesstoken'];
+  //     token = value.data['accesstoken'];
+  //     print(accessToken);
+  //     print('TOKEN : $token');
+  //     emit(GetNewAccessTokenSuccessfullyState());
+  //     getDoctorPatients();
+  //   }).catchError((error) {
+  //     print(error.toString());
+  //     emit(GetNewAccessTokenErrorState());
+  //   });
+  // }
+  //
+  // // GetDoctorProfileModel ? doctorProfileModel;
+  // //
+  // // void getDoctorProfile() {
+  // //   emit(GetDoctorPatientListLoadingState());
+  // //   DioHelper.getData(
+  // //     token: token,
+  // //     path: '${Get_Doctor_Profile}${asDoctorModel!.data!.iD}',
+  // //   ).then((value) {
+  // //     print(value.data);
+  // //     doctorProfileModel = GetDoctorProfileModel.fromJson(value.data);
+  // //     print(doctorProfileModel!.data!.email);
+  // //     emit(GetDoctorPatientListSuccessfullyState());
+  // //   }).catchError((error) {
+  // //     print(error.toString());
+  // //     emit(GetDoctorPatientListErrorState());
+  // //   });
+  // // }
+  // DoctorPatientListModel ? doctorPatientListModel;
+  //
+  // void getDoctorPatients(){
   //   emit(GetDoctorPatientListLoadingState());
   //   DioHelper.getData(
   //     token: token,
-  //     path: '${Get_Doctor_Profile}${asDoctorModel!.data!.iD}',
+  //     path: '${GET_DOCTOR_PATIENTS}${asDoctorModel!.data!.iD}',
   //   ).then((value) {
   //     print(value.data);
-  //     doctorProfileModel = GetDoctorProfileModel.fromJson(value.data);
-  //     print(doctorProfileModel!.data!.email);
+  //     doctorPatientListModel = DoctorPatientListModel.fromJson(value.data);
+  //     print(doctorPatientListModel!.data![0].fName);
   //     emit(GetDoctorPatientListSuccessfullyState());
   //   }).catchError((error) {
   //     print(error.toString());
   //     emit(GetDoctorPatientListErrorState());
   //   });
   // }
-  DoctorPatientListModel ? doctorPatientListModel;
-
-  void getDoctorPatients(){
-    emit(GetDoctorPatientListLoadingState());
-    DioHelper.getData(
-      token: token,
-      path: '${GET_DOCTOR_PATIENTS}${asDoctorModel!.data!.iD}',
-    ).then((value) {
-      print(value.data);
-      doctorPatientListModel = DoctorPatientListModel.fromJson(value.data);
-      print(doctorPatientListModel!.data![0].fName);
-      emit(GetDoctorPatientListSuccessfullyState());
-    }).catchError((error) {
-      print(error.toString());
-      emit(GetDoctorPatientListErrorState());
-    });
-  }
 
   GetSymptomsModel ? symptoms ;
 

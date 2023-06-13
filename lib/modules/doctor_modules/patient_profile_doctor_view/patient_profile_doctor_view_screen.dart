@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:mobi_care/modules/shared_modules/chat_details/chat_details_screen.dart';
 import '../../../models/doctor_patient_list_model.dart' as model;
 import '../../../shared/components/components.dart';
 import '../../../shared/components/navigate_component.dart';
@@ -51,6 +52,7 @@ class PatientProfileDoctorViewScreen extends StatelessWidget {
               elevation: 0.0,
               actions: [
                 PopupMenuButton<_MenuValues>(
+                  color: primaryColor1BA,
                   itemBuilder: (context) => [
                     PopupMenuItem(child: Text('Add note') , value: _MenuValues.AddNote,),
                     PopupMenuItem(child: Text('Add medical record') , value: _MenuValues.AddMedicalRecord),
@@ -104,7 +106,7 @@ class PatientProfileDoctorViewScreen extends StatelessWidget {
                                         DefaultButton(
                                           function: () {
                                             cubit.addNote(
-                                                note: noteController.text,
+                                                note: noteController.text.trim(),
                                                 patientId: data.patientID!);
                                             Navigator.pop(context);
                                             noteController.text = "";
@@ -139,7 +141,7 @@ class PatientProfileDoctorViewScreen extends StatelessWidget {
             body: SafeArea(
               child: ListView(
                 children: [
-                  Container(
+                  SizedBox(
                     height: 200,
                     child: Stack(
                       alignment: AlignmentDirectional.bottomCenter,
@@ -166,7 +168,10 @@ class PatientProfileDoctorViewScreen extends StatelessWidget {
                                       InkWell(
                                         child: SvgPicture.asset(
                                             'assets/icons/chat.svg'),
-                                        onTap: () {},
+                                        onTap: () {
+                                          cubit.createChat(receiverUId: data.fUID!);
+                                          navigateTo(context: context, widget: ChatDetailsScreen(fuid: data.fUID!,isMale: data.gender == 0 ? false : true, name: '${data.fName} ${data.lName}', isDoctor: false, phone: data.phone!,));
+                                        },
                                       ),
                                       Spacer(),
                                       InkWell(

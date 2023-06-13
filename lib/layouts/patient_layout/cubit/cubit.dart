@@ -1,15 +1,18 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:mobi_care/models/message_model.dart';
+import 'package:youtube_player_flutter/youtube_player_flutter.dart';
+import '../../../models/post_model.dart';
 import '../../../models/user_model.dart';
+import '../../../models/video_model.dart';
 import '../../../modules/patinet_modules/patient_chat/patient_chat_screen.dart';
 import '../../../modules/patinet_modules/patient_home/patient_home_screen.dart';
 import '../../../modules/patinet_modules/patient_medication_reminder/patient_medication_reminder_screen.dart';
 import '../../../modules/patinet_modules/patient_posts_view/patient_posts_view_screen.dart';
 import '../../../shared/constants/constants.dart';
+import '../../../shared/network/remote/dio_helper.dart';
+import '../../../shared/network/remote/end_point.dart';
 import 'states.dart';
 
 class PatientLayoutCubit extends Cubit<PatientLayoutStates> {
@@ -52,6 +55,7 @@ class PatientLayoutCubit extends Cubit<PatientLayoutStates> {
         SvgPicture.asset('assets/bottom_nav_icons/chat_not_active.svg'),
         // SvgPicture.asset('assets/bottom_nav_icons/contact_not_active.svg'),
       ];
+      getVideos();
     } else if(index == 2){
       bottomNavIcons = [ SvgPicture.asset('assets/bottom_nav_icons/medication_reminder_not_active.svg'),
         SvgPicture.asset('assets/bottom_nav_icons/video_not_active.svg'),
@@ -100,10 +104,11 @@ class PatientLayoutCubit extends Cubit<PatientLayoutStates> {
       'users': users,
       'chatId' : getChatId(receiverUId: receiverUId),
     };
+    String chatId = getChatId(receiverUId: receiverUId);
     emit(CreateChatLoadingState());
     FirebaseFirestore.instance
         .collection('chats')
-        .doc('${uId!}_$receiverUId')
+        .doc(chatId)
         .set(chatMap)
         .then((value) {
       emit(CreateChatSuccessState());
@@ -121,10 +126,10 @@ class PatientLayoutCubit extends Cubit<PatientLayoutStates> {
           .collection('doctors')
           .get()
           .then((value) {
-            value.docs.forEach((element) {
-              doctors.add(UserModel.fromJson(element.data()));
-            });
-            emit(LayoutGetAllDoctorsSuccessfullyState());
+        value.docs.forEach((element) {
+          doctors.add(UserModel.fromJson(element.data()));
+        });
+        emit(LayoutGetAllDoctorsSuccessfullyState());
       }).catchError((error) {
         emit(LayoutGetAllDoctorsErrorState());
         print(error.toString());
@@ -136,33 +141,36 @@ class PatientLayoutCubit extends Cubit<PatientLayoutStates> {
   List<String> chatsUsersId = [];
   Future<void> getChatsUsersId() async{
     List<String> chatsUsersId = [];
-    await FirebaseFirestore.instance
-        .collection('chats')
-        .where('users' , arrayContains: uId)
-        .get()
-        .then((value) {
-          value.docs.forEach((element) {
-            for(int i = 0 ; i < doctors.length ; i++){
-              // print(doctors[i]);
-              if(doctors[i].uId == element.data().values.first.replaceAll(uId!, '').replaceAll('_', '').trim()){
-                users.add(doctors[i]);
-              }
-
+    try{
+      await FirebaseFirestore.instance
+          .collection('chats')
+          .where('users' , arrayContains: uId)
+          .get()
+          .then((value) {
+        value.docs.forEach((element) {
+          users = [];
+          for(int i = 0 ; i < doctors.length ; i++){
+            // print(doctors[i]);
+            if(doctors[i].uId == element.data().values.first.replaceAll(uId!, '').replaceAll('_', '').trim()){
+              users.add(doctors[i]);
             }
-            chatsUsersId.add(element.data().values.first.replaceAll(uId!, '').replaceAll('_', '').trim());
-          });
-      print(users);
-    }).catchError((error) {
+          }
+          chatsUsersId.add(element.data().values.first.replaceAll(uId!, '').replaceAll('_', '').trim());
+        });
+        print(users);
+      });
+    }catch(e){
       emit(LayoutGetUsersInChatErrorState());
-    });
+    }
   }
+
 
   void getChatsITalkWith(){
     emit(LayoutGetUsersLoadingState());
     if(chatsUsersId.isNotEmpty){
       for(int i = 0 ; i < chatsUsersId.length ; i++){
         for(int j = 0 ; j < doctors.length ; j++){
-          if(chatsUsersId[i] == doctors[j].uId!){
+          if(chatsUsersId[i] == doctors[j].uId){
             users.add(UserModel(
               uId: doctors[j].uId,
               imageUrl: doctors[j].imageUrl,
@@ -195,77 +203,55 @@ class PatientLayoutCubit extends Cubit<PatientLayoutStates> {
   }
 
 
+  VideoModel ? videoModel ;
+  void getVideos(){
+    emit(GetVideoLoadingState());
+    try{
+      DioHelper.getData(
+        path: GET_ALL_VIDEOS,
+      ).then((value) {
+        print('%%%%%%%%%%%%%%%%%%%  Get Videos %%%%%%%%%%%%%%%%%%%%%%%%');
+        print(value.data);
+        videoModel = VideoModel.fromJson(value.data);
+        print(videoModel);
+        print(videoModel!.data!.length);
+        emit(GetVideoSuccessfullyState());
+      });
+    }catch(e){
+      print(e.toString());
+      emit(GetVideoErrorState());
+    }
+  }
 
-  // void getAllUsers(){
-  //   emit(LayoutGetAllUsersLoadingState());
-  //   if(allUsers.isEmpty){
-  //     FirebaseFirestore.instance
-  //         .collection('users')
-  //         .get()
-  //         .then((value) {
-  //       value.docs.forEach((element) {
-  //         if(element.data()['uId'] != uId) {
-  //           allUsers.add(UserModel.fromJson(element.data()));
-  //         }
-  //       });
-  //       emit(LayoutGetAllUsersSuccessfullyState());
-  //     }).catchError((error) {
-  //       print(error.toString());
-  //       emit(LayoutGetAllUsersErrorState());
-  //     });
-  //   }
-  //
-  // }
-  //
-  // void getUIdsOfChatsSender() {
-  //   emit(LayoutGetUIdsOfChatsSenderLoadingState());
-  //   print('==========#####==========');
-  //   print(uId);
-  //   FirebaseFirestore.instance
-  //       .collection('users')
-  //       .doc(uId)
-  //       .collection('chats')
-  //       .get()
-  //       .then((value) {
-  //         print('value.docs:   ${value.docs}');
-  //         value.docs.forEach((element) {
-  //           print('************************************');
-  //           uIdsOfChatsSender.add(element.id);
-  //           print('====================');
-  //           print(uIdsOfChatsSender[0]);
-  //         });
-  //         print('====================');
-  //         emit(LayoutGetUIdsOfChatsSenderSuccessfullyState());
-  //         print('UId Sender: ');
-  //         print(uIdsOfChatsSender);
-  //   }).catchError((error){
-  //     emit(LayoutGetUIdsOfChatsSenderErrorState());
-  //     print(error.toString());
-  //   });
-  // }
-  //
-  // void getChats()   {
-  //   usersInAnotherTypeOfMe = [];
-  //   emit(LayoutGetUsersInChatLoadingState());
-  //   if(allUsers.isEmpty){
-  //     FirebaseFirestore.instance
-  //         .collection('users')
-  //         .get()
-  //         .then((value) {
-  //       value.docs.forEach((element) {
-  //         if(element.data()['uId'] != uId && element.data()['role'] != role){
-  //           usersInAnotherTypeOfMe.add(UserModel.fromJson(element.data()));
-  //         }
-  //       });
-  //       emit(LayoutGetUsersInChatSuccessState());
-  //       getUIdsOfChatsSender();
-  //       print('uId: ======= $uId');
-  //     }).catchError((error) {
-  //       print(error.toString());
-  //       emit(LayoutGetUsersInChatErrorState());
-  //     });
-  //   }
-  //
-  // }
+  YoutubePlayerController ? controller;
+  void initialController({required String videoUrl}){
+    final videoId = YoutubePlayer.convertUrlToId(videoUrl);
+    controller = YoutubePlayerController(
+      initialVideoId: videoId!,
+      flags: const YoutubePlayerFlags(
+        autoPlay: false,
+      ),
+    );
+    emit(InitialVideoControllerSuccessfullyState());
+  }
+
+  List<PostModel> posts =[];
+  List<String> postId = [];
+  void getPosts(){
+    emit(GetPostsLoadingState());
+    FirebaseFirestore.instance
+        .collection('posts')
+        .get()
+        .then((value) {
+      value.docs.forEach((element) {
+        posts.add(PostModel.fromJson(element.data()));
+        postId.add(element.id);
+        emit(GetPostsSuccessState());
+      });
+    }).catchError((error){
+      print(error.toString());
+      emit(GetPostsErrorState( error));
+    });
+  }
 
 }

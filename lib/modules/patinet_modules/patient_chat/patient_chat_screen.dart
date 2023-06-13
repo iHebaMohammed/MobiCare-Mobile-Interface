@@ -31,9 +31,9 @@ class PatientChatScreen extends StatelessWidget {
                 onTap: (){
                   navigateTo(
                     context: context,
-                    widget: ChatDetailsScreen(userModel: cubit.users[index]),
+                    widget: ChatDetailsScreen(isDoctor: true , name: 'Dr. ${cubit.users[index].firstName} ${cubit.users[index].lastName}' , isMale: cubit.users[index].isMale , fuid: cubit.users[index].uId , phone: ''),
                   );
-                  cubit.createChat(receiverUId: cubit.users[index].uId!);
+                  cubit.createChat(receiverUId: cubit.users[index].uId);
                 },
                 child: DefaultChatRowUserViewItem(
                     context: context,

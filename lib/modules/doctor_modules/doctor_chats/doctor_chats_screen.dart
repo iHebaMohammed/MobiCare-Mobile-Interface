@@ -45,12 +45,12 @@ class DoctorChatsScreen extends StatelessWidget {
                     onTap: (){
                       navigateTo(
                         context: context,
-                        widget: ChatDetailsScreen(userModel: cubit.users[index]),
+                        widget: ChatDetailsScreen(fuid: cubit.users[index].uId , isDoctor: false, isMale: cubit.users[index].isMale , name: '${cubit.users[index].firstName} ${cubit.users[index].lastName}' , phone: ''),
                       );
                       cubit.createChat(receiverUId: cubit.users[index].uId!);
                     },
                     child: DoctorChatComponent(
-                        image: cubit.users[index].imageUrl,
+                        image: 'https://cdn-icons-png.flaticon.com/512/727/727399.png?w=740&t=st=1685896888~exp=1685897488~hmac=d1e52ed88325af9d153a52cc517b162ed28c158ecf2c917d7faa12849488be12',
                         isMale: cubit.users[index].isMale,
                         name: '${cubit.users[index].firstName} ${cubit.users[index].lastName}',
                         numberOfMassages: 5,

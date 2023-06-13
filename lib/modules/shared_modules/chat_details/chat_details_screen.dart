@@ -1,8 +1,10 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 import 'package:mobi_care/models/user_model.dart';
 import 'package:mobi_care/shared/components/components.dart';
+import 'package:mobi_care/shared/components/doctor_image_component.dart';
 import 'package:mobi_care/shared/constants/constants.dart';
 import 'package:mobi_care/shared/styles/colors.dart';
 
@@ -12,14 +14,19 @@ import 'cubit/states.dart';
 class ChatDetailsScreen extends StatelessWidget {
 
   TextEditingController messageController = TextEditingController();
-  final UserModel userModel;
-  ChatDetailsScreen({required this.userModel});
+  final String fuid;
+  final String name;
+  final bool isDoctor;
+  final bool isMale;
+  final String phone;
+
+  ChatDetailsScreen({required this.fuid, required this.name, required this.isDoctor, required this.isMale, required this.phone});
 
   @override
   Widget build(BuildContext context) {
     return Builder(
       builder: (context) {
-        ChatMessagesCubit.get(context).getMessages(receiverId: userModel.uId!);
+        ChatMessagesCubit.get(context).getMessages(receiverId: fuid!);
         return BlocConsumer<ChatMessagesCubit , ChatMessagesStates>(
           listener: (context, state) {
 
@@ -32,14 +39,20 @@ class ChatDetailsScreen extends StatelessWidget {
                 backgroundColor: primaryColor1BA,
                 title: Row(
                   children: [
-                    DefaultImageShape(
-                        isMale: userModel.isMale!,
+                    if(isDoctor)
+                      DoctorImageComponent(
                         image: 'https://img.freepik.com/premium-vector/graphic-element-printing-poster-banner-website-cartoon-flat-vector-illustration_755718-18.jpg?w=740',
+                        height: 40,
+                      ),
+                    if(!isDoctor)
+                    DefaultImageShape(
+                        isMale: isMale,
+                        image: 'https://cdn-icons-png.flaticon.com/512/727/727399.png?w=740&t=st=1685896888~exp=1685897488~hmac=d1e52ed88325af9d153a52cc517b162ed28c158ecf2c917d7faa12849488be12',
                         height: 40
                     ),
                     Expanded(
                       child: Text(
-                        '${userModel.firstName} ${userModel.lastName}',
+                        '$name',
                         textAlign: TextAlign.center,
                         style: TextStyle(
                             color: primaryWhiteColor
@@ -49,7 +62,9 @@ class ChatDetailsScreen extends StatelessWidget {
                   ],
                 ),
                 actions: [
-                  IconButton(onPressed: (){}, icon: Icon(Icons.call_outlined))
+                  IconButton(onPressed: (){
+                    FlutterPhoneDirectCaller.callNumber(phone.trim().toString());
+                  }, icon: Icon(Icons.call_outlined))
                 ],
               ),
               body: Column(
@@ -108,7 +123,7 @@ class ChatDetailsScreen extends StatelessWidget {
                             minWidth: 1,
                             onPressed: (){
                               cubit.sendMessage(
-                                receiverId: userModel.uId!,
+                                receiverId: fuid,
                                 dateTime: DateTime.now().toString(),
                                   messageText: messageController.text,
                               );

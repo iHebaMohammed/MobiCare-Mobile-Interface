@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobi_care/models/add_symptoms_model.dart';
 import 'package:mobi_care/models/edit_patient_profile_model.dart';
+import 'package:mobi_care/modules/patinet_modules/patient_profile/cubit/cubit.dart';
+import 'package:mobi_care/modules/patinet_modules/patient_profile/patient_profile_screen.dart';
+import 'package:mobi_care/shared/components/navigate_component.dart';
 import 'package:mobi_care/shared/constants/constants.dart';
 import 'package:mobi_care/shared/network/remote/dio_helper.dart';
 import 'package:mobi_care/shared/network/remote/end_point.dart';
@@ -86,6 +89,7 @@ class PatientEditProfileCubit extends Cubit<PatientEditProfileStates> {
     required String address,
     required int weight,
     required int height,
+    required BuildContext context,
   }){
     emit(EditPatientProfileLoadingState());
     DioHelper.patchData(
@@ -110,13 +114,14 @@ class PatientEditProfileCubit extends Cubit<PatientEditProfileStates> {
       editPatientProfileModel = EditPatientProfileModel.fromJson(value.data);
       print(editPatientProfileModel);
       print(editPatientProfileModel!.data![0].height);
-      asPatientModel!.data!.height = editPatientProfileModel!.data![0].height;
-      asPatientModel!.data!.weight = editPatientProfileModel!.data![0].weight;
-      asPatientModel!.data!.fName = editPatientProfileModel!.data![0].fName;
-      asPatientModel!.data!.lName = editPatientProfileModel!.data![0].lName;
-      asPatientModel!.data!.email = editPatientProfileModel!.data![0].email;
-      asPatientModel!.data!.address = editPatientProfileModel!.data![0].address;
+      PatientProfileCubit.get(context).patientProfileModel!.data!.height = editPatientProfileModel!.data![0].height;
+      PatientProfileCubit.get(context).patientProfileModel!.data!.weight = editPatientProfileModel!.data![0].weight;
+      PatientProfileCubit.get(context).patientProfileModel!.data!.fName = editPatientProfileModel!.data![0].fName;
+      PatientProfileCubit.get(context).patientProfileModel!.data!.lName = editPatientProfileModel!.data![0].lName;
+      PatientProfileCubit.get(context).patientProfileModel!.data!.email = editPatientProfileModel!.data![0].email;
+      PatientProfileCubit.get(context).patientProfileModel!.data!.address = editPatientProfileModel!.data![0].address;
       emit(EditPatientProfileSuccessfullyState());
+      navigateTo(context: context, widget: PatientProfileScreen());
     }).catchError((error) {
       print(error.toString());
       emit(EditPatientProfileErrorState());

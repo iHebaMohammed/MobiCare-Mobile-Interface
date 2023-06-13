@@ -31,17 +31,37 @@ class DoctorEditProfileScreen extends StatelessWidget {
 
         },
         builder: (context, state) {
+          DoctorEditProfileCubit cubit = DoctorEditProfileCubit.get(context);
           firstNameController.text = asDoctorModel!.data!.fName.toString();
           lastNameController.text = asDoctorModel!.data!.lName.toString();
           emailController.text = asDoctorModel!.data!.email.toString();
           clinicLocationController.text = asDoctorModel!.data!.address.toString();
           aboutDoctorController.text = asDoctorModel!.data!.bio.toString();
           return Scaffold(
+            appBar: AppBar(
+              backgroundColor: primaryColor4DC_20,
+              actions: [
+                TextButton(
+                  onPressed: (){
+                    cubit.editDoctorProfile(
+                      fName: firstNameController.text.trim(),
+                      lName: lastNameController.text.trim(),
+                      email: emailController.text.trim(),
+                      address: clinicLocationController.text.trim(),
+                      bio: aboutDoctorController.text.trim(),
+                      password: passwordController.text.trim(),
+                      context: context,
+                    );
+                  },
+                  child: Text('EDIT',),
+                ),
+              ],
+            ),
             body: SafeArea(
               child: ListView(
                 children: [
                   SizedBox(
-                    height: 220,
+                    height: 180,
                     child: Stack(
                       alignment: Alignment.bottomCenter,
                       children: [
@@ -51,7 +71,7 @@ class DoctorEditProfileScreen extends StatelessWidget {
                             alignment: AlignmentDirectional.topEnd,
                             children: [
                               Container(
-                                height: 180,
+                                height: 160,
                                 width: double.infinity,
                                 decoration: BoxDecoration(
                                     color: primaryColor4DC_20,

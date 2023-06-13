@@ -1,43 +1,67 @@
+import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mobi_care/layouts/patient_layout/cubit/cubit.dart';
+import 'package:mobi_care/layouts/patient_layout/cubit/states.dart';
+import 'package:mobi_care/modules/shared_modules/post_details/post_details_screen.dart';
 import 'package:mobi_care/shared/components/components.dart';
+import 'package:mobi_care/shared/components/navigate_component.dart';
 
 class PatientPostsViewScreen extends StatelessWidget {
-  const PatientPostsViewScreen({Key? key}) : super(key: key);
+  PatientPostsViewScreen({Key? key}) : super(key: key);
+
+  bool videoIsLoaded = false;
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: SingleChildScrollView(
-        child: Column(
-          children: [
-            DefaultPostView(
-                publisherName: 'Heba Adel',
-                publisherImage: 'https://img.freepik.com/free-psd/3d-illustration-person-with-sunglasses_23-2149436188.jpg?w=740&t=st=1677116117~exp=1677116717~hmac=0eaee5fcf6754432b852deadbe808bb6b5344e8ef73dc3e38fa9847446bcbcd0',
-                postText: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printe',
-                isImage: false,
-                image: 'assets/image.png',
-                isVideo: false,
-                isLiked: false,
-                numberOfLikes: '25',
-                numberOfComments: '14' ,
-                dateOfPublish: '14/2/15',
-            ),
-            DefaultPostView(
-              publisherName: 'Heba Adel',
-              publisherImage: 'https://img.freepik.com/free-psd/3d-illustration-person-with-sunglasses_23-2149436188.jpg?w=740&t=st=1677116117~exp=1677116717~hmac=0eaee5fcf6754432b852deadbe808bb6b5344e8ef73dc3e38fa9847446bcbcd0',
-              postText: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printe',
-              isImage: true,
-              image: 'assets/image.png',
-              isVideo: false,
-              isLiked: true,
-              numberOfLikes: '60',
-              numberOfComments: '50' ,
-              dateOfPublish: '14/2/15',
-            ),
-          ],
-        ),
-      ),
+    return BlocConsumer<PatientLayoutCubit , PatientLayoutStates>(
+      listener: (context, state) {
+        if(state is GetVideoSuccessfullyState){
+          videoIsLoaded = true;
+        }
+      },
+      builder: (context, state) {
+        PatientLayoutCubit cubit = PatientLayoutCubit.get(context);
+        return Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: ConditionalBuilder(
+            condition: state is GetVideoSuccessfullyState || videoIsLoaded,
+            builder: (context) {
+              return ListView.separated(
+                itemCount: cubit.videoModel!.data!.length,
+                itemBuilder: (context, index) {
+                  cubit.initialController(videoUrl: cubit.videoModel!.data![index].videoURL!);
+                  return InkWell(
+                    onTap: (){
+                      navigateTo(context: context, widget: PostDetailsScreen(
+                        firstName: cubit.videoModel!.data![index].fName!,
+                        controller:  cubit.controller!,
+                        caption: cubit.videoModel!.data![index].videoDesc!,
+                        creationalDate: cubit.videoModel!.data![index].creationDate!,
+                        gender: cubit.videoModel!.data![index].gender == 0? false : true,
+                        lastName: cubit.videoModel!.data![index].lName!,
+                      ));
+                    },
+                    child: DefaultPostView(
+                      publisherName: '${cubit.videoModel!.data![index].fName} ${cubit.videoModel!.data![index].lName}',
+                      publisherImage: 'https://img.freepik.com/premium-vector/graphic-element-printing-poster-banner-website-cartoon-flat-vector-illustration_755718-18.jpg?w=740',
+                      postText: '${cubit.videoModel!.data![index].videoDesc}',
+                      isMale: cubit.videoModel!.data![index].gender == 0 ? false : true,
+                      videoUrl: cubit.videoModel!.data![index].videoURL!,
+                      dateOfPublish: cubit.videoModel!.data![index].creationDate!,
+                      controller: cubit.controller!,
+                    ),
+                  );
+                },
+                separatorBuilder: (context, index) => SizedBox(height: 10,),
+              );
+            },
+            fallback: (context) {
+              return Center(child: Text('There is no videos'),);
+            },
+          ),
+        );
+      },
     );
   }
 }

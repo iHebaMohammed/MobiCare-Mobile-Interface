@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mobi_care/shared/styles/colors.dart';
 import '../../../../models/Constants.dart';
 import '../view/view.dart' as view;
 
@@ -8,6 +9,11 @@ class Screen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text('MobiCare',),
+        centerTitle: true,
+        backgroundColor: primaryColor1BA,
+      ),
       body: SafeArea(
         child: Column(
           children: [

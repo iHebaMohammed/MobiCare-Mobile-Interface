@@ -44,7 +44,7 @@ class BuildClickableDrawerItem extends StatelessWidget {
                       padding: EdgeInsets.all(15),
                       child: Row(
                         children: [
-                          SvgPicture.asset(svgIcon),
+                          SvgPicture.asset(svgIcon , width: 22,height: 22,),
                           const SizedBox(
                             width: 16,
                           ),

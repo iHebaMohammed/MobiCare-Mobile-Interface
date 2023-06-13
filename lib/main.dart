@@ -47,7 +47,7 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (context) => PatientLayoutCubit(),
+          create: (context) => PatientLayoutCubit()..getChats()..getVideos()..getPosts(),
         ),
         BlocProvider(
             create: (context) => ChatMessagesCubit(),
@@ -74,11 +74,12 @@ class MyApp extends StatelessWidget {
           create: (context) => DoctorProfileCubit()..getNewAccessToken(),
         ),
         BlocProvider(
-          create: (context) => DoctorLayoutCubit(),
+          create: (context) => DoctorLayoutCubit()..getChats()..getVideos()..getDoctorPatients()..getPosts(),
         ),
         BlocProvider(
-          create: (context) => DoctorPatientListCubit()..getNewAccessToken()..getDoctorPatients(),
+          create: (context) => DoctorPatientListCubit(),
         ),
+        BlocProvider(create: (context) => PaymentCubit(),),
       ],
       child: BlocConsumer<PatientLayoutCubit, PatientLayoutStates>(
         listener: (context, state) {},

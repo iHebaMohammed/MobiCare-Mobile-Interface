@@ -59,7 +59,7 @@ class PatientLayout extends StatelessWidget {
                 cubit.changeBottomIndex(index);
               },
               index: cubit.currentIndex,
-              color: Colors.black12,
+              color: primaryColorD2F_40,
               backgroundColor: Colors.transparent,
               animationCurve: Curves.easeInOut,
               animationDuration: Duration(milliseconds: 800),

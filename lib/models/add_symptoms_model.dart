@@ -1,57 +1,47 @@
 class AddSymptomsModel {
   String? message;
-  Data? data;
+  List<Data>? data;
 
   AddSymptomsModel({this.message, this.data});
 
   AddSymptomsModel.fromJson(Map<String, dynamic> json) {
     message = json['message'];
-    data = json['data'] != null ? new Data.fromJson(json['data']) : null;
+    if (json['data'] != null) {
+      data = <Data>[];
+      json['data'].forEach((v) {
+        data!.add(new Data.fromJson(v));
+      });
+    }
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['message'] = this.message;
     if (this.data != null) {
-      data['data'] = this.data!.toJson();
+      data['data'] = this.data!.map((v) => v.toJson()).toList();
     }
     return data;
   }
 }
 
 class Data {
-  int? fieldCount;
-  int? affectedRows;
-  int? insertId;
-  String? info;
-  int? serverStatus;
-  int? warningStatus;
+  int? id;
+  int? patientId;
+  String? symptom;
 
-  Data(
-      {this.fieldCount,
-        this.affectedRows,
-        this.insertId,
-        this.info,
-        this.serverStatus,
-        this.warningStatus});
+  Data({this.id, this.patientId, this.symptom});
 
   Data.fromJson(Map<String, dynamic> json) {
-    fieldCount = json['fieldCount'];
-    affectedRows = json['affectedRows'];
-    insertId = json['insertId'];
-    info = json['info'];
-    serverStatus = json['serverStatus'];
-    warningStatus = json['warningStatus'];
+    id = json['id'];
+    patientId = json['patient_id'];
+    symptom = json['symptom'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['fieldCount'] = this.fieldCount;
-    data['affectedRows'] = this.affectedRows;
-    data['insertId'] = this.insertId;
-    data['info'] = this.info;
-    data['serverStatus'] = this.serverStatus;
-    data['warningStatus'] = this.warningStatus;
+    data['id'] = this.id;
+    data['patient_id'] = this.patientId;
+    data['symptom'] = this.symptom;
     return data;
   }
 }

@@ -33,7 +33,7 @@ class DioHelper {
     print("$url: $data: $token");
     return await dio!.post(
         url,
-        data: data
+        data: data,
     );
   }
 
@@ -43,6 +43,9 @@ class DioHelper {
     Map<String , dynamic> ? queryParameters,
     String ? token,
   }) async{
+    print(url);
+    print(data);
+    print(token);
     dio!.options.headers = {
       'Authorization' : token,
     };

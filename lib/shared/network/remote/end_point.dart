@@ -22,9 +22,11 @@ const String GET_DOCTOR_PATIENTS = '/doctor/getDoctorPatients/';
 const String ADD_NOTE_TO_PATIENT = '/doctor/addNote';
 const String GET_PATIENT_NOTES = '/doctor/getNote';
 const String SEARCH_DOCTOR_PATIENT = '/doctor/searchDoctorPatients';
-
+const String ADD_VIDEO = '/doctor/addVideo';
+const String GET_ALL_VIDEOS = '/doctor/getAllVideos/';
 
 const String ADMIN_LOGIN = '/admin/login';
 const String ADMIN_GET_ALL_DOCTORS = '/admin/doctor/getAll';
 const String ADMIN_GET_SPECIFICDOCTOR = '/admin/doctor/get/2';
 const String ADMIN_ADD_NEW_DOCTOR = '/admin/doctor/add';
+
