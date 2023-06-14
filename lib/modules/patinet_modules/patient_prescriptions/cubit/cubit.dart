@@ -33,6 +33,7 @@ class PrescriptionCubit extends Cubit<PrescriptionStates> {
 
   Future<void> connectMetaMaskWallet(BuildContext context) async {
     senderAddress = await BlockchainConnection.connectMetaMaskWallet(context);
+    print(senderAddress);
     emit(GetSenderAddressState());
   }
 

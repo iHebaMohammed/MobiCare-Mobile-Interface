@@ -51,7 +51,7 @@ class NewPostScreen extends StatelessWidget {
                     children: [
                       CircleAvatar(
                         backgroundImage: NetworkImage(
-                          'https://img.freepik.com/premium-vector/graphic-element-printing-poster-banner-website-cartoon-flat-vector-illustration_755718-18.jpg?w=740',
+                          doctorImage,
                         ),
                         radius: 25,
                       ),

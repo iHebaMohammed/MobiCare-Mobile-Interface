@@ -79,9 +79,9 @@ class SearchAboutPatientScreen extends StatelessWidget {
                                 onTap: (){
                                   navigateTo(context: context, widget: PatientProfileDoctorViewScreen(data: cubit.searchPatientModel!.data![index],));
                                 },
-                                child: DefaultSearchRowUserViewItem(
+                                child: DefaultSearchUserViewItem(
                                   isMale: cubit.searchPatientModel!.data![index].gender == 0 ? false : true,
-                                  image: 'https://img.freepik.com/premium-vector/graphic-element-printing-poster-banner-website-cartoon-flat-vector-illustration_755718-18.jpg?w=740',
+                                  image:'https://cdn-icons-png.flaticon.com/512/727/727399.png?w=740&t=st=1685896888~exp=1685897488~hmac=d1e52ed88325af9d153a52cc517b162ed28c158ecf2c917d7faa12849488be12',
                                   name: '${cubit.searchPatientModel!.data![index].fName} ${cubit.searchPatientModel!.data![index].lName}',
                                 ),
                               ),

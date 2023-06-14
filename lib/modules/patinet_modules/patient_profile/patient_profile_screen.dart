@@ -5,6 +5,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mobi_care/layouts/patient_layout/cubit/cubit.dart';
 import 'package:mobi_care/modules/shared_modules/chat_details/chat_details_screen.dart';
 import 'package:mobi_care/shared/components/components.dart';
+import 'package:mobi_care/shared/constants/constants.dart';
 import 'package:mobi_care/shared/styles/colors.dart';
 import '../../../shared/components/navigate_component.dart';
 import '../patient_edit_profile/patient_edit_profile_screen.dart';
@@ -370,7 +371,7 @@ class PatientProfileScreen extends StatelessWidget {
                                       );
                                     },
                                     isMale: cubit.patientProfileModel!.data!.doctors![i].gender == 0 ? false : true,
-                                    image: 'https://img.freepik.com/free-photo/smiling-doctor-with-strethoscope-isolated-grey_651396-974.jpg?w=1060&t=st=1677180364~exp=1677180964~hmac=322f62b372fd430840916df2f143ee731df2389d1888b370c1725cb50008f371',
+                                    image: doctorImage,
                                     name: '${cubit.patientProfileModel!.data!.doctors![i].fName} ${cubit.patientProfileModel!.data!.doctors![i].lName}',
                                     specialization: cubit.patientProfileModel!.data!.doctors![i].specialization!,
                                   ),

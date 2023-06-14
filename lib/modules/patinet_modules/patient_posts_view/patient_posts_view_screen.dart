@@ -7,6 +7,8 @@ import 'package:mobi_care/modules/shared_modules/post_details/post_details_scree
 import 'package:mobi_care/shared/components/components.dart';
 import 'package:mobi_care/shared/components/navigate_component.dart';
 
+import '../../../shared/constants/constants.dart';
+
 class PatientPostsViewScreen extends StatelessWidget {
   PatientPostsViewScreen({Key? key}) : super(key: key);
 
@@ -44,7 +46,7 @@ class PatientPostsViewScreen extends StatelessWidget {
                     },
                     child: DefaultPostView(
                       publisherName: '${cubit.videoModel!.data![index].fName} ${cubit.videoModel!.data![index].lName}',
-                      publisherImage: 'https://img.freepik.com/premium-vector/graphic-element-printing-poster-banner-website-cartoon-flat-vector-illustration_755718-18.jpg?w=740',
+                      publisherImage: doctorImage.toString(),
                       postText: '${cubit.videoModel!.data![index].videoDesc}',
                       isMale: cubit.videoModel!.data![index].gender == 0 ? false : true,
                       videoUrl: cubit.videoModel!.data![index].videoURL!,

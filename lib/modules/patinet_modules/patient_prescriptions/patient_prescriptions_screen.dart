@@ -21,7 +21,7 @@ class PatientPrescriptionScreen extends StatelessWidget {
       listener: (context, state) {},
       builder: (context, state) {
         PrescriptionCubit cubit = PrescriptionCubit.get(context);
-
+        Size size = MediaQuery.of(context).size;
         return Scaffold(
           appBar: AppBar(
             backgroundColor: primaryColor1BA,
@@ -110,7 +110,10 @@ class PatientPrescriptionScreen extends StatelessWidget {
                               height: 50,
                             ),
                             if (cubit.files.isNotEmpty)
-                              for (var file in cubit.files) Image.file(file),
+                              for (var file in cubit.files) Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Image.file(file , width: size.width,),
+                              ),
                             const SizedBox(
                               height: 50,
                             ),

@@ -68,7 +68,7 @@ class DoctorLayout extends StatelessWidget {
                 children: [
                   if(asDoctorModel != null)
                     DoctorDrawerLayoutHeader(
-                    image: 'https://img.freepik.com/premium-vector/graphic-element-printing-poster-banner-website-cartoon-flat-vector-illustration_755718-18.jpg?w=740',
+                    image: doctorImage,
                     name: 'Dr. ${asDoctorModel!.data!.fName} ${asDoctorModel!.data!.lName}',
                     email: '${asDoctorModel!.data!.email}',
                     // name: 'Heba Adel',

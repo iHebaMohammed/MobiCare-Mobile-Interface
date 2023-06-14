@@ -502,6 +502,47 @@ class DefaultSearchRowUserViewItem extends StatelessWidget {
   }
 }
 
+class DefaultSearchUserViewItem extends StatelessWidget {
+  final bool isMale;
+  final String image;
+  final String name;
+
+  const DefaultSearchUserViewItem({
+    Key? key,
+    required this.isMale,
+    required this.image,
+    required this.name,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 60,
+      child: Row(
+        children: [
+          DefaultImageShape(
+            isMale: isMale,
+            image: image,
+            height: 50,
+          ),
+          const SizedBox(
+            width: 16,
+          ),
+          Text(
+            name,
+            overflow: TextOverflow.ellipsis,
+            style: const TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+          const Spacer(),
+        ],
+      ),
+    );
+  }
+}
+
 class DefaultTextFormFieldWithoutBorder extends StatelessWidget {
   final TextEditingController controller;
   late double radius;

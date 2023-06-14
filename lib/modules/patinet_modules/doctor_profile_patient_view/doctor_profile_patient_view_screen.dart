@@ -8,6 +8,7 @@ import 'package:mobi_care/modules/shared_modules/chat_details/chat_details_scree
 import 'package:mobi_care/shared/components/components.dart';
 import 'package:mobi_care/shared/components/doctor_image_component.dart';
 import 'package:mobi_care/shared/components/navigate_component.dart';
+import 'package:mobi_care/shared/constants/constants.dart';
 import 'package:mobi_care/shared/styles/colors.dart';
 import 'package:table_calendar/table_calendar.dart';
 
@@ -100,7 +101,7 @@ class DoctorProfilePatientViewScreen extends StatelessWidget {
                                   child: SvgPicture.asset('assets/icons/chat.svg' , width: 60,),
                                 ),
                                 DoctorImageComponent(
-                                  image: 'https://img.freepik.com/premium-vector/graphic-element-printing-poster-banner-website-cartoon-flat-vector-illustration_755718-18.jpg?w=740',
+                                  image: doctorImage,
                                 ),
                                 InkWell(
                                   onTap: () async{

@@ -3,6 +3,8 @@ import 'package:mobi_care/shared/components/components.dart';
 import 'package:mobi_care/shared/styles/colors.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
+import '../../../shared/constants/constants.dart';
+
 class PostDetailsScreen extends StatelessWidget {
   final String firstName;
   final String lastName;
@@ -36,7 +38,7 @@ class PostDetailsScreen extends StatelessWidget {
           Center(
             child: DefaultPostView(
               publisherName: 'Dr. ${firstName} ${lastName}',
-              publisherImage: 'https://img.freepik.com/premium-vector/graphic-element-printing-poster-banner-website-cartoon-flat-vector-illustration_755718-18.jpg?w=740',
+              publisherImage: doctorImage,
               postText: '${caption}',
               videoUrl: '',
               isMale: gender,

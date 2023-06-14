@@ -55,7 +55,7 @@ class ArticleScreen extends StatelessWidget {
                         physics: NeverScrollableScrollPhysics(),
                         itemBuilder: (context, index) => DefaultArticleView(
                             publisherName: 'Dr. ${cubit.posts[index].firstName} ${cubit.posts[index].lastName}',
-                            publisherImage: 'https://img.freepik.com/premium-vector/graphic-element-printing-poster-banner-website-cartoon-flat-vector-illustration_755718-18.jpg?w=740',
+                            publisherImage: doctorImage,
                             postText: '${cubit.posts[index].caption}',
                             dateOfPublish: cubit.posts[index].dateTime!,
                             isMale: cubit.posts[index].isMale!,

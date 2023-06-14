@@ -116,7 +116,7 @@ class DoctorProfileDoctorViewScreen extends StatelessWidget {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   DoctorImageComponent(
-                                    image: 'https://img.freepik.com/premium-vector/graphic-element-printing-poster-banner-website-cartoon-flat-vector-illustration_755718-18.jpg?w=740',
+                                    image: doctorImage,
                                   ),
                                 ],
                               ),

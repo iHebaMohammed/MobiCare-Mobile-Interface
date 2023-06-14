@@ -91,7 +91,7 @@ class DoctorEditProfileScreen extends StatelessWidget {
                               width: 115,
                               child: DoctorImageComponent(
                                 height: 80,
-                                image: 'https://img.freepik.com/premium-vector/graphic-element-printing-poster-banner-website-cartoon-flat-vector-illustration_755718-18.jpg?w=740',
+                                image: doctorImage,
                               ),
                             ),
                           ],

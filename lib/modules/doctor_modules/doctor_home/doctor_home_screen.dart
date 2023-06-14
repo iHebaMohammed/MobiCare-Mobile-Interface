@@ -7,6 +7,7 @@ import 'package:mobi_care/modules/doctor_modules/add_post/add_post_screen.dart';
 import 'package:mobi_care/modules/doctor_modules/home_visit_requests/home_visit_requests.dart';
 import 'package:mobi_care/modules/shared_modules/post_details/post_details_screen.dart';
 import 'package:mobi_care/shared/components/navigate_component.dart';
+import 'package:mobi_care/shared/constants/constants.dart';
 
 import '../../../layouts/doctor_layout/cubit/cubit.dart';
 import '../../../shared/components/components.dart';
@@ -67,7 +68,7 @@ class DoctorHomeScreen extends StatelessWidget {
                               },
                               child: DefaultPostView(
                                 publisherName: '${cubit.videoModel!.data![index].fName} ${cubit.videoModel!.data![index].lName}',
-                                publisherImage: 'https://img.freepik.com/premium-vector/graphic-element-printing-poster-banner-website-cartoon-flat-vector-illustration_755718-18.jpg?w=740',
+                                publisherImage: doctorImage,
                                 postText: '${cubit.videoModel!.data![index].videoDesc}',
                                 isMale: cubit.videoModel!.data![index].gender == 0 ? false : true,
                                 videoUrl: cubit.videoModel!.data![index].videoURL!,

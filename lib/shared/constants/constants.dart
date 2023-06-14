@@ -7,6 +7,7 @@ String ? refreshToken;
 String ? role;
 PatientModel ? asPatientModel;
 DoctorModel ? asDoctorModel;
+String doctorImage = 'https://static.vecteezy.com/system/resources/previews/002/896/807/original/female-doctor-using-her-digital-tablet-free-vector.jpg';
 
 const String bridge = "https://bridge.walletconnect.org";
 const String contractName = "EHR";
